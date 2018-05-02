@@ -1,0 +1,13 @@
+/htdocs/node_modules
+/htdocs/public/hot
+/htdocs/public/storage
+/htdocs/storage/*.key
+/htdocs/vendor
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/htdocs/.env
+.DS_Store
