@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('pages.home');
+})->name('pages.home');
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('auth.login');
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('auth.register');
+
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('pages.about');

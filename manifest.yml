@@ -4,7 +4,17 @@ applications:
   memory: 128M
   buildpack: https://github.com/cloudfoundry/php-buildpack
   env:
+    APP_DEBUG: false
+    APP_ENV: alpha
+    APP_KEY: base64:x2gXYJvnf2AieFhh9RLsJveVHka6PjR4XU6N0yKklMs=
+    CF_STAGING_TIMEOUT: 15
+    CF_STARTUP_TIMEOUT: 15
+- name: nmds-sc-v2-development
+  memory: 128M
+  buildpack: https://github.com/cloudfoundry/php-buildpack
+  env:
     APP_DEBUG: true
+    APP_ENV: development
     APP_KEY: base64:x2gXYJvnf2AieFhh9RLsJveVHka6PjR4XU6N0yKklMs=
     CF_STAGING_TIMEOUT: 15
     CF_STARTUP_TIMEOUT: 15

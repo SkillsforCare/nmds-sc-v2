@@ -16,9 +16,7 @@ mix
     .js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .options({
-        postCss: [
-            tailwindcss('./tailwind.js'),
-        ]
+        processCssUrls: false
     })
     .browserSync({
         proxy: 'http://nmds-sc-v21.test:81'

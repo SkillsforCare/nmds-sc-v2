@@ -1,0 +1,36 @@
+
+        <!doctype html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('pageTitle') | {{ config('app.name') }}</title>
+
+    <!-- Fonts -->
+    <link href="/css/app.css" rel="stylesheet" type="text/css">
+</head>
+<body class="js-enabled">
+<div id="app">
+
+    <div class="site-wrapper">
+    @include('layouts.environment')
+    </div>
+
+    @include('layouts.header')
+
+    <div class="site-wrapper padding-bottom">
+
+    @include('layouts.breadcrumbs')
+
+    <main id="content" role="main">
+    @yield('content')
+    </main>
+
+    </div>
+
+    @include('layouts.footer')
+</div>
+<script src="/js/app.js"></script>
+</body>
+</html>

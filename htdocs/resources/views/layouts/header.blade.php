@@ -1,26 +1,34 @@
-<header role="banner">
-    <div class="bg-black">
-        <div class="container flex">
-            <div class="flex-1">
-                <a href="https://www.gov.uk" class="logo" title="Go to the GOV.UK homepage" id="logo">
-                    <img src="/images/gov_uk_logotype_crown.png"> GOV.UK
+<header role="banner" id="global-header" class="
+  with-proposition
+">
+    <div class="header-wrapper">
+        <div class="header-global">
+            <div class="header-logo">
+                <a href="https://www.gov.uk" title="Go to the GOV.UK homepage" id="logo" class="content">
+                    <img src="/css/images/gov.uk_logotype_crown.png" width="36" height="32" alt=""> GOV.UK
                 </a>
             </div>
-            <div class="flex-1">
-                <a class="text-white" href="#proposition-links">Menu</a>
-                <nav class="flex flex-col p-2">
-                    <a href="/home" class="text-white">NMDS-SC</a>
-                    <ul id="proposition-links" class="inline-flex list-reset">
-                        <li><a class="text-white" href="/records">Records</a></li>
-                        <li><a class="text-white" href="/reports">Reports &amp; data</a></li>
-                        <li><a class="text-white" href="/account/settings">Account</a></li>
-                        <li><a class="text-white" href="#">About</a></li>
-                        <li><a class="text-white" href="/help">Help</a></li>
-                        <li><a class="text-white" href="/login">Logout</a></li>
+
+        </div>
+
+
+        <div class="header-proposition">
+            <div class="content">
+                <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
+                <nav id="proposition-menu">
+                    <a href="{{ route('pages.home') }}" id="proposition-name">{{ config('app.short_name') }}</a>
+
+                    <ul id="proposition-links">
+                        <li><a href="{{ route('auth.login') }}">Login</a></li>
+                        <li><a href="{{ route('pages.about') }}">About</a></li>
                     </ul>
+
                 </nav>
             </div>
         </div>
+
+
     </div>
-    <div class="container border-b-8 border-blue" />
 </header>
+<div id="global-header-bar"></div>
+
