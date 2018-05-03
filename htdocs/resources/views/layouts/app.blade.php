@@ -13,13 +13,10 @@
 <body class="js-enabled">
 <div id="app">
 
-    <div class="site-wrapper">
-    @include('layouts.environment')
-    </div>
-
     @include('layouts.header')
 
     <div class="site-wrapper padding-bottom">
+    @include('layouts.environment')
 
     @include('layouts.breadcrumbs')
 
