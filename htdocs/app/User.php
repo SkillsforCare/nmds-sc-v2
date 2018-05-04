@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\BinaryUuid\HasBinaryUuid;
 
 class User extends Authenticatable
 {
+    use HasBinaryUuid;
     use Notifiable;
 
     /**
@@ -26,4 +28,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->person->first_name . ' ' . $this->person->last_name;
+    }
 }

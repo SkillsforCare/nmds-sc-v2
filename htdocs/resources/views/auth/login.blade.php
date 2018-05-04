@@ -13,21 +13,14 @@
 
 @section('content')
 <h1 class="heading-medium">Login</h1>
-<div action="/home">
-    <div class="form-group">
-        <label class="form-label" for="form-control-1-3">
-            Email
-        </label>
-        <input class="form-control form-control-1-3" id="email" type="text" name="email">
-    </div>
-    <div class="form-group">
-        <label class="form-label" for="form-control-1-3">
-            Password
-        </label>
-        <input class="form-control form-control-1-3" id="password" type="password" name="password">
-    </div>
+
+<form action="{{ route('login') }}" method="post">
+    @include('form.csrf')
+    @include('form.input-text', [ 'label' => 'Username', 'field' => 'username', 'value' => '', 'error' => $errors->first('username') ])
+    @include('form.input-password', [ 'label' => 'Password', 'field' => 'password', 'error' => $errors->first('password') ])
     <div class="form-group">
         <input class="button" type="submit" value="Login">
     </div>
-</div>
+</form>
+
 @endsection

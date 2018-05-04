@@ -14,15 +14,30 @@
 
         <div class="header-proposition">
             <div class="content">
-                <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
                 <nav id="proposition-menu">
                     <a href="{{ route('pages.home') }}" id="proposition-name">{{ config('app.short_name') }}</a>
 
                     <ul id="proposition-links">
-                        <li><a href="{{ route('auth.login') }}">Login</a></li>
-                        <li><a href="{{ route('pages.about') }}">About</a></li>
-                    </ul>
 
+                        <li><a href="{{ route('pages.about') }}">About</a></li>
+
+                        @guest
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                        @else
+                            <li><a>Hi, {{ auth()->user()->full_name }}</a></li>
+
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    Sign out
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        @endguest
+                    </ul>
                 </nav>
             </div>
         </div>
