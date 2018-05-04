@@ -16,28 +16,31 @@
             <div class="content">
                 <nav id="proposition-menu">
                     <a href="{{ route('pages.home') }}" id="proposition-name">{{ config('app.short_name') }}</a>
-
-                    <ul id="proposition-links">
-
+                    <div style="display: flex; justify-content: space-between;">
+                        <ul id="proposition-links">
                         <li><a href="{{ route('pages.about') }}">About</a></li>
-
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                        @else
-                            <li><a>Hi, {{ auth()->user()->full_name }}</a></li>
-
-                            <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    Sign out
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    @csrf
-                                </form>
-                            </li>
-                        @endguest
                     </ul>
+                        <ul  id="proposition-links" class="align-right" style="text-align: right;">
+                            @guest
+
+                                <li><a href="{{ route('login') }}">Login</a></li>
+
+                            @else
+                                <li><a>Hi, {{ auth()->user()->full_name }}</a></li>
+
+                                <li>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Sign out
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endguest
+                        </ul>
+                    </div>
                 </nav>
             </div>
         </div>

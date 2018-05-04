@@ -11,6 +11,7 @@ $port = env('DB_PORT', '3306');
 $database = env('DB_DATABASE', '3306');
 $username = env('DB_USERNAME', '3306');
 $password = env('DB_PASSWORD', '3306');
+$ssl = [];
 
 if(!empty($sqlCreds)) {
     $host = $sqlCreds['host'];
@@ -18,6 +19,9 @@ if(!empty($sqlCreds)) {
     $database = $sqlCreds['name'];
     $username = $sqlCreds['username'];
     $password = $sqlCreds['password'];
+    $ssl = [
+        PDO::MYSQL_ATTR_SSL_CA => '/etc/ssl/certs/ca-certificates.crt'
+    ];
 }
 
 
@@ -73,6 +77,7 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+            'options' => $ssl
         ],
 
         'pgsql' => [

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('pageTitle')
-   About
+   Dashboard
 @endsection
 
 @section('breadcrumbs')

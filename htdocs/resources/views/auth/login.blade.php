@@ -23,4 +23,10 @@
     </div>
 </form>
 
+<p>
+    <a href="{{ route('register') }}">Register for an account</a>
+</p>
+
+
+
 @endsection
