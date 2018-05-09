@@ -8,8 +8,12 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
-})->middleware('auth')->name('pages.home');
+})->middleware('auth')->name('pages.dashboard');
 
-Route::get('/about', function () {
-    return view('pages.about');
-})->name('pages.about');
+Route::view('/about', 'pages.about')->name('pages.about');
+
+Route::get('/questions', 'QuestionController@index')->name('questions.index');
+
+Route::prefix('api')->name('api.')->middleware('auth')->group(function () {
+    Route::resource('questions', 'Api\QuestionController');
+});

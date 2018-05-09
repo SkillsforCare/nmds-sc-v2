@@ -16,8 +16,30 @@
 
 <script>
     export default {
+        props: {
+            question_type: {
+                type: Object,
+                required: true
+            }
+        },
         mounted() {
             console.log('Component mounted.')
+        },
+        created() {
+            this.index()
+        },
+        data(){
+            return {
+                questions: []
+            }
+        },
+        methods: {
+            index() {
+                axios.get('/api/questions').then(this.refresh);
+            },
+            refresh({ data }) {
+                this.questions = data;
+            }
         }
     }
 </script>

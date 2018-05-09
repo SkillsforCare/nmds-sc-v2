@@ -28,6 +28,6 @@
 
     @include('layouts.footer')
 </div>
-<script src="/js/app.js"></script>
+@stack('footerscripts')
 </body>
 </html>

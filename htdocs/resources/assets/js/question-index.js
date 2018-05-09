@@ -15,7 +15,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/QuestionIndex.vue'));
+Vue.component('question-index', require('./components/QuestionIndex.vue'));
 
 const app = new Vue({
     el: '#app'
