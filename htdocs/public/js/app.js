@@ -47327,6 +47327,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_Builder__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_Builder___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__form_Builder__);
 //
 //
 //
@@ -47343,6 +47345,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -47351,6 +47369,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: true
         }
     },
+    components: { Builder: __WEBPACK_IMPORTED_MODULE_0__form_Builder___default.a },
     mounted: function mounted() {
         console.log('Component mounted.');
     },
@@ -47359,18 +47378,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
+            started_at: true,
             questions: []
         };
     },
 
     methods: {
+        start: function start() {
+            this.started_at = true;
+            this.questions[0].selected = true;
+        },
         index: function index() {
-            axios.get('/api/questions').then(this.refresh);
+
+            var params = {
+                params: {
+                    'filter[question_type]': this.question_type.slug
+                }
+            };
+
+            axios.get('/api/questions', params).then(this.refresh);
         },
         refresh: function refresh(_ref) {
             var data = _ref.data;
 
-            this.questions = data;
+            this.questions = data.data;
+            this.questions[2].done = true;
+        },
+        select: function select(question) {
+            this.resetSelectedQuestion();
+            question.selected = true;
+        },
+        resetSelectedQuestion: function resetSelectedQuestion() {
+            var question = this.questions.filter(function (x) {
+                return x.selected === true;
+            })[0];
+            if (question) {
+                question.selected = false;
+            }
         }
     }
 });
@@ -47383,38 +47427,193 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+  return _c("div", { staticClass: "question_index" }, [
+    _vm.started_at
+      ? _c(
+          "div",
+          _vm._l(_vm.questions, function(question) {
+            return _c("div", { key: question.uuid, staticClass: "question" }, [
+              question.selected
+                ? _c(
+                    "div",
+                    { staticClass: "step" },
+                    [
+                      _c("builder", {
+                        attrs: {
+                          label: question.question,
+                          type: question.field_type
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("h2", [
+                        _vm._v(
+                          _vm._s(question.number) +
+                            ". " +
+                            _vm._s(question.question)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p")
+                    ],
+                    1
+                  )
+                : _c("ol", [
+                    _c(
+                      "li",
+                      {
+                        class: { done: question.done, notdone: !question.done }
+                      },
+                      [
+                        _c("h3", { staticClass: "question" }, [
+                          _vm._v(
+                            _vm._s(question.number) +
+                              ". " +
+                              _vm._s(question.question)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        question.done
+                          ? _c("div", { staticClass: "answer" }, [
+                              _c("strong", [_vm._v("Test")])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "action",
+                            on: {
+                              click: function($event) {
+                                _vm.select(question)
+                              }
+                            }
+                          },
+                          [
+                            question.done
+                              ? _c("span", [_vm._v("Change this answer")])
+                              : _c("span", [_vm._v("Answer this question")])
+                          ]
+                        )
+                      ]
+                    )
+                  ])
             ])
-          ])
+          })
+        )
+      : _c("div", [
+          _c(
+            "a",
+            {
+              staticClass: "button button-start",
+              attrs: { href: "#", role: "button" },
+              on: { click: _vm.start }
+            },
+            [_vm._v("Start now")]
+          )
         ])
-      ])
-    ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-76ca28a5", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(55)
+/* template */
+var __vue_template__ = __webpack_require__(56)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\form\\Builder.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-482da1ba", Component.options)
+  } else {
+    hotAPI.reload("data-v-482da1ba", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        label: {
+            type: String,
+            required: true
+        },
+        type: {
+            type: String,
+            required: true
+        },
+        field: {
+            type: String,
+            required: true
+        }
+    }
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-482da1ba", module.exports)
   }
 }
 

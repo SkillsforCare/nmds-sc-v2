@@ -13,5 +13,6 @@
 
 @section('content')
     <h1 class="heading-xlarge">Dashboard</h1>
-    <a href="{{ route('questions.index', [ 'question_type' => 'establishment' ]) }}">Your establishment questions</a></p>
+    <p><a href="{{ route('questions.index', [ 'question_type' => 'establishment' ]) }}">Your establishment questions</a></p>
+    <p><a href="{{ route('questions.index', [ 'question_type' => 'worker' ]) }}">Your worker questions</a></p>
 @endsection

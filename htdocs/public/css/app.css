@@ -2769,6 +2769,51 @@ input[type=number] {
   }
 }
 
+.question_index .question .step {
+  padding: 0.75em 0em 0.75em 0em;
+}
+
+.question_index .question .step h2 {
+  font-family: "nta", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.question_index .question li {
+  padding: 0.75em 1.5em 0.75em 1em;
+  position: relative;
+}
+
+.question_index .question li h3, .question_index .question li .answer {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.question_index .question li.done {
+  background-color: #D5ECEA;
+  border-bottom: 1px solid #b6d6d2;
+}
+
+.question_index .question li.notdone {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #bfc1c3;
+}
+
+.question_index .question .answer {
+  color: #006435;
+}
+
+.question_index .question .action {
+  cursor: pointer;
+  text-decoration: underline;
+  position: absolute;
+  top: 0.8333333333em;
+  right: 1.6666666667em;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4285714286;
+  text-transform: none;
+}
+
 .site-wrapper {
   max-width: 960px;
   margin: 0 auto;

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Filters\FilterQuestionType;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Question as QuestionResource;
 use App\Question;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\Filter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class QuestionController extends Controller
 {
@@ -15,7 +19,12 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = QueryBuilder::for(Question::class)
+            ->allowedFilters(Filter::custom('question_type', FilterQuestionType::class))
+            ->get();
+
+
+        return QuestionResource::collection($questions);
     }
 
     /**
