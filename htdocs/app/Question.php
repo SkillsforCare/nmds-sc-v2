@@ -8,4 +8,9 @@ class Question extends BaseModel
     {
         return $this->belongsTo(QuestionType::class, 'question_type_uuid');
     }
+
+    public function answer()
+    {
+        return $this->hasOne(Answer::class);
+    }
 }

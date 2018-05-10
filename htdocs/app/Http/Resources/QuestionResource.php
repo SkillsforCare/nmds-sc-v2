@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Answer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Question extends JsonResource
+class QuestionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +15,14 @@ class Question extends JsonResource
      */
     public function toArray($request)
     {
+
+        $answer = $this->answer;
+        if(empty($answer))
+        {
+            $answer = new Answer();
+            $answer->answer = null;
+        }
+
         return [
             'uuid' => $this->uuid_text,
             'number' => $this->number,
@@ -23,7 +32,8 @@ class Question extends JsonResource
             'field_type' => $this->field_type,
             'order' => $this->order,
             'selected' => false,
-            'done' => false
+            'done' => false,
+            'answer' => new AnswerResource($answer)
         ];
     }
 }

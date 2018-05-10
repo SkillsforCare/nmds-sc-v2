@@ -1,21 +1,33 @@
 <template>
     <div class="question_index">
         <div v-if="started_at">
+            <f-button>Reset (testing)</f-button>
+            <f-button>Save question progress</f-button>
+            <f-button>Submit questions</f-button>
+
+
             <div v-for="question in questions" :key="question.uuid" class="question">
 
                 <div class="step" v-if="question.selected">
-                    <builder :label="question.question" :type="question.field_type"></builder>
-                    <h2>{{ question.number }}. {{ question.question }}</h2>
-                    <p></p>
+                    <form-builder
+                        :label="question.number + '. '+ question.question"
+                        v-model="question.answer.answer"
+                        :field="question.field"
+                        :type="question.field_type"
+                        :help_text="question.help_text"
+                        :options="question.options"
+                        @updated="question.answer.answer = $event"
+                    />
+                    <f-button @click="nextQuestion">Next question</f-button>
                 </div>
                 <ol v-else>
-                    <li :class="{ done: question.done, notdone: !question.done }">
+                    <li :class="{ done: question.answer.answer, notdone: !question.answer.answer }">
                         <h3 class="question">{{ question.number }}. {{ question.question }}</h3>
-                        <div class="answer" v-if="question.done">
-                            <strong>Test</strong>
+                        <div class="answer" v-if="question.answer.answer">
+                            <strong>{{ question.answer.answer }}</strong>
                         </div>
                         <a class="action" @click="select(question)">
-                            <span v-if="question.done">Change this answer</span>
+                            <span v-if="question.answer.answer">Change this answer</span>
                             <span v-else>Answer this question</span>
                         </a>
                     </li>
@@ -28,9 +40,9 @@
 
     </div>
 </template>
-
 <script>
-    import Builder from './form/Builder'
+    import FormBuilder from './FormBuilder'
+    import FButton from './form/FButton'
     export default {
         props: {
             question_type: {
@@ -38,7 +50,7 @@
                 required: true
             }
         },
-        components: { Builder },
+        components: { FormBuilder, FButton },
         mounted() {
             console.log('Component mounted.')
         },
@@ -57,13 +69,12 @@
                 this.questions[0].selected = true
             },
             index() {
-
                 let params = {
                     params: {
-                        'filter[question_type]': this.question_type.slug
+                        'filter[question_type]': this.question_type.slug,
+                        'include': 'answer'
                     }
                 }
-
                 axios.get('/api/questions', params).then(this.refresh);
             },
             refresh({ data }) {
@@ -73,6 +84,9 @@
             select(question)  {
                 this.resetSelectedQuestion()
                 question.selected = true
+            },
+            nextQuestion() {
+
             },
             resetSelectedQuestion() {
                 let question = this.questions.filter(x => x.selected === true)[0]
