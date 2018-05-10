@@ -31,6 +31,7 @@ class QuestionResource extends JsonResource
             'field' => $this->field,
             'field_type' => $this->field_type,
             'order' => $this->order,
+            'options' => $this->options,
             'selected' => false,
             'done' => false,
             'answer' => new AnswerResource($answer)

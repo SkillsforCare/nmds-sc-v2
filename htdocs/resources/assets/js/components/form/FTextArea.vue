@@ -1,17 +1,14 @@
 <template>
     <div class="form-group">
-        <label class="form-label" :for="field">{{ label }}</label>
-        <span v-if="" class="form-hint">
-            {{ help_text }}
-        </span>
-        <select class="form-control" v-model="d_value" :id="field" :name="field" @change="change">
-            <option v-for="option in options" :value="option.value">{{ option.text }}</option>
-        </select>
+        <label class="form-label" for="field">
+            {{ label }}
+        </label>
+        <textarea class="form-control" v-model="d_value" :id="field" :name="field" @input="input"  rows="5"></textarea>
     </div>
 </template>
 <script>
     export default {
-        name: 'f-select',
+        name: 'f-text-area',
         props: {
             label: {
                 type: String,
@@ -33,7 +30,7 @@
                 required: true
             }
         },
-        created() {
+        mounted() {
             this.d_value = this.value
         },
         data(){
@@ -42,12 +39,16 @@
             }
         },
         methods: {
-            change(event) {
-                let text = this.options.filter(x => x.value ===  event.target.value)[0]
+            input() {
+
+                let text = this.d_value
+
+                if (this.d_value.length > 15)
+                    text = this.d_value.substring(0,15)+'...';
 
                 this.$emit('change', {
-                    text: text.text,
-                    value: event.target.value
+                    text: text,
+                    value: this.d_value
                 })
             }
         }

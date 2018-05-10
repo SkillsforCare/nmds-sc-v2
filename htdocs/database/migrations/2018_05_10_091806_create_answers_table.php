@@ -18,6 +18,7 @@ class CreateAnswersTable extends Migration
             $table->primary('uuid');
             $table->uuid('question_uuid');
             $table->text('answer');
+            $table->string('text')->nullable();
             $table->timestamps();
         });
     }

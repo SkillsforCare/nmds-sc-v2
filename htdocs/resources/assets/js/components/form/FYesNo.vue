@@ -1,17 +1,33 @@
 <template>
+
     <div class="form-group">
-        <label class="form-label" :for="field">{{ label }}</label>
-        <span v-if="" class="form-hint">
-            {{ help_text }}
-        </span>
-        <select class="form-control" v-model="d_value" :id="field" :name="field" @change="change">
-            <option v-for="option in options" :value="option.value">{{ option.text }}</option>
-        </select>
+        <fieldset class="inline">
+            <legend>
+                <span class="form-label-bold">
+                {{ label }}
+                </span>
+            </legend>
+
+            <span v-if="" class="form-hint">
+                {{ help_text }}
+            </span>
+
+            <div v-for="option in options" class="multiple-choice" v-model="d_value" @change="change">
+                <input
+                    :id="field + '-' + option.value"
+                    type="radio"
+                    :name="field + '-group'"
+                    :value="option.value"
+                    :checked="d_value === option.value"
+                >
+                <label :for="field + '-' + option.value">{{ option.text }}</label>
+            </div>
+        </fieldset>
     </div>
 </template>
 <script>
     export default {
-        name: 'f-select',
+        name: 'f-yes-no',
         props: {
             label: {
                 type: String,
@@ -33,7 +49,7 @@
                 required: true
             }
         },
-        created() {
+        mounted() {
             this.d_value = this.value
         },
         data(){

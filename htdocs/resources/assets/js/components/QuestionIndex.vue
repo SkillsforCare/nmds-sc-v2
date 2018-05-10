@@ -6,7 +6,7 @@
             <f-button>Submit questions</f-button>
 
 
-            <div v-for="question in questions" :key="question.uuid" class="question">
+            <div v-for="(question, index) in questions" :key="question.uuid" class="question">
 
                 <div class="step" v-if="question.selected">
                     <form-builder
@@ -16,15 +16,15 @@
                         :type="question.field_type"
                         :help_text="question.help_text"
                         :options="question.options"
-                        @updated="question.answer.answer = $event"
+                        @updated="fieldUpdated(question, $event)"
                     />
-                    <f-button @click="nextQuestion">Next question</f-button>
+                    <f-button v-if="index < questions.length - 1" @click="select(questions[index + 1])">Next question</f-button>
                 </div>
                 <ol v-else>
                     <li :class="{ done: question.answer.answer, notdone: !question.answer.answer }">
                         <h3 class="question">{{ question.number }}. {{ question.question }}</h3>
                         <div class="answer" v-if="question.answer.answer">
-                            <strong>{{ question.answer.answer }}</strong>
+                            <strong>{{ question.answer.text || question.answer.answer }}</strong>
                         </div>
                         <a class="action" @click="select(question)">
                             <span v-if="question.answer.answer">Change this answer</span>
@@ -85,14 +85,15 @@
                 this.resetSelectedQuestion()
                 question.selected = true
             },
-            nextQuestion() {
-
-            },
             resetSelectedQuestion() {
                 let question = this.questions.filter(x => x.selected === true)[0]
                 if(question) {
                     question.selected = false
                 }
+            },
+            fieldUpdated(question, event) {
+                question.answer.answer = event.value
+                question.answer.text = event.text
             }
         }
     }

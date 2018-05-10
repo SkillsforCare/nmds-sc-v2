@@ -4,6 +4,10 @@ namespace App;
 
 class Question extends BaseModel
 {
+    protected $casts = [
+        'options' => 'array',
+    ];
+
     public function type()
     {
         return $this->belongsTo(QuestionType::class, 'question_type_uuid');

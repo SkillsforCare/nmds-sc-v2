@@ -14,35 +14,57 @@ class QuestionSeeder extends Seeder
     public function run()
     {
         $questionTypes = QuestionType::get();
-        $fieldTypes = collect([ 'text', 'date', 'select', 'yes_no' ]);
 
-        Collection::times(20, function ($number) use($questionTypes, $fieldTypes) {
+
+        Collection::times(20, function ($number) use($questionTypes) {
+
             $question = factory(App\Question::class)->create([
                 'number' => $number,
                 'question_type_uuid' => $questionTypes->where('slug', 'establishment')->first()->uuid,
                 'field' => str_random(5),
-                'field_type' => $fieldTypes->random(),
                 'order' => $number
             ]);
 
-            // Randomly answer some!
+            // Randomly answer some and if a type of select, random one of the options.
             if(rand(1,5) == 3)
                 $question->answer()->save(factory(App\Answer::class)->make());
 
         });
 
-        Collection::times(20, function ($number) use($questionTypes, $fieldTypes) {
+        Collection::times(20, function ($number) use($questionTypes) {
+
             $question = factory(App\Question::class)->create([
                 'number' => $number,
                 'question_type_uuid' => $questionTypes->where('slug', 'worker')->first()->uuid,
                 'field' => str_random(5),
-                'field_type' => $fieldTypes->random(),
                 'order' => $number
             ]);
 
-            // Randomly answer some!
-            if(rand(1,5) == 3)
-                $question->answer()->save(factory(App\Answer::class)->make());
+            // Randomly answer some and if a type of select, random one of the options.
+            if(rand(1,3) == 3) {
+
+                $answer = factory(App\Answer::class)->make();
+
+                if($question->field_type == 'select') {
+                    $answer = factory(App\Answer::class)->make([ 'answer' => collect($question->options)->random()['value'] ]);
+                }
+
+                if($question->field_type == 'date') {
+                    $answer = factory(App\Answer::class)->make([ 'answer' => \Carbon\Carbon::now()->toDateString() ]);
+                }
+
+                if($question->field_type == 'yes_no') {
+
+                    $options = collect([
+                        [ 'text' => 'Yes', 'value' => 'yes' ],
+                        [ 'text' => 'No', 'value' => 'no' ]
+                    ])->random();
+
+                    $answer = factory(App\Answer::class)->make([ 'answer' => $options['value'], 'text' => $options['text'] ]);
+                }
+
+                $question->answer()->save($answer);
+            }
         });
     }
 }
