@@ -24,8 +24,6 @@ class QuestionController extends Controller
             ->allowedFilters(Filter::custom('question_type', FilterQuestionType::class))
             ->get();
 
-        //dd($questions->toArray());
-
         return QuestionResource::collection($questions);
     }
 
@@ -47,7 +45,15 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'action' => 'required',
+            'questions' => 'required|array'
+        ]);
+
+        if($request->action == 'submit')
+            $this->validateQuestions($request->questions);
+
+        //app(Question::class)->saveMany($request->questions, $request->user()->);
     }
 
     /**
@@ -93,5 +99,10 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         //
+    }
+
+    private function validateQuestions($questions)
+    {
+        dd($questions);
     }
 }

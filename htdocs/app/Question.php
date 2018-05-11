@@ -17,4 +17,11 @@ class Question extends BaseModel
     {
         return $this->hasOne(Answer::class);
     }
+
+    public function saveMany($questions, $user)
+    {
+        collect($questions)->each(function($question) {
+
+        });
+    }
 }
