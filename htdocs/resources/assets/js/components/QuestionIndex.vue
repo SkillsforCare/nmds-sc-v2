@@ -31,6 +31,7 @@
                                 @updated="fieldUpdated(question, $event)"
                             />
                             <f-button v-if="index < questions.length - 1" @click="select(questions[index + 1])">Next question</f-button>
+                            <f-button v-if="index === questions.length - 1"  @click="resetSelectedQuestion">Finish</f-button>
                         </div>
                         <ol v-else>
                             <li :class="{ done: question.answer.answer, notdone: !question.answer.answer }">

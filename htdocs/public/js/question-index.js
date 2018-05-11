@@ -49381,6 +49381,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -51030,6 +51031,16 @@ var render = function() {
                                         }
                                       },
                                       [_vm._v("Next question")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                index === _vm.questions.length - 1
+                                  ? _c(
+                                      "f-button",
+                                      {
+                                        on: { click: _vm.resetSelectedQuestion }
+                                      },
+                                      [_vm._v("Finish")]
                                     )
                                   : _vm._e()
                               ],
