@@ -1,9 +1,7 @@
 <template>
-    <div class="form-group">
-        <button class="button" @click="click">
-            <slot />
-        </button>
-    </div>
+    <button class="button" @click="click">
+        <slot />
+    </button>
 </template>
 <script>
     export default {

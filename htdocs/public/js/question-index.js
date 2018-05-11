@@ -49372,6 +49372,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -49394,7 +49403,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             started_at: true,
             status: {
-                show: true,
+                show: false,
                 message: 'Loading questions...',
                 status: 'message'
             },
@@ -49414,22 +49423,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'include': 'answer'
                 }
             };
+            this.status.show = true;
             axios.get('/api/questions', params).then(this.refresh).catch(this.error);
         },
-        store: function store() {
+        store: function store(action) {
             var params = {
                 questions: this.questions,
-                action: 'save'
+                action: action
 
             };
-            axios.post('/api/questions', params).then(this.refresh).error(this.error);
+            axios.post('/api/questions', params).then(this.saved).catch(this.errorSaving);
         },
         refresh: function refresh(_ref) {
             var data = _ref.data;
 
-            this.questions = data.data;
-            this.questions[2].done = true;
-            this.loading = false;
+            if (data.data) {
+                this.questions = data.data;
+                this.questions[2].done = true;
+            }
+
+            this.status.show = false;
         },
         error: function error(_ref2) {
             var error = _ref2.error;
@@ -49437,6 +49450,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.status.show = true;
             this.status.status = 'error';
             this.status.message = 'Error loading questions.';
+        },
+        saved: function saved(_ref3) {
+            var data = _ref3.data;
+
+            this.status.status = 'message';
+            this.status.message = 'Questions saved!';
+            this.status.show = true;
+        },
+        errorSaving: function errorSaving(_ref4) {
+            var error = _ref4.error;
+
+            this.status.show = true;
+            this.status.status = 'error';
+            this.status.message = 'Error saving questions.';
         },
         select: function select(question) {
             this.resetSelectedQuestion();
@@ -50853,8 +50880,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-button',
@@ -50873,14 +50898,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
-    _c(
-      "button",
-      { staticClass: "button", on: { click: _vm.click } },
-      [_vm._t("default")],
-      2
-    )
-  ])
+  return _c(
+    "button",
+    { staticClass: "button", on: { click: _vm.click } },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50903,9 +50926,46 @@ var render = function() {
   return _c("div", { staticClass: "question_index" }, [
     _vm.started_at
       ? _c("div", [
-          _vm.status.show
-            ? _c(
+          _c("div", [
+            _c("div", { staticClass: "grid-row margin-bottom" }, [
+              _c(
                 "div",
+                { staticClass: "column-full" },
+                [
+                  _c("f-button", [_vm._v("Reset (testing)")]),
+                  _vm._v(" "),
+                  _c(
+                    "f-button",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.store("save")
+                        }
+                      }
+                    },
+                    [_vm._v("Save question progress")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "f-button",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.store("submit")
+                        }
+                      }
+                    },
+                    [_vm._v("Submit questions")]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "grid-row margin-bottom" }, [
+              _c(
+                "div",
+                { staticClass: "column-full" },
                 [
                   _c(
                     "alert",
@@ -50917,25 +50977,12 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                " +
+                        "\n                    " +
                           _vm._s(_vm.status.message) +
-                          "\n            "
+                          "\n                "
                       )
                     ]
-                  )
-                ],
-                1
-              )
-            : _c(
-                "div",
-                [
-                  _c("f-button", [_vm._v("Reset (testing)")]),
-                  _vm._v(" "),
-                  _c("f-button", { on: { click: _vm.store } }, [
-                    _vm._v("Save question progress")
-                  ]),
-                  _vm._v(" "),
-                  _c("f-button", [_vm._v("Submit questions")]),
+                  ),
                   _vm._v(" "),
                   _vm._l(_vm.questions, function(question, index) {
                     return _c(
@@ -51048,6 +51095,8 @@ var render = function() {
                 ],
                 2
               )
+            ])
+          ])
         ])
       : _c("div", [
           _c(
@@ -51200,6 +51249,9 @@ var render = function() {
   return _c(
     "div",
     {
+      directives: [
+        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
+      ],
       class: _vm.status + "-summary",
       attrs: {
         role: "alert",

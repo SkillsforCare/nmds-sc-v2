@@ -2814,6 +2814,50 @@ input[type=number] {
   text-transform: none;
 }
 
+.message-summary {
+  border: 4px solid #0b0c0c;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 15px 10px;
+}
+
+@media (min-width: 641px) {
+  .message-summary {
+    border: 5px solid #0b0c0c;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px 15px 15px;
+  }
+}
+
+.message-summary:focus {
+  outline: 3px solid #ffbf47;
+}
+
+.message-summary .message-summary-heading {
+  margin-top: 0;
+}
+
+.message-summary p {
+  margin-bottom: 10px;
+}
+
+.message-summary .message-summary-list {
+  padding-left: 0;
+}
+
+@media (min-width: 641px) {
+  .message-summary .message-summary-list li {
+    margin-bottom: 5px;
+  }
+}
+
+.message-summary .message-summary-list a {
+  color: #0b0c0c;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .site-wrapper {
   max-width: 960px;
   margin: 0 auto;
@@ -2821,6 +2865,10 @@ input[type=number] {
 
 .padding-bottom {
   padding-bottom: 3em;
+}
+
+.margin-bottom {
+  margin-bottom: 20px;
 }
 
 .breadcrumbs li {

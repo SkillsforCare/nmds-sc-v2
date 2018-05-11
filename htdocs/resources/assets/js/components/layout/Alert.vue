@@ -1,5 +1,5 @@
 <template>
-    <div class="" :class="status +'-summary'" role="alert" :aria-labelledby="status + '-summary-heading'" tabindex="-1">
+    <div v-show="show" :class="status +'-summary'" role="alert" :aria-labelledby="status + '-summary-heading'" tabindex="-1">
         <h2 :class="'heading-medium' + status + '-summary-heading'" :id="status + '-summary-heading'">
             <slot></slot>
         </h2>

@@ -1,42 +1,51 @@
 <template>
     <div class="question_index">
         <div v-if="started_at">
-            <div v-if="status.show">
-                <alert :status="status.status" :show="status.show">
-                    {{ status.message }}
-                </alert>
-            </div>
-            <div v-else>
-                <f-button>Reset (testing)</f-button>
-                <f-button @click="store">Save question progress</f-button>
-                <f-button>Submit questions</f-button>
+            <div>
 
-                <div v-for="(question, index) in questions" :key="question.uuid" class="question">
-
-                    <div class="step" v-if="question.selected">
-                        <form-builder
-                            :label="question.number + '. '+ question.question"
-                            v-model="question.answer.answer"
-                            :field="question.field"
-                            :type="question.field_type"
-                            :help_text="question.help_text"
-                            :options="question.options"
-                            @updated="fieldUpdated(question, $event)"
-                        />
-                        <f-button v-if="index < questions.length - 1" @click="select(questions[index + 1])">Next question</f-button>
+                <div class="grid-row margin-bottom">
+                    <div class="column-full">
+                        <f-button>Reset (testing)</f-button>
+                        <f-button @click="store('save')">Save question progress</f-button>
+                        <f-button @click="store('submit')">Submit questions</f-button>
                     </div>
-                    <ol v-else>
-                        <li :class="{ done: question.answer.answer, notdone: !question.answer.answer }">
-                            <h3 class="question">{{ question.number }}. {{ question.question }}</h3>
-                            <div class="answer" v-if="question.answer.answer">
-                                <strong>{{ question.answer.text || question.answer.answer }}</strong>
-                            </div>
-                            <a class="action" @click="select(question)">
-                                <span v-if="question.answer.answer">Change this answer</span>
-                                <span v-else>Answer this question</span>
-                            </a>
-                        </li>
-                    </ol>
+                </div>
+
+
+                <div class="grid-row margin-bottom">
+                    <div class="column-full">
+                        <alert :status="status.status" :show="status.show">
+                        {{ status.message }}
+                    </alert>
+
+                        <div v-for="(question, index) in questions" :key="question.uuid" class="question">
+
+                        <div class="step" v-if="question.selected">
+                            <form-builder
+                                :label="question.number + '. '+ question.question"
+                                v-model="question.answer.answer"
+                                :field="question.field"
+                                :type="question.field_type"
+                                :help_text="question.help_text"
+                                :options="question.options"
+                                @updated="fieldUpdated(question, $event)"
+                            />
+                            <f-button v-if="index < questions.length - 1" @click="select(questions[index + 1])">Next question</f-button>
+                        </div>
+                        <ol v-else>
+                            <li :class="{ done: question.answer.answer, notdone: !question.answer.answer }">
+                                <h3 class="question">{{ question.number }}. {{ question.question }}</h3>
+                                <div class="answer" v-if="question.answer.answer">
+                                    <strong>{{ question.answer.text || question.answer.answer }}</strong>
+                                </div>
+                                <a class="action" @click="select(question)">
+                                    <span v-if="question.answer.answer">Change this answer</span>
+                                    <span v-else>Answer this question</span>
+                                </a>
+                            </li>
+                        </ol>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,7 +77,7 @@
             return {
                 started_at: true,
                 status: {
-                    show: true,
+                    show: false,
                     message: 'Loading questions...',
                     status: 'message'
                 },
@@ -87,30 +96,44 @@
                         'include': 'answer'
                     }
                 }
+                this.status.show = true
                 axios.get('/api/questions', params)
                     .then(this.refresh)
                     .catch(this.error);
             },
-            store() {
+            store(action) {
                 let params = {
                     questions: this.questions,
-                    action: 'save'
+                    action: action
 
                 }
                 axios
                     .post('/api/questions', params)
-                    .then(this.refresh)
-                    .error(this.error);
+                    .then(this.saved)
+                    .catch(this.errorSaving);
             },
             refresh({ data }) {
-                this.questions = data.data
-                this.questions[2].done = true
-                this.loading = false
+                if(data.data) {
+                    this.questions = data.data
+                    this.questions[2].done = true
+                }
+
+                this.status.show = false
             },
             error({ error }) {
                 this.status.show = true
                 this.status.status = 'error'
                 this.status.message = 'Error loading questions.'
+            },
+            saved({ data }) {
+                this.status.status = 'message'
+                this.status.message = 'Questions saved!'
+                this.status.show = true
+            },
+            errorSaving({ error }) {
+                this.status.show = true
+                this.status.status = 'error'
+                this.status.message = 'Error saving questions.'
             },
             select(question)  {
                 this.resetSelectedQuestion()
