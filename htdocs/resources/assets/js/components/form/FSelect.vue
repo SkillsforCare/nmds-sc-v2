@@ -1,8 +1,11 @@
 <template>
-    <div class="form-group">
+    <div class="form-group" :class="{ 'form-group-error': error }">
         <label class="form-label" :for="field">{{ label }}</label>
-        <span v-if="" class="form-hint">
+        <span v-if="help_text" class="form-hint">
             {{ help_text }}
+        </span>
+        <span v-if="error" class="error-message">
+            {{ error }}
         </span>
         <select class="form-control" v-model="d_value" :id="field" :name="field" @change="change">
             <option v-for="option in options" :value="option.value">{{ option.text }}</option>
@@ -26,6 +29,10 @@
                 required: false
             },
             help_text: {
+                type: String,
+                required: false
+            },
+            error: {
                 type: String,
                 required: false
             },

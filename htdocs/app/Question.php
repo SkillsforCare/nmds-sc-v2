@@ -10,21 +10,16 @@ class Question extends BaseModel
 
     public function type()
     {
-        return $this->belongsTo(QuestionType::class, 'question_type_uuid');
+        return $this->belongsTo(QuestionType::class, 'question_type_id');
     }
 
-    public function answer($person = null)
+    public function answers()
     {
-        if(empty($person))
-            $person = auth()->user()->person;
-
-        return $this->hasOne(Answer::class)->orWhere('person_uuid', $person->uuid);
+        return $this->hasMany(Answer::class);
     }
 
-    public function saveMany($questions, $user)
+    public function scopePersonAnswer($query, $person)
     {
-        collect($questions)->each(function($question) {
-
-        });
+        return $query->answers()->where('person_id', $person->id);
     }
 }

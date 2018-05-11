@@ -15,5 +15,5 @@ Route::view('/about', 'pages.about')->name('pages.about');
 Route::get('/questions', 'QuestionController@index')->middleware('auth')->name('questions.index');
 
 Route::prefix('api')->name('api.')->middleware('auth')->group(function () {
-    Route::resource('questions', 'Api\QuestionController');
+    Route::resource('question_answers', 'Api\QuestionAnswerController');
 });

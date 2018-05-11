@@ -14,10 +14,9 @@ class CreateAnswersTable extends Migration
     public function up()
     {
         Schema::create('answers', function (Blueprint $table) {
-            $table->uuid('uuid');
-            $table->primary('uuid');
-            $table->uuid('question_uuid');
-            $table->uuid('person_uuid');
+            $table->increments('id');
+            $table->unsignedInteger('question_id');
+            $table->unsignedInteger('person_id');
             $table->text('answer');
             $table->string('text')->nullable();
             $table->timestamp('submitted_at')->nullable();

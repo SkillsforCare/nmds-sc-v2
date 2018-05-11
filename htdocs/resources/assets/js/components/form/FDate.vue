@@ -1,6 +1,6 @@
 <template>
 
-    <div class="form-group">
+    <div class="form-group" :class="{ 'form-group-error': error }">
 
 
         <fieldset>
@@ -9,7 +9,12 @@
         <span class="form-label-bold">
           {{ label }}
         </span>
-                    <span v-if="help_text" class="form-hint">{{ help_text }}</span>
+                    <span v-if="help_text" class="form-hint">
+            {{ help_text }}
+        </span>
+                    <span v-if="error" class="error-message">
+            {{ error }}
+        </span>
                 </legend>
                 <div class="form-date">
                     <div class="form-group form-group-day">
@@ -47,6 +52,10 @@
                 required: false
             },
             help_text: {
+                type: String,
+                required: false
+            },
+            error: {
                 type: String,
                 required: false
             },

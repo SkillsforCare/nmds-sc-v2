@@ -1,8 +1,14 @@
 <template>
-    <div class="form-group">
+    <div class="form-group" :class="{ 'form-group-error': error }">
         <label class="form-label" for="field">
             {{ label }}
         </label>
+        <span v-if="help_text" class="form-hint">
+            {{ help_text }}
+        </span>
+        <span v-if="error" class="error-message">
+            {{ error }}
+        </span>
         <textarea class="form-control" v-model="d_value" :id="field" :name="field" @input="input"  rows="5"></textarea>
     </div>
 </template>
@@ -23,6 +29,10 @@
                 required: false
             },
             help_text: {
+                type: String,
+                required: false
+            },
+            error: {
                 type: String,
                 required: false
             },

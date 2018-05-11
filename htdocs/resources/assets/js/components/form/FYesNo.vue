@@ -1,6 +1,6 @@
 <template>
 
-    <div class="form-group">
+    <div class="form-group" :class="{ 'form-group-error': error }">
         <fieldset class="inline">
             <legend>
                 <span class="form-label-bold">
@@ -8,17 +8,20 @@
                 </span>
             </legend>
 
-            <span v-if="" class="form-hint">
-                {{ help_text }}
-            </span>
+            <span v-if="help_text" class="form-hint">
+            {{ help_text }}
+        </span>
+            <span v-if="error" class="error-message">
+            {{ error }}
+        </span>
 
             <div v-for="option in options" class="multiple-choice" v-model="d_value" @change="change">
                 <input
-                    :id="field + '-' + option.value"
-                    type="radio"
-                    :name="field + '-group'"
-                    :value="option.value"
-                    :checked="d_value === option.value"
+                        :id="field + '-' + option.value"
+                        type="radio"
+                        :name="field + '-group'"
+                        :value="option.value"
+                        :checked="d_value === option.value"
                 >
                 <label :for="field + '-' + option.value">{{ option.text }}</label>
             </div>
@@ -45,6 +48,10 @@
                 type: String,
                 required: false
             },
+            error: {
+                type: String,
+                required: false
+            },
             value: {
                 required: true
             }
@@ -52,14 +59,14 @@
         mounted() {
             this.d_value = this.value
         },
-        data(){
+        data() {
             return {
                 d_value: null,
             }
         },
         methods: {
             change(event) {
-                let text = this.options.filter(x => x.value ===  event.target.value)[0]
+                let text = this.options.filter(x => x.value === event.target.value)[0]
 
                 this.$emit('change', {
                     text: text.text,

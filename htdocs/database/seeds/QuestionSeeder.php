@@ -22,7 +22,7 @@ class QuestionSeeder extends Seeder
 
             $question = factory(App\Question::class)->create([
                 'number' => $number,
-                'question_type_uuid' => $questionTypes->where('slug', 'establishment')->first()->uuid,
+                'question_type_id' => $questionTypes->where('slug', 'establishment')->first()->id,
                 'field' => str_random(5),
                 'order' => $number
             ]);
@@ -33,16 +33,17 @@ class QuestionSeeder extends Seeder
                 $people->each(function($person) use($question) {
 
                     $answer = factory(App\Answer::class)->make([
-                        'person_uuid' => $person->uuid
+                        'person_id' => $person->id
                     ]);
 
 
                     if($question->field_type == 'select') {
-                        $answer = factory(App\Answer::class)->make([ 'person_uuid' => $person->uuid, 'answer' => collect($question->options)->random()['value'] ]);
+                        $option = collect($question->options)->random();
+                        $answer = factory(App\Answer::class)->make([ 'person_id' => $person->id, 'answer' => $option['value'], 'text' => $option['text'] ]);
                     }
 
                     if($question->field_type == 'date') {
-                        $answer = factory(App\Answer::class)->make([ 'person_uuid' => $person->uuid, 'answer' => \Carbon\Carbon::now()->toDateString() ]);
+                        $answer = factory(App\Answer::class)->make([ 'person_id' => $person->id, 'answer' => now()->toDateString(), 'text' => now()->format('d/m/Y') ]);
                     }
 
                     if($question->field_type == 'yes_no') {
@@ -52,7 +53,7 @@ class QuestionSeeder extends Seeder
                             [ 'text' => 'No', 'value' => 'no' ]
                         ])->random();
 
-                        $answer = factory(App\Answer::class)->make([ 'person_uuid' => $person->uuid, 'answer' => $options['value'], 'text' => $options['text'] ]);
+                        $answer = factory(App\Answer::class)->make([ 'person_id' => $person->id, 'answer' => $options['value'], 'text' => $options['text'] ]);
                     }
 
                     $question->answer($person)->save($answer);
@@ -65,7 +66,7 @@ class QuestionSeeder extends Seeder
 
             $question = factory(App\Question::class)->create([
                 'number' => $number,
-                'question_type_uuid' => $questionTypes->where('slug', 'worker')->first()->uuid,
+                'question_type_id' => $questionTypes->where('slug', 'worker')->first()->id,
                 'field' => str_random(5),
                 'order' => $number
             ]);
@@ -75,16 +76,16 @@ class QuestionSeeder extends Seeder
                 $people->each(function($person) use($question) {
 
                     $answer = factory(App\Answer::class)->make([
-                        'person_uuid' => $person->uuid
+                        'person_id' => $person->id
                     ]);
 
-
                     if($question->field_type == 'select') {
-                        $answer = factory(App\Answer::class)->make([ 'person_uuid' => $person->uuid, 'answer' => collect($question->options)->random()['value'] ]);
+                        $option = collect($question->options)->random();
+                        $answer = factory(App\Answer::class)->make([ 'person_id' => $person->id, 'answer' => $option['value'], 'text' => $option['text'] ]);
                     }
 
                     if($question->field_type == 'date') {
-                        $answer = factory(App\Answer::class)->make([ 'person_uuid' => $person->uuid, 'answer' => \Carbon\Carbon::now()->toDateString() ]);
+                        $answer = factory(App\Answer::class)->make([ 'person_id' => $person->id, 'answer' => \Carbon\Carbon::now()->toDateString(), 'text' => now()->format('d/m/Y') ]);
                     }
 
                     if($question->field_type == 'yes_no') {
@@ -94,7 +95,7 @@ class QuestionSeeder extends Seeder
                             [ 'text' => 'No', 'value' => 'no' ]
                         ])->random();
 
-                        $answer = factory(App\Answer::class)->make([ 'person_uuid' => $person->uuid, 'answer' => $options['value'], 'text' => $options['text'] ]);
+                        $answer = factory(App\Answer::class)->make([ 'person_id' => $person->id, 'answer' => $options['value'], 'text' => $options['text'] ]);
                     }
 
                     $question->answer($person)->save($answer);

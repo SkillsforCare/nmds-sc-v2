@@ -1,9 +1,9 @@
 <template>
     <div>
-        <f-select v-show="type === 'select'" v-model="value" :field="field" :help_text="help_text" :label="label" :options="options" @change="updated"></f-select>
-        <f-yes-no v-show="type === 'yes_no'" v-model="value" :field="field" :help_text="help_text" :label="label" :options="options" @change="updated"></f-yes-no>
-        <f-date v-show="type === 'date'" v-model="value" :field="field" :help_text="help_text" :label="label" :options="options" @change="updated"></f-date>
-        <f-text-area v-show="type === 'text'" v-model="value" :field="field" :help_text="help_text" :label="label" :options="options" @change="updated"></f-text-area>
+        <f-select v-show="type === 'select'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-select>
+        <f-yes-no v-show="type === 'yes_no'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-yes-no>
+        <f-date v-show="type === 'date'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-date>
+        <f-text-area v-show="type === 'text'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text-area>
     </div>
 </template>
 <script>
@@ -33,6 +33,10 @@
                 required: false
             },
             help_text: {
+                type: String,
+                required: false
+            },
+            error: {
                 type: String,
                 required: false
             }

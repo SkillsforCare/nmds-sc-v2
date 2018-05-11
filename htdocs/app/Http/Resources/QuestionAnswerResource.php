@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Answer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QuestionResource extends JsonResource
+class QuestionAnswerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -32,6 +32,7 @@ class QuestionResource extends JsonResource
             'field_type' => $this->field_type,
             'order' => $this->order,
             'options' => $this->options,
+            'error' => null,
             'selected' => false,
             'done' => false,
             'answer' => new AnswerResource($answer)

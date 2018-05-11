@@ -8,6 +8,7 @@ $factory->define(App\Answer::class, function (Faker $faker) {
 
     return [
         'answer' => $answer,
-        'text' => str_limit($answer, 15)
+        'text' => str_limit($answer, 15),
+        'submitted_at' => now()
     ];
 });

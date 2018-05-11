@@ -49382,6 +49382,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -49425,15 +49426,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             };
             this.status.show = true;
-            axios.get('/api/questions', params).then(this.refresh).catch(this.error);
+            axios.get('/api/question_answers', params).then(this.refresh).catch(this.error);
         },
-        store: function store(action) {
-            var params = {
-                questions: this.questions,
-                action: action
+        store: function store(question, next) {
 
+            var params = {
+                id: question.id,
+                text: question.answer.text,
+                answer_id: question.answer.id,
+                answer: question.answer.answer
             };
-            axios.post('/api/questions', params).then(this.saved).catch(this.errorSaving);
+
+            question.error = null;
+
+            axios.post('/api/question_answers', params).then(function (data) {
+                console.log(data.data.data);
+                question.answer = data.data.data.answer;
+            }).catch(function (error) {
+                console.log(error.response.data.errors.answer[0]);
+                question.error = error.response.data.errors.answer[0];
+            });
+
+            this.select(next);
         },
         refresh: function refresh(_ref) {
             var data = _ref.data;
@@ -49451,20 +49465,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.status.show = true;
             this.status.status = 'error';
             this.status.message = 'Error loading questions.';
-        },
-        saved: function saved(_ref3) {
-            var data = _ref3.data;
-
-            this.status.status = 'message';
-            this.status.message = 'Questions saved!';
-            this.status.show = true;
-        },
-        errorSaving: function errorSaving(_ref4) {
-            var error = _ref4.error;
-
-            this.status.show = true;
-            this.status.status = 'error';
-            this.status.message = 'Error saving questions.';
         },
         select: function select(question) {
             this.resetSelectedQuestion();
@@ -49583,6 +49583,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         help_text: {
             type: String,
             required: false
+        },
+        error: {
+            type: String,
+            required: false
         }
     },
     components: { FSelect: __WEBPACK_IMPORTED_MODULE_0__form_FSelect___default.a, FYesNo: __WEBPACK_IMPORTED_MODULE_1__form_FYesNo___default.a, FDate: __WEBPACK_IMPORTED_MODULE_2__form_FDate___default.a, FTextArea: __WEBPACK_IMPORTED_MODULE_3__form_FTextArea___default.a },
@@ -49657,6 +49661,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-select',
@@ -49674,6 +49681,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: false
         },
         help_text: {
+            type: String,
+            required: false
+        },
+        error: {
             type: String,
             required: false
         },
@@ -49712,54 +49723,66 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
-    _c("label", { staticClass: "form-label", attrs: { for: _vm.field } }, [
-      _vm._v(_vm._s(_vm.label))
-    ]),
-    _vm._v(" "),
-    _c("span", { staticClass: "form-hint" }, [
-      _vm._v("\n        " + _vm._s(_vm.help_text) + "\n    ")
-    ]),
-    _vm._v(" "),
-    _c(
-      "select",
-      {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.d_value,
-            expression: "d_value"
+  return _c(
+    "div",
+    { staticClass: "form-group", class: { "form-group-error": _vm.error } },
+    [
+      _c("label", { staticClass: "form-label", attrs: { for: _vm.field } }, [
+        _vm._v(_vm._s(_vm.label))
+      ]),
+      _vm._v(" "),
+      _vm.help_text
+        ? _c("span", { staticClass: "form-hint" }, [
+            _vm._v("\n        " + _vm._s(_vm.help_text) + "\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.error
+        ? _c("span", { staticClass: "error-message" }, [
+            _vm._v("\n        " + _vm._s(_vm.error) + "\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.d_value,
+              expression: "d_value"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { id: _vm.field, name: _vm.field },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.d_value = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              _vm.change
+            ]
           }
-        ],
-        staticClass: "form-control",
-        attrs: { id: _vm.field, name: _vm.field },
-        on: {
-          change: [
-            function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.d_value = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            },
-            _vm.change
-          ]
-        }
-      },
-      _vm._l(_vm.options, function(option) {
-        return _c("option", { domProps: { value: option.value } }, [
-          _vm._v(_vm._s(option.text))
-        ])
-      })
-    )
-  ])
+        },
+        _vm._l(_vm.options, function(option) {
+          return _c("option", { domProps: { value: option.value } }, [
+            _vm._v(_vm._s(option.text))
+          ])
+        })
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49851,6 +49874,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-yes-no',
@@ -49868,6 +49894,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: false
         },
         help_text: {
+            type: String,
+            required: false
+        },
+        error: {
             type: String,
             required: false
         },
@@ -49906,58 +49936,72 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
-    _c(
-      "fieldset",
-      { staticClass: "inline" },
-      [
-        _c("legend", [
-          _c("span", { staticClass: "form-label-bold" }, [
-            _vm._v("\n            " + _vm._s(_vm.label) + "\n            ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "form-hint" }, [
-          _vm._v("\n            " + _vm._s(_vm.help_text) + "\n        ")
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.options, function(option) {
-          return _c(
-            "div",
-            {
-              staticClass: "multiple-choice",
-              on: { change: _vm.change },
-              model: {
-                value: _vm.d_value,
-                callback: function($$v) {
-                  _vm.d_value = $$v
-                },
-                expression: "d_value"
-              }
-            },
-            [
-              _c("input", {
-                attrs: {
-                  id: _vm.field + "-" + option.value,
-                  type: "radio",
-                  name: _vm.field + "-group"
-                },
-                domProps: {
-                  value: option.value,
-                  checked: _vm.d_value === option.value
-                }
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: _vm.field + "-" + option.value } }, [
-                _vm._v(_vm._s(option.text))
+  return _c(
+    "div",
+    { staticClass: "form-group", class: { "form-group-error": _vm.error } },
+    [
+      _c(
+        "fieldset",
+        { staticClass: "inline" },
+        [
+          _c("legend", [
+            _c("span", { staticClass: "form-label-bold" }, [
+              _vm._v("\n            " + _vm._s(_vm.label) + "\n            ")
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.help_text
+            ? _c("span", { staticClass: "form-hint" }, [
+                _vm._v("\n        " + _vm._s(_vm.help_text) + "\n    ")
               ])
-            ]
-          )
-        })
-      ],
-      2
-    )
-  ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.error
+            ? _c("span", { staticClass: "error-message" }, [
+                _vm._v("\n        " + _vm._s(_vm.error) + "\n    ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.options, function(option) {
+            return _c(
+              "div",
+              {
+                staticClass: "multiple-choice",
+                on: { change: _vm.change },
+                model: {
+                  value: _vm.d_value,
+                  callback: function($$v) {
+                    _vm.d_value = $$v
+                  },
+                  expression: "d_value"
+                }
+              },
+              [
+                _c("input", {
+                  attrs: {
+                    id: _vm.field + "-" + option.value,
+                    type: "radio",
+                    name: _vm.field + "-group"
+                  },
+                  domProps: {
+                    value: option.value,
+                    checked: _vm.d_value === option.value
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { attrs: { for: _vm.field + "-" + option.value } },
+                  [_vm._v(_vm._s(option.text))]
+                )
+              ]
+            )
+          })
+        ],
+        2
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50055,6 +50099,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -50073,6 +50122,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: false
         },
         help_text: {
+            type: String,
+            required: false
+        },
+        error: {
             type: String,
             required: false
         },
@@ -50388,148 +50441,158 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
-    _c("fieldset", [
+  return _c(
+    "div",
+    { staticClass: "form-group", class: { "form-group-error": _vm.error } },
+    [
       _c("fieldset", [
-        _c("legend", [
-          _c("span", { staticClass: "form-label-bold" }, [
-            _vm._v("\n      " + _vm._s(_vm.label) + "\n    ")
+        _c("fieldset", [
+          _c("legend", [
+            _c("span", { staticClass: "form-label-bold" }, [
+              _vm._v("\n      " + _vm._s(_vm.label) + "\n    ")
+            ]),
+            _vm._v(" "),
+            _vm.help_text
+              ? _c("span", { staticClass: "form-hint" }, [
+                  _vm._v("\n        " + _vm._s(_vm.help_text) + "\n    ")
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.error
+              ? _c("span", { staticClass: "error-message" }, [
+                  _vm._v("\n        " + _vm._s(_vm.error) + "\n    ")
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
-          _vm.help_text
-            ? _c("span", { staticClass: "form-hint" }, [
-                _vm._v(_vm._s(_vm.help_text))
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-date" }, [
-          _c("div", { staticClass: "form-group form-group-day" }, [
-            _c(
-              "label",
-              {
-                staticClass: "form-label",
-                attrs: { for: _vm.field + "-d-day" }
-              },
-              [_vm._v("Day")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
+          _c("div", { staticClass: "form-date" }, [
+            _c("div", { staticClass: "form-group form-group-day" }, [
+              _c(
+                "label",
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.d_day,
-                  expression: "d_day"
+                  staticClass: "form-label",
+                  attrs: { for: _vm.field + "-d-day" }
+                },
+                [_vm._v("Day")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.d_day,
+                    expression: "d_day"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  id: _vm.field + "-d-day",
+                  name: _vm.field + "-d-day",
+                  type: "number",
+                  pattern: "[0-9]*"
+                },
+                domProps: { value: _vm.d_day },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.d_day = $event.target.value
+                    },
+                    _vm.input
+                  ]
                 }
-              ],
-              staticClass: "form-control",
-              attrs: {
-                id: _vm.field + "-d-day",
-                name: _vm.field + "-d-day",
-                type: "number",
-                pattern: "[0-9]*"
-              },
-              domProps: { value: _vm.d_day },
-              on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.d_day = $event.target.value
-                  },
-                  _vm.input
-                ]
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group form-group-month" }, [
-            _c(
-              "label",
-              {
-                staticClass: "form-label",
-                attrs: { for: _vm.field + "-d-month" }
-              },
-              [_vm._v("Month")]
-            ),
+              })
+            ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
+            _c("div", { staticClass: "form-group form-group-month" }, [
+              _c(
+                "label",
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.d_month,
-                  expression: "d_month"
+                  staticClass: "form-label",
+                  attrs: { for: _vm.field + "-d-month" }
+                },
+                [_vm._v("Month")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.d_month,
+                    expression: "d_month"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  id: _vm.field + "-d-month",
+                  name: _vm.field + "-d-month",
+                  type: "number",
+                  pattern: "[0-9]*"
+                },
+                domProps: { value: _vm.d_month },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.d_month = $event.target.value
+                    },
+                    _vm.input
+                  ]
                 }
-              ],
-              staticClass: "form-control",
-              attrs: {
-                id: _vm.field + "-d-month",
-                name: _vm.field + "-d-month",
-                type: "number",
-                pattern: "[0-9]*"
-              },
-              domProps: { value: _vm.d_month },
-              on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.d_month = $event.target.value
-                  },
-                  _vm.input
-                ]
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group form-group-year" }, [
-            _c(
-              "label",
-              {
-                staticClass: "form-label",
-                attrs: { for: _vm.field + "-d-year" }
-              },
-              [_vm._v("Year")]
-            ),
+              })
+            ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
+            _c("div", { staticClass: "form-group form-group-year" }, [
+              _c(
+                "label",
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.d_year,
-                  expression: "d_year"
+                  staticClass: "form-label",
+                  attrs: { for: _vm.field + "-d-year" }
+                },
+                [_vm._v("Year")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.d_year,
+                    expression: "d_year"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  id: _vm.field + "-d-year",
+                  name: _vm.field + "-d-year",
+                  type: "number",
+                  pattern: "[0-9]*"
+                },
+                domProps: { value: _vm.d_year },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.d_year = $event.target.value
+                    },
+                    _vm.input
+                  ]
                 }
-              ],
-              staticClass: "form-control",
-              attrs: {
-                id: _vm.field + "-d-year",
-                name: _vm.field + "-d-year",
-                type: "number",
-                pattern: "[0-9]*"
-              },
-              domProps: { value: _vm.d_year },
-              on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.d_year = $event.target.value
-                  },
-                  _vm.input
-                ]
-              }
-            })
+              })
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50602,6 +50665,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-text-area',
@@ -50619,6 +50688,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: false
         },
         help_text: {
+            type: String,
+            required: false
+        },
+        error: {
             type: String,
             required: false
         },
@@ -50658,36 +50731,52 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
-    _c("label", { staticClass: "form-label", attrs: { for: "field" } }, [
-      _vm._v("\n        " + _vm._s(_vm.label) + "\n    ")
-    ]),
-    _vm._v(" "),
-    _c("textarea", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.d_value,
-          expression: "d_value"
+  return _c(
+    "div",
+    { staticClass: "form-group", class: { "form-group-error": _vm.error } },
+    [
+      _c("label", { staticClass: "form-label", attrs: { for: "field" } }, [
+        _vm._v("\n        " + _vm._s(_vm.label) + "\n    ")
+      ]),
+      _vm._v(" "),
+      _vm.help_text
+        ? _c("span", { staticClass: "form-hint" }, [
+            _vm._v("\n        " + _vm._s(_vm.help_text) + "\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.error
+        ? _c("span", { staticClass: "error-message" }, [
+            _vm._v("\n        " + _vm._s(_vm.error) + "\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.d_value,
+            expression: "d_value"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { id: _vm.field, name: _vm.field, rows: "5" },
+        domProps: { value: _vm.d_value },
+        on: {
+          input: [
+            function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.d_value = $event.target.value
+            },
+            _vm.input
+          ]
         }
-      ],
-      staticClass: "form-control",
-      attrs: { id: _vm.field, name: _vm.field, rows: "5" },
-      domProps: { value: _vm.d_value },
-      on: {
-        input: [
-          function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.d_value = $event.target.value
-          },
-          _vm.input
-        ]
-      }
-    })
-  ])
+      })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50722,6 +50811,7 @@ var render = function() {
         attrs: {
           field: _vm.field,
           help_text: _vm.help_text,
+          error: _vm.error,
           label: _vm.label,
           options: _vm.options
         },
@@ -50747,6 +50837,7 @@ var render = function() {
         attrs: {
           field: _vm.field,
           help_text: _vm.help_text,
+          error: _vm.error,
           label: _vm.label,
           options: _vm.options
         },
@@ -50772,6 +50863,7 @@ var render = function() {
         attrs: {
           field: _vm.field,
           help_text: _vm.help_text,
+          error: _vm.error,
           label: _vm.label,
           options: _vm.options
         },
@@ -50797,6 +50889,7 @@ var render = function() {
         attrs: {
           field: _vm.field,
           help_text: _vm.help_text,
+          error: _vm.error,
           label: _vm.label,
           options: _vm.options
         },
@@ -50980,7 +51073,7 @@ var render = function() {
                       _vm._v(
                         "\n                    " +
                           _vm._s(_vm.status.message) +
-                          "\n                "
+                          "\n                    "
                       )
                     ]
                   ),
@@ -50988,7 +51081,7 @@ var render = function() {
                   _vm._l(_vm.questions, function(question, index) {
                     return _c(
                       "div",
-                      { key: question.uuid, staticClass: "question" },
+                      { key: question.id, staticClass: "question" },
                       [
                         question.selected
                           ? _c(
@@ -51004,7 +51097,8 @@ var render = function() {
                                     field: question.field,
                                     type: question.field_type,
                                     help_text: question.help_text,
-                                    options: question.options
+                                    options: question.options,
+                                    error: question.error
                                   },
                                   on: {
                                     updated: function($event) {
@@ -51026,7 +51120,10 @@ var render = function() {
                                       {
                                         on: {
                                           click: function($event) {
-                                            _vm.select(_vm.questions[index + 1])
+                                            _vm.store(
+                                              question,
+                                              _vm.questions[index + 1]
+                                            )
                                           }
                                         }
                                       },
@@ -51038,7 +51135,14 @@ var render = function() {
                                   ? _c(
                                       "f-button",
                                       {
-                                        on: { click: _vm.resetSelectedQuestion }
+                                        on: {
+                                          click: function($event) {
+                                            _vm.store(
+                                              question,
+                                              _vm.questions[index + 1]
+                                            )
+                                          }
+                                        }
                                       },
                                       [_vm._v("Finish")]
                                     )
@@ -51050,9 +51154,10 @@ var render = function() {
                               _c(
                                 "li",
                                 {
+                                  staticClass: "notdone",
                                   class: {
-                                    done: question.answer.answer,
-                                    notdone: !question.answer.answer
+                                    done: question.answer.submitted_at,
+                                    error: question.error
                                   }
                                 },
                                 [
@@ -51090,6 +51195,11 @@ var render = function() {
                                     [
                                       question.answer.answer
                                         ? _c("span", [
+                                            question.error
+                                              ? _c("span", [
+                                                  _vm._v("Error! • ")
+                                                ])
+                                              : _vm._e(),
                                             _vm._v("Change this answer")
                                           ])
                                         : _c("span", [

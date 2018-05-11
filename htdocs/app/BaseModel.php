@@ -7,5 +7,4 @@ use Spatie\BinaryUuid\HasBinaryUuid;
 
 class BaseModel extends Model
 {
-    use HasBinaryUuid;
 }

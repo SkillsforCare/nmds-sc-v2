@@ -8,6 +8,12 @@ $factory->define(App\Question::class, function (Faker $faker) {
 
     // If the question is a select, then create some options.
     $options = null;
+    $validation = 'required';
+
+    if($type == 'date') {
+        $validation .= '|date';
+    }
+
     if($type == 'select') {
 
         $rand = rand(1,10);
@@ -30,12 +36,15 @@ $factory->define(App\Question::class, function (Faker $faker) {
             'text' => 'No',
             'value' => 'no'
         ];
+
+        $validation .= '|yes_no';
     }
 
     return [
         'question' => $faker->sentence . '?',
         'help_text' => '[Help]' . $faker->sentence,
         'field_type' => $type,
-        'options' => $options
+        'options' => $options,
+        'validation' => $validation
     ];
 });

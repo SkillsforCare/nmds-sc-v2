@@ -2788,14 +2788,19 @@ input[type=number] {
   line-height: 1.25;
 }
 
+.question_index .question li.notdone {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #bfc1c3;
+}
+
 .question_index .question li.done {
   background-color: #D5ECEA;
   border-bottom: 1px solid #b6d6d2;
 }
 
-.question_index .question li.notdone {
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #bfc1c3;
+.question_index .question li.error {
+  background-color: #efcfd1;
+  border-bottom: 1px solid #d9888c;
 }
 
 .question_index .question .answer {

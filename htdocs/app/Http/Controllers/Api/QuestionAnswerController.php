@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Answer;
 use App\Filters\FilterQuestionType;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\QuestionResource;
+use App\Http\Resources\QuestionAnswerResource;
 use App\Question;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class QuestionController extends Controller
+class QuestionAnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +20,18 @@ class QuestionController extends Controller
      */
     public function index()
     {
+
+        $questions = Question::w;
+
+
         $questions = QueryBuilder::for(Question::class)
             ->allowedIncludes(['answer'])
             ->allowedFilters(Filter::custom('question_type', FilterQuestionType::class))
             ->get();
 
-        return QuestionResource::collection($questions);
+        //dd($questions->toArray());
+
+        return QuestionAnswerResource::collection($questions);
     }
 
     /**
@@ -45,15 +52,32 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'action' => 'required',
-            'questions' => 'required|array'
+        $question = app(Question::class)->withUuid($request->uuid)->firstOrFail();
+
+        $this->validate($request,[
+            'answer' => $question->validation,
+            'text' => 'required'
         ]);
 
-        if($request->action == 'submit')
-            $this->validateQuestions($request->questions);
+        $answer = app(Answer::class)->withUuid($request->answer_uuid)->first();
 
-        //app(Question::class)->saveMany($request->questions, $request->user()->);
+        if(empty($answer))
+            $answer = app(Answer::class);
+
+        //dd($answer);
+
+        $answer->fill([
+            'person_uuid' => $request->user()->person->uuid,
+            'answer' => $request->answer,
+            'text' => $request->text,
+            'submitted_at' => now()->toDateTimeString()
+        ]);
+
+        $question->answer($request->user()->person)->save($answer);
+
+        $question->answer = $answer;
+
+        return new QuestionAnswerResource($question);
     }
 
     /**

@@ -15,8 +15,10 @@ class AnswerResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'uuid' => $this->uuid_text,
             'answer' => $this->answer,
-            'text' => $this->text
+            'text' => $this->text,
+            'submitted_at' => $this->submitted_at
         ];
     }
 }
