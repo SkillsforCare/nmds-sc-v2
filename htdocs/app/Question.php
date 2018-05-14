@@ -13,13 +13,20 @@ class Question extends BaseModel
         return $this->belongsTo(QuestionType::class, 'question_type_id');
     }
 
-    public function answers()
+    public function answer()
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasOne(Answer::class);
     }
 
-    public function scopePersonAnswer($query, $person)
+    public function personAnswers($question_type, $person)
     {
-        return $query->answers()->where('person_id', $person->id);
+       // dd($person);
+
+       return $this->where('question_type_id', $question_type->id)
+            ->get()
+            ->transform(function($question) use($person) {
+                $question->answer = $question->answer()->where('person_id', $person->id)->first();
+                return $question;
+            });
     }
 }

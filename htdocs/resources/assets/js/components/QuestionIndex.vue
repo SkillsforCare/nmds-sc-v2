@@ -6,8 +6,6 @@
                 <div class="grid-row margin-bottom">
                     <div class="column-full">
                         <f-button>Reset (testing)</f-button>
-                        <f-button @click="store('save')">Save question progress</f-button>
-                        <f-button @click="store('submit')">Submit questions</f-button>
                     </div>
                 </div>
 

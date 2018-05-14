@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 185);
+/******/ 	return __webpack_require__(__webpack_require__.s = 188);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -49274,7 +49274,7 @@ var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(161)
 /* template */
-var __vue_template__ = __webpack_require__(181)
+var __vue_template__ = __webpack_require__(184)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -49322,10 +49322,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FormBuilder___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__FormBuilder__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_FButton__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_FButton___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__form_FButton__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_Alert__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_Alert__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_Alert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__layout_Alert__);
-//
-//
 //
 //
 //
@@ -51013,6 +51011,125 @@ if (false) {
 /* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(182)
+/* template */
+var __vue_template__ = __webpack_require__(183)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\layout\\Alert.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-67f0a83e", Component.options)
+  } else {
+    hotAPI.reload("data-v-67f0a83e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 182 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'alert',
+    props: {
+        status: {
+            type: String,
+            required: true
+        },
+        show: {
+            type: Boolean,
+            required: true
+        }
+    }
+});
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
+      ],
+      class: _vm.status + "-summary",
+      attrs: {
+        role: "alert",
+        "aria-labelledby": _vm.status + "-summary-heading",
+        tabindex: "-1"
+      }
+    },
+    [
+      _c(
+        "h2",
+        {
+          class: "heading-medium" + _vm.status + "-summary-heading",
+          attrs: { id: _vm.status + "-summary-heading" }
+        },
+        [_vm._t("default")],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-67f0a83e", module.exports)
+  }
+}
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -51025,33 +51142,7 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "column-full" },
-                [
-                  _c("f-button", [_vm._v("Reset (testing)")]),
-                  _vm._v(" "),
-                  _c(
-                    "f-button",
-                    {
-                      on: {
-                        click: function($event) {
-                          _vm.store("save")
-                        }
-                      }
-                    },
-                    [_vm._v("Save question progress")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "f-button",
-                    {
-                      on: {
-                        click: function($event) {
-                          _vm.store("submit")
-                        }
-                      }
-                    },
-                    [_vm._v("Submit questions")]
-                  )
-                ],
+                [_c("f-button", [_vm._v("Reset (testing)")])],
                 1
               )
             ]),
@@ -51243,17 +51334,17 @@ if (false) {
 }
 
 /***/ }),
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(186);
+module.exports = __webpack_require__(189);
 
 
 /***/ }),
-/* 186 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -51278,130 +51369,6 @@ Vue.component('question-index', __webpack_require__(160));
 var app = new Vue({
   el: '#app'
 });
-
-/***/ }),
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(193)
-/* template */
-var __vue_template__ = __webpack_require__(194)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\layout\\Alert.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-67f0a83e", Component.options)
-  } else {
-    hotAPI.reload("data-v-67f0a83e", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 193 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'alert',
-    props: {
-        status: {
-            type: String,
-            required: true
-        },
-        show: {
-            type: Boolean,
-            required: true
-        }
-    }
-});
-
-/***/ }),
-/* 194 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
-      ],
-      class: _vm.status + "-summary",
-      attrs: {
-        role: "alert",
-        "aria-labelledby": _vm.status + "-summary-heading",
-        tabindex: "-1"
-      }
-    },
-    [
-      _c(
-        "h2",
-        {
-          class: "heading-medium" + _vm.status + "-summary-heading",
-          attrs: { id: _vm.status + "-summary-heading" }
-        },
-        [_vm._t("default")],
-        2
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-67f0a83e", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

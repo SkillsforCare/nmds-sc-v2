@@ -20,11 +20,12 @@ class QuestionAnswerResource extends JsonResource
         if(empty($answer))
         {
             $answer = new Answer();
+            $answer->id = null;
             $answer->answer = null;
         }
 
         return [
-            'uuid' => $this->uuid_text,
+            'id' => $this->id,
             'number' => $this->number,
             'question' => $this->question,
             'help_text' => $this->help_text,
