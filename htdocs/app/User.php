@@ -8,7 +8,6 @@ use Spatie\BinaryUuid\HasBinaryUuid;
 
 class User extends Authenticatable
 {
-    use HasBinaryUuid;
     use Notifiable;
 
     /**

@@ -2,13 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Spatie\BinaryUuid\HasBinaryUuid;
-
-class Person extends Model
+class Person extends BaseModel
 {
-    use HasBinaryUuid;
-
     public function user()
     {
         return $this->hasOne(User::class);

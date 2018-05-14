@@ -2769,6 +2769,100 @@ input[type=number] {
   }
 }
 
+.question_index .question .step {
+  padding: 0.75em 0em 0.75em 0em;
+}
+
+.question_index .question .step h2 {
+  font-family: "nta", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.question_index .question li {
+  padding: 0.75em 1.5em 0.75em 1em;
+  position: relative;
+}
+
+.question_index .question li h3, .question_index .question li .answer {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.question_index .question li.notdone {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #bfc1c3;
+}
+
+.question_index .question li.done {
+  background-color: #D5ECEA;
+  border-bottom: 1px solid #b6d6d2;
+}
+
+.question_index .question li.error {
+  background-color: #efcfd1;
+  border-bottom: 1px solid #d9888c;
+}
+
+.question_index .question .answer {
+  color: #006435;
+}
+
+.question_index .question .action {
+  cursor: pointer;
+  text-decoration: underline;
+  position: absolute;
+  top: 0.8333333333em;
+  right: 1.6666666667em;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4285714286;
+  text-transform: none;
+}
+
+.message-summary {
+  border: 4px solid #0b0c0c;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 15px 10px;
+}
+
+@media (min-width: 641px) {
+  .message-summary {
+    border: 5px solid #0b0c0c;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px 15px 15px;
+  }
+}
+
+.message-summary:focus {
+  outline: 3px solid #ffbf47;
+}
+
+.message-summary .message-summary-heading {
+  margin-top: 0;
+}
+
+.message-summary p {
+  margin-bottom: 10px;
+}
+
+.message-summary .message-summary-list {
+  padding-left: 0;
+}
+
+@media (min-width: 641px) {
+  .message-summary .message-summary-list li {
+    margin-bottom: 5px;
+  }
+}
+
+.message-summary .message-summary-list a {
+  color: #0b0c0c;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .site-wrapper {
   max-width: 960px;
   margin: 0 auto;
@@ -2776,6 +2870,10 @@ input[type=number] {
 
 .padding-bottom {
   padding-bottom: 3em;
+}
+
+.margin-bottom {
+  margin-bottom: 20px;
 }
 
 .breadcrumbs li {

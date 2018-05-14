@@ -1,0 +1,53 @@
+.question_index {
+  .question {
+
+    .step {
+      padding: 0.75em 0em 0.75em 0em;
+
+      h2 {
+        font-family: "nta", Arial, sans-serif;
+        font-weight: 700;
+      }
+    }
+
+    li {
+      padding: 0.75em 1.5em 0.75em 1em;
+
+      position: relative;
+
+      h3, .answer {
+        font-size: 16px;
+        line-height: 1.25;
+      }
+
+    }
+
+    li.notdone {
+      background-color: $grey-4;
+      border-bottom: 1px solid $grey-2;
+    }
+    li.done {
+      background-color: #D5ECEA;
+      border-bottom: 1px solid #b6d6d2;
+    }
+
+    li.error {
+      background-color: $red-25;
+      border-bottom: 1px solid $red-50;
+    }
+    .answer {
+      color: $green
+    }
+    .action {
+      cursor: pointer;
+      text-decoration: underline;
+      position: absolute;
+      top: 0.8333333333em;
+      right: 1.6666666667em;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.4285714286;
+      text-transform: none;
+    }
+  }
+}
