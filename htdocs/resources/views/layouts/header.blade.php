@@ -19,6 +19,9 @@
                     <div style="display: flex; justify-content: space-between;">
                         <ul id="proposition-links">
                         <li><a href="{{ route('pages.about') }}">About</a></li>
+                        @auth
+                        <li><a href="{{ route('records.index') }}">Records</a></li>
+                        @endauth
                     </ul>
                         <ul  id="proposition-links" class="align-right" style="text-align: right;">
                             @guest
