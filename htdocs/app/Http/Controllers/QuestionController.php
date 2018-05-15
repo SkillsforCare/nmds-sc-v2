@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Question;
-use App\QuestionCategory;
-use App\Worker;
 use Illuminate\Http\Request;
 
-class WorkerController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class WorkerController extends Controller
      */
     public function index()
     {
-        $establishment = auth()->user()->person->establishment;
-        $workers = Worker::inEstablishment($establishment)->get();
-        return view('records.workers', compact('workers'));
+        //
     }
 
     /**
@@ -45,30 +41,21 @@ class WorkerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Worker  $worker
+     * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Worker $worker)
+    public function show(Question $question)
     {
-        $questions = Question::inCategory('worker')
-            ->with('section')
-            ->get()
-            ->sortBy('section.order')
-            ->sortBy('order')
-            ->groupBy(function ($item, $key) {
-                return $item->section->name;
-            });
-
-        return view('workers.show', compact('worker', 'questions'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Worker  $worker
+     * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function edit(Worker $worker)
+    public function edit(Question $question)
     {
         //
     }
@@ -77,10 +64,10 @@ class WorkerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Worker  $worker
+     * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Worker $worker)
+    public function update(Request $request, Question $question)
     {
         //
     }
@@ -88,10 +75,10 @@ class WorkerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Worker  $worker
+     * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Worker $worker)
+    public function destroy(Question $question)
     {
         //
     }

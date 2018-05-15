@@ -1,0 +1,21 @@
+.govuk-check-your-answers {
+  > div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+    padding: 10px 0 10px 3px;
+
+    .cya-question {
+      flex: 1;
+      font-weight: bold;
+    }
+
+    .cya-answer {
+      flex: 2;
+    }
+
+    .cya-change {
+    }
+
+  }
+}
