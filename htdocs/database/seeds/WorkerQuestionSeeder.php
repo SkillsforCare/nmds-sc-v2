@@ -75,12 +75,32 @@ class WorkerQuestionSeeder extends Seeder
             'question' => 'What is the main job role of this worker?',
             'help_text' => null,
             'field' => 'JOBROLE',
-            'field_type' => 'text',
-            'options' => null,
+            'field_type' => 'select',
+            'options' => [
+                [
+                    'text' => 'Senior Care Worker',
+                    'value' => 0
+                ],
+                [
+                    'text' => 'Care Worker',
+                    'value' => 1
+                ],
+                [
+                    'text' => 'Community Support and Outreach Work',
+                    'value' => 2
+                ],
+                [
+                    'text' => 'Advice Guidance and Advocacy',
+                    'value' => 3
+                ],
+                [
+                    'text' => 'Nursing assistant',
+                    'value' => 4
+                ]
+            ],
             'validation' => 'required',
             'order' => 1
         ]);
-
 
         // Learning and dev.
         $learning =  $sections->where('slug', 'learning-development')->first();

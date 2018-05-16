@@ -8,6 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VModal from 'vue-js-modal';
+
+Vue.use(VModal, { dialog: true });
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,7 +18,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('modal-component', require('./components/ModalComponent.vue'));
+Vue.component('form-builder', require('./components/FormBuilder.vue'));
 
 const app = new Vue({
     el: '#app'

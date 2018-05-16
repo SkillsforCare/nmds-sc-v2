@@ -43,7 +43,7 @@
                     Not answered
                 </dd>
                 <dd class="cya-change">
-                    <a href="#">
+                    <a href="#" @click="{{ '$modal.show("update-question",' . json_encode($q) . ')' }}">
                         Change<span class="visually-hidden"> name</span>
                     </a>
                 </dd>
@@ -55,4 +55,5 @@
         </div>
         @endforeach
     </div>
+    <modal-component />
 @endsection
