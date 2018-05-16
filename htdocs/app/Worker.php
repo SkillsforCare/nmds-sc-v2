@@ -11,6 +11,11 @@ class Worker extends Model
         return $this->belongsTo(Establishment::class);
     }
 
+    public function answers()
+    {
+        return $this->hasMany(QuestionAnswer::class);
+    }
+
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;

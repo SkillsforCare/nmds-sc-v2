@@ -37,10 +37,10 @@
 
             <div>
                 <dt class="cya-question">
-                    {{ $q->number }}. {{ $q->question }}
+                    {{ $q->question }}
                 </dt>
                 <dd class="cya-answer">
-                    Joe King
+                    Not answered
                 </dd>
                 <dd class="cya-change">
                     <a href="#">

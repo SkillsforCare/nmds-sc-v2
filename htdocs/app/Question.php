@@ -21,11 +21,15 @@ class Question extends Model
     }
 
 
-    public function scopeInCategory($query, $category) {
-
+    public function scopeInCategory($query, $category)
+    {
+        return $query->whereHas('category', function ($query) use($category) {
+            $query->where('slug', $category);
+        });
     }
 
-    public function scopeWithWorkerAnswers($worker) {
+    public function scopeWithWorkerAnswers($query, $worker)
+    {
 
     }
 }

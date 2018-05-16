@@ -15,22 +15,6 @@ Workers
 @section('content')
 <h1 class="heading-large">Your {{ $workers->count() }} workers</h1>
 <div class="grid-row">
-    <div class="column-two-thirds">
-        <div class="list-filter search-panel">
-				<span class="form-hint">
-					Find a worker by Name, Staff ID, Establishment
-				</span>
-            <div class="autocomplete with-button">
-                <input class="form-control" id="filter-search" type="text" name="filter-search" autocomplete="off"><input type="button" value="Search" class="button">
-            </div>
-        </div>
-        <div class="multiple-choice">
-            <input id="require-attention" name="require-attention" type="checkbox" value="">
-            <label for="require-attention">Only show workers that require attention.</label>
-        </div>
-    </div>
-</div>
-<div class="grid-row">
     <div class="column-full">
         <table>
             <thead>

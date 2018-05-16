@@ -1,5 +1,6 @@
 <?php
 
+use App\QuestionAnswer;
 use App\QuestionCategory;
 use App\QuestionSection;
 use Illuminate\Database\Seeder;
@@ -22,7 +23,7 @@ class WorkerQuestionSeeder extends Seeder
         $personnel =  $sections->where('slug', 'personal-details')->first();
 
         // 31.
-        factory(App\Question::class)->create([
+        $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
             'number' => '31',
@@ -34,6 +35,20 @@ class WorkerQuestionSeeder extends Seeder
             'validation' => 'required',
             'order' => 1
         ]);
+
+        // Answer the first question as an example for each of the workers.
+        /*
+        $workers = Worker::get();
+
+        $workers->each(function($worker) use($question) {
+            $answer = QuestionAnswer::create([
+                'question_id' => $question->id,
+                'worker_id' => $worker->id,
+                'answer' => 'This is an answer',
+                'text' => $question->question
+            ]);
+        });
+         */
 
         // 34.
         factory(App\Question::class)->create([
@@ -65,6 +80,7 @@ class WorkerQuestionSeeder extends Seeder
             'validation' => 'required',
             'order' => 1
         ]);
+
 
         // Learning and dev.
         $learning =  $sections->where('slug', 'learning-development')->first();
