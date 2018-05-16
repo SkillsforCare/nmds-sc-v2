@@ -66691,16 +66691,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'QuestionIndex',
     props: {
         questions: {
-            type: Array,
-            required: true
-        },
-        section: {
-            type: String,
+            type: Object,
             required: true
         }
     },
@@ -66713,12 +66715,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    computed: {
+        flat_questions: function flat_questions() {
+
+            var flat_array = [];
+
+            var questions = this.d_questions;
+
+            Object.keys(questions).forEach(function (key, value) {
+
+                questions[key].forEach(function (question) {
+                    flat_array.push(question);
+                });
+            });
+
+            return flat_array;
+        }
+    },
     methods: {
         updateAnswer: function updateAnswer(event) {
-            var question = this.d_questions.filter(function (x) {
+            var question = this.flat_questions.filter(function (x) {
                 return x.id === event.id;
             })[0];
-            console.log(this.d_questions, event.id);
+            question.answer = event.answer;
         }
     }
 });
@@ -66734,45 +66753,58 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.questions, function(q) {
+      _vm._l(_vm.questions, function(section, key) {
         return _c("div", [
-          _c("dt", { staticClass: "cya-question" }, [
-            _vm._v("\n            " + _vm._s(q.question) + "\n        ")
+          _c("h2", { staticClass: "heading-large", attrs: { id: "key" } }, [
+            _vm._v(_vm._s(key))
           ]),
           _vm._v(" "),
           _c(
-            "dd",
-            { staticClass: "cya-answer" },
-            [_c("f-display", { attrs: { data: q } })],
-            1
-          ),
-          _vm._v(" "),
-          _c("dd", { staticClass: "cya-change" }, [
-            _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    _vm.$modal.show("update-question", q)
-                  }
-                }
-              },
-              [
-                _vm._v("\n            Change"),
-                _c("span", { staticClass: "visually-hidden" }, [
-                  _vm._v(" name")
+            "dl",
+            { staticClass: "govuk-check-your-answers" },
+            _vm._l(section, function(q) {
+              return _c("div", [
+                _c("dt", { staticClass: "cya-question" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(q.question) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "dd",
+                  { staticClass: "cya-answer" },
+                  [_c("f-display", { attrs: { data: q } })],
+                  1
+                ),
+                _vm._v(" "),
+                _c("dd", { staticClass: "cya-change" }, [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          _vm.$modal.show("update-question", q)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("\n                    Change"),
+                      _c("span", { staticClass: "visually-hidden" }, [
+                        _vm._v(" name")
+                      ])
+                    ]
+                  )
                 ])
-              ]
-            )
-          ])
+              ])
+            })
+          )
         ])
       }),
       _vm._v(" "),
-      _c("modal-component", {
-        key: _vm.section,
-        on: { "modal-submitted": _vm.updateAnswer }
-      })
+      _c("modal-component", { on: { "modal-submitted": _vm.updateAnswer } })
     ],
     2
   )
