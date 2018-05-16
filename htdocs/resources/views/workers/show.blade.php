@@ -20,7 +20,7 @@
         <p class="lede">In this worker record:</p>
         <ul class="list list-contents">
             @foreach($questions as $key => $section)
-            <li><a href="#{{ str_slug($key) }}">{{ $key }}</a></li>
+            <li><a href="#{{ $key }}">{{ $key }}</a></li>
             @endforeach
         </ul>
     </div>

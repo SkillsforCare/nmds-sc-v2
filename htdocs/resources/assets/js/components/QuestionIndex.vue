@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="(section, key) in questions">
-            <h2 class="heading-large" id="key">{{ key }}</h2>
+            <h2 class="heading-large" :id="key">{{ key }}</h2>
 
             <dl class="govuk-check-your-answers">
                 <div v-for="q in section">
