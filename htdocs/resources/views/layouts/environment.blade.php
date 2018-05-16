@@ -21,7 +21,8 @@
     @slot('title')
         ALPHA
     @endslot
-    <span>This is a new service – your <a href="#">feedback</a> will help us to improve it.</span>
+    <span><i>{{config('app.version')}}</i></span>&nbsp;<span>This is a new service – your <a href="#">feedback</a> will help us to improve it.</span>
+    <span style="float: right;"></span>
 @endcomponent
 
 @endif
