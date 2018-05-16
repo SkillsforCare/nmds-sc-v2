@@ -18,3 +18,8 @@ Route::middleware('auth')->name('records.')->prefix('records')->group(function (
 Route::get('/about', function () {
     return view('pages.about');
 })->name('pages.about');
+
+
+Route::prefix('api')->name('api.')->middleware('auth')->group(function () {
+    Route::resource('question_answers', 'Api\QuestionAnswerController');
+});

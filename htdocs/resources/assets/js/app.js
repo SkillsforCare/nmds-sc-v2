@@ -20,6 +20,8 @@ Vue.use(VModal, { dialog: true });
 
 Vue.component('modal-component', require('./components/ModalComponent.vue'));
 Vue.component('form-builder', require('./components/FormBuilder.vue'));
+Vue.component('question-index', require('./components/QuestionIndex.vue'));
+Vue.component('f-display', require('./components/form/FDisplay.vue'));
 
 const app = new Vue({
     el: '#app'

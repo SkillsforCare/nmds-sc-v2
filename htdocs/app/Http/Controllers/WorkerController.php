@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\QuestionAnswer;
 use App\QuestionCategory;
 use App\Worker;
 use Illuminate\Http\Request;
@@ -57,7 +58,16 @@ class WorkerController extends Controller
         $questions = Question::inCategory('worker')
             ->with('section')
             ->get()
-            ->transform(function($question) use($answers) {
+            ->transform(function($question) use($answers, $worker) {
+                $question->worker_id = $worker->id;
+
+                $workerAnswer = $answers->where('question_id', $question->id)->first();
+
+                $question->answer = app(QuestionAnswer::class);
+
+                if($workerAnswer)
+                    $question->answer = $workerAnswer;
+
                 return $question;
             })
             ->sortBy('section.order')
@@ -66,7 +76,7 @@ class WorkerController extends Controller
                 return $item->section->name;
             });
 
-        //dd($questions);
+       // dd($questions->toArray());
 
         return view('workers.show', compact('worker', 'questions'));
     }

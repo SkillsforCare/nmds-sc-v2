@@ -2770,6 +2770,10 @@ input[type=number] {
 }
 
 .govuk-check-your-answers > div {
+  border-bottom: none;
+}
+
+.govuk-check-your-answers > div > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2780,14 +2784,14 @@ input[type=number] {
   padding: 10px 0 10px 3px;
 }
 
-.govuk-check-your-answers > div .cya-question {
+.govuk-check-your-answers > div > div .cya-question {
   -webkit-box-flex: 2;
       -ms-flex: 2;
           flex: 2;
   font-weight: bold;
 }
 
-.govuk-check-your-answers > div .cya-answer {
+.govuk-check-your-answers > div > div .cya-answer {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;

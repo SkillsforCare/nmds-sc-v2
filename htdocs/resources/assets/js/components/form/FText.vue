@@ -57,7 +57,7 @@
                     text = this.d_value.substring(0,15)+'...';
 
                 this.$emit('change', {
-                    text: text,
+                    text: this.d_value,
                     value: this.d_value
                 })
             }

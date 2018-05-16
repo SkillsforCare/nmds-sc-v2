@@ -30395,6 +30395,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default.a, { dialog: true });
 
 Vue.component('modal-component', __webpack_require__(165));
 Vue.component('form-builder', __webpack_require__(168));
+Vue.component('question-index', __webpack_require__(199));
+Vue.component('f-display', __webpack_require__(196));
 
 var app = new Vue({
   el: '#app'
@@ -64680,17 +64682,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'ModalComponent',
 
     data: function data() {
         return {
-            item: ''
+            item: {
+                answer: {
+                    answer: ''
+                }
+            },
+            error: ''
         };
     },
 
@@ -64703,8 +64706,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         beforeOpen: function beforeOpen(event) {
-            console.log(event);
-            this.item = event.params;
+            this.item = JSON.parse(JSON.stringify(event.params));
+            this.error = '';
+        },
+        submitAnswer: function submitAnswer() {
+            var _this = this;
+
+            var params = {
+                id: this.item.id,
+                worker_id: this.item.worker_id,
+                text: this.item.answer.text,
+                answer: this.item.answer.answer
+            };
+
+            axios.post('/api/question_answers', params).then(function (data) {
+                _this.item = {
+                    answer: data.data.data.answer,
+                    id: params.id
+                };
+                _this.$modal.hide('update-question');
+                _this.$emit('modal-submitted', _this.item);
+            }).catch(function (error) {
+                console.log(error.response.data.errors.answer[0]);
+                _this.error = error.response.data.errors.answer[0];
+            });
+        },
+        fieldUpdated: function fieldUpdated(event) {
+            this.item.answer.answer = event.value;
+            this.item.answer.text = event.text;
         }
     }
 });
@@ -64718,73 +64747,68 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "modal",
+    {
+      attrs: { name: "update-question", height: "auto" },
+      on: { "before-open": _vm.beforeOpen }
+    },
     [
-      _c(
-        "modal",
-        {
-          attrs: { name: "update-question", height: "auto" },
-          on: { "before-open": _vm.beforeOpen }
-        },
-        [
-          _c("div", { staticClass: "modal" }, [
-            _c(
-              "div",
-              { staticClass: "modal-content" },
-              [
-                _c("form-builder", {
-                  attrs: {
-                    label: _vm.itemToShow.question,
-                    field: _vm.itemToShow.field,
-                    type: _vm.itemToShow.field_type,
-                    help_text: _vm.itemToShow.help_text,
-                    options: _vm.itemToShow.options,
-                    error: _vm.itemToShow.error
-                  },
-                  on: {
-                    updated: function($event) {
-                      _vm.fieldUpdated(_vm.question, $event)
-                    }
-                  },
-                  model: {
-                    value: _vm.itemToShow.question,
-                    callback: function($$v) {
-                      _vm.$set(_vm.itemToShow, "question", $$v)
-                    },
-                    expression: "itemToShow.question"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-actions" }, [
-              _c("input", {
-                staticClass: "button",
-                attrs: { type: "submit", value: "Save" }
-              }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  attrs: { href: "" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.$modal.hide("update-question")
-                    }
-                  }
+      _c("div", { staticClass: "modal" }, [
+        _c(
+          "div",
+          { staticClass: "modal-content" },
+          [
+            _c("form-builder", {
+              attrs: {
+                label: _vm.itemToShow.question,
+                field: _vm.itemToShow.field,
+                type: _vm.itemToShow.field_type,
+                help_text: _vm.itemToShow.help_text,
+                options: _vm.itemToShow.options,
+                error: _vm.error
+              },
+              on: {
+                updated: function($event) {
+                  _vm.fieldUpdated($event)
+                }
+              },
+              model: {
+                value: _vm.itemToShow.answer.answer,
+                callback: function($$v) {
+                  _vm.$set(_vm.itemToShow.answer, "answer", $$v)
                 },
-                [_vm._v("Cancel")]
-              )
-            ])
-          ])
-        ]
-      )
-    ],
-    1
+                expression: "itemToShow.answer.answer"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "modal-actions" }, [
+          _c("input", {
+            staticClass: "button",
+            attrs: { type: "submit", value: "Save" },
+            on: { click: _vm.submitAnswer }
+          }),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.$modal.hide("update-question")
+                }
+              }
+            },
+            [_vm._v("Cancel")]
+          )
+        ])
+      ])
+    ]
   )
 }
 var staticRenderFns = []
@@ -65019,10 +65043,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         change: function change(event) {
-            var text = this.options.filter(function (x) {
-                return x.value === event.target.value;
-            })[0];
+            var _this = this;
 
+            var text = this.options.filter(function (x) {
+                return x.value === _this.d_value;
+            })[0];
             this.$emit('change', {
                 text: text.text,
                 value: event.target.value
@@ -66381,7 +66406,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.d_value.length > 15) text = this.d_value.substring(0, 15) + '...';
 
             this.$emit('change', {
-                text: text,
+                text: this.d_value,
                 value: this.d_value
             });
         }
@@ -66450,6 +66475,315 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-40a11292", module.exports)
+  }
+}
+
+/***/ }),
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(197)
+/* template */
+var __vue_template__ = __webpack_require__(198)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\form\\FDisplay.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-bb84fc26", Component.options)
+  } else {
+    hotAPI.reload("data-v-bb84fc26", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 197 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'f-display',
+    props: {
+        data: {
+            type: Object,
+            required: true
+        }
+    },
+    mounted: function mounted() {
+        this.d_value = this.data;
+    },
+    data: function data() {
+        return {
+            d_value: {
+                answer: {
+                    answer: ''
+                }
+            }
+        };
+    },
+
+    methods: {
+        input: function input() {
+
+            var text = this.d_value;
+
+            if (this.d_value.length > 15) text = this.d_value.substring(0, 15) + '...';
+
+            this.$emit('change', {
+                text: this.d_value,
+                value: this.d_value
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    !_vm.d_value.answer.answer
+      ? _c("span", [_vm._v("\n        Not answered\n    ")])
+      : _c("span", [
+          _vm.d_value.field_type === "text"
+            ? _c("span", [_vm._v(_vm._s(_vm.d_value.answer.answer))])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.d_value.field_type === "date"
+            ? _c("span", [_vm._v(_vm._s(_vm.d_value.answer.text))])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.d_value.field_type === "select"
+            ? _c("span", [_vm._v(_vm._s(_vm.d_value.answer.text))])
+            : _vm._e()
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-bb84fc26", module.exports)
+  }
+}
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(200)
+/* template */
+var __vue_template__ = __webpack_require__(201)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\QuestionIndex.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-76ca28a5", Component.options)
+  } else {
+    hotAPI.reload("data-v-76ca28a5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'QuestionIndex',
+    props: {
+        questions: {
+            type: Array,
+            required: true
+        },
+        section: {
+            type: String,
+            required: true
+        }
+    },
+    mounted: function mounted() {
+        this.d_questions = this.questions;
+    },
+    data: function data() {
+        return {
+            d_questions: null
+        };
+    },
+
+    methods: {
+        updateAnswer: function updateAnswer(event) {
+            var question = this.d_questions.filter(function (x) {
+                return x.id === event.id;
+            })[0];
+            console.log(this.d_questions, event.id);
+        }
+    }
+});
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm._l(_vm.questions, function(q) {
+        return _c("div", [
+          _c("dt", { staticClass: "cya-question" }, [
+            _vm._v("\n            " + _vm._s(q.question) + "\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "dd",
+            { staticClass: "cya-answer" },
+            [_c("f-display", { attrs: { data: q } })],
+            1
+          ),
+          _vm._v(" "),
+          _c("dd", { staticClass: "cya-change" }, [
+            _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.$modal.show("update-question", q)
+                  }
+                }
+              },
+              [
+                _vm._v("\n            Change"),
+                _c("span", { staticClass: "visually-hidden" }, [
+                  _vm._v(" name")
+                ])
+              ]
+            )
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _c("modal-component", {
+        key: _vm.section,
+        on: { "modal-submitted": _vm.updateAnswer }
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-76ca28a5", module.exports)
   }
 }
 

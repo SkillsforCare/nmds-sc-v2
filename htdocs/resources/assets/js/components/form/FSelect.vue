@@ -50,8 +50,7 @@
         },
         methods: {
             change(event) {
-                let text = this.options.filter(x => x.value ===  event.target.value)[0]
-
+                let text = this.options.filter(x => x.value ===  this.d_value)[0]
                 this.$emit('change', {
                     text: text.text,
                     value: event.target.value

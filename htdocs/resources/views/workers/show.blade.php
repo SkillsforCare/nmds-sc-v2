@@ -27,33 +27,17 @@
     </div>
     <hr>
     <div class="grid-row">
+
         @foreach($questions as $key => $question)
         <div class="column-full">
             <h2 class="heading-large" id="{{ str_slug($key) }}">{{ $key }}</h2>
-            <p>Last updated: 20 February 2018</p>
+
             <dl class="govuk-check-your-answers">
+                <question-index section="{{ $key }}" key="json_encode($key)" :questions="{{ json_encode($question) }}"></question-index>
+            </dl>
 
-            @foreach($question as $q)
-
-            <div>
-                <dt class="cya-question">
-                    {{ $q->question }}
-                </dt>
-                <dd class="cya-answer">
-                    Not answered
-                </dd>
-                <dd class="cya-change">
-                    <a href="#" @click="{{ '$modal.show("update-question",' . json_encode($q) . ')' }}">
-                        Change<span class="visually-hidden"> name</span>
-                    </a>
-                </dd>
-            </div>
-            @endforeach
-
-        </dl>
-            <p><a href="#">Mark this section as up to date</a></p>
         </div>
         @endforeach
     </div>
-    <modal-component />
+
 @endsection
