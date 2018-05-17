@@ -19,6 +19,7 @@ class WorkerController extends Controller
     {
         $establishment = auth()->user()->person->establishment;
         $workers = Worker::inEstablishment($establishment)->get();
+
         return view('records.workers', compact('workers'));
     }
 
@@ -52,8 +53,6 @@ class WorkerController extends Controller
     public function show(Worker $worker)
     {
         $answers = $worker->answers;
-
-        //dd($answers);
 
         $questions = Question::inCategory('worker')
             ->with('section')

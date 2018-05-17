@@ -12,7 +12,7 @@
                         <f-display :data="q"></f-display>
                     </dd>
                     <dd class="cya-change">
-                        <a href="#" @click="$modal.show('update-question', q)">
+                        <a href="#" @click.prevent="$modal.show('update-question', q)">
                         Change<span class="visually-hidden"> name</span>
                         </a>
                     </dd>

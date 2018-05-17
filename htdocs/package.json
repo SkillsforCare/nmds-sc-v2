@@ -25,6 +25,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "es6-promise": "^4.2.4",
         "govuk-elements-sass": "^3.1.2",
         "moment": "^2.22.1",
         "save-dev": "^2.0.0",

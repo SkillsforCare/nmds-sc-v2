@@ -36,20 +36,6 @@ class WorkerQuestionSeeder extends Seeder
             'order' => 1
         ]);
 
-        // Answer the first question as an example for each of the workers.
-        /*
-        $workers = Worker::get();
-
-        $workers->each(function($worker) use($question) {
-            $answer = QuestionAnswer::create([
-                'question_id' => $question->id,
-                'worker_id' => $worker->id,
-                'answer' => 'This is an answer',
-                'text' => $question->question
-            ]);
-        });
-         */
-
         // 34.
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
