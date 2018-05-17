@@ -1,6 +1,5 @@
 <?php
 
-use App\QuestionAnswer;
 use App\QuestionCategory;
 use App\QuestionSection;
 use Illuminate\Database\Seeder;
@@ -29,10 +28,10 @@ class WorkerQuestionSeeder extends Seeder
             'number' => '31',
             'question' => 'Please provide an identifier for this worker.',
             'help_text' => null,
-            'field' => 'IDENTIFIER',
+            'field' => 'UNIQUEWORKERID',
             'field_type' => 'text',
             'options' => null,
-            'validation' => 'required',
+            'validation' => 'required|max:50',
             'order' => 1
         ]);
 
@@ -46,7 +45,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'DOB',
             'field_type' => 'date',
             'options' => null,
-            'validation' => 'required|date',
+            'validation' => 'required|date|age_between14-100',
             'order' => 2
         ]);
 
@@ -60,30 +59,9 @@ class WorkerQuestionSeeder extends Seeder
             'number' => '48',
             'question' => 'What is the main job role of this worker?',
             'help_text' => null,
-            'field' => 'JOBROLE',
+            'field' => 'MAINJOBROLE',
             'field_type' => 'select',
-            'options' => [
-                [
-                    'text' => 'Senior Care Worker',
-                    'value' => 0
-                ],
-                [
-                    'text' => 'Care Worker',
-                    'value' => 1
-                ],
-                [
-                    'text' => 'Community Support and Outreach Work',
-                    'value' => 2
-                ],
-                [
-                    'text' => 'Advice Guidance and Advocacy',
-                    'value' => 3
-                ],
-                [
-                    'text' => 'Nursing assistant',
-                    'value' => 4
-                ]
-            ],
+            'options' => config('lookups.mainjobrole'),
             'validation' => 'required',
             'order' => 1
         ]);
@@ -100,20 +78,7 @@ class WorkerQuestionSeeder extends Seeder
             'help_text' => null,
             'field' => 'CARECERT',
             'field_type' => 'select',
-            'options' => [
-                [
-                    'text' => 'Yes, completed',
-                    'value' => 0
-                ],
-                [
-                    'text' => 'Yes, in progress or partially completed',
-                    'value' => 1
-                ],
-                [
-                    'text' => 'No, not started',
-                    'value' => 2
-                ]
-            ],
+            'options' => config('lookups.carecert'),
             'validation' => 'required',
             'order' => 1
         ]);
@@ -125,22 +90,9 @@ class WorkerQuestionSeeder extends Seeder
             'number' => '62',
             'question' => 'Does this worker hold a qualification relevant to social care?',
             'help_text' => null,
-            'field' => 'SOCIALCAREQUALIFICATION',
+            'field' => 'SCQUAL',
             'field_type' => 'select',
-            'options' => [
-                [
-                    'text' => 'Yes',
-                    'value' => 0
-                ],
-                [
-                    'text' => 'No',
-                    'value' => 1
-                ],
-                [
-                    'text' => 'Not known',
-                    'value' => 3
-                ]
-            ],
+            'options' => config('lookups.scqual'),
             'validation' => 'required',
             'order' => 2
         ]);
@@ -152,30 +104,9 @@ class WorkerQuestionSeeder extends Seeder
             'number' => '63',
             'question' => 'What is their highest level of social care qualification?',
             'help_text' => null,
-            'field' => 'HIGHESTLEVELSOCIALCAREQUALIFICATION',
+            'field' => 'SCQUAL-1',
             'field_type' => 'select',
-            'options' => [
-                [
-                    'text' => 'Entry',
-                    'value' => 0
-                ],
-                [
-                    'text' => 'Level 1',
-                    'value' => 1
-                ],
-                [
-                    'text' => 'Level 2',
-                    'value' => 2
-                ],
-                [
-                    'text' => 'Level 8 and above',
-                    'value' => 3
-                ],
-                [
-                    'text' => 'Not known',
-                    'value' => 4
-                ]
-            ],
+            'options' => config('lookups.scqual-1'),
             'validation' => 'required',
             'order' => 3
         ]);

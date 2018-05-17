@@ -15,8 +15,8 @@ class QuestionAnswer extends Model
     ];
 
     protected $metaToSave = [
-        'IDENTIFIER',
-        'JOBROLE'
+        'UNIQUEWORKERID',
+        'MAINJOBROLE'
     ];
 
     public function saveAnswer($question, $data)
