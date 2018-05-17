@@ -1,5 +1,4 @@
 let mix = require('laravel-mix');
-let tailwindcss = require('tailwindcss');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,6 +12,18 @@ let tailwindcss = require('tailwindcss');
  */
 
 mix
+    .webpackConfig({
+        module: {
+            rules: [{
+                test: /\.js?$/,
+                exclude: /(bower_components)/,
+                use: [{
+                    loader: 'babel-loader',
+                    options: mix.config.babel()
+                }]
+            }]
+        }
+    })
     .js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .options({
