@@ -29,8 +29,8 @@ Workers
 
             @forelse($workers as $worker)
             <tr>
-                <td>{{ $worker->full_name }}</td>
-                <td>{{ $worker->job_role }}</td>
+                <td>{{ $worker->meta_data['identifier'] }}</td>
+                <td>{{ $worker->meta_data['jobrole'] }}</td>
                 <td></td>
                 <td><a href="{{ route('records.workers.show', $worker) }}">View</a></td>
             </tr>

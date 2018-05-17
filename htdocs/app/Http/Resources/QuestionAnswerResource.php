@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Answer;
+use App\QuestionAnswer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class QuestionAnswerResource extends JsonResource
@@ -19,7 +19,7 @@ class QuestionAnswerResource extends JsonResource
         $answer = $this->answer;
         if(empty($answer))
         {
-            $answer = new Answer();
+            $answer = new QuestionAnswer();
             $answer->id = null;
             $answer->answer = null;
         }

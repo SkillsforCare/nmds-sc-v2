@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Worker extends Model
 {
+    protected $casts = [
+        'meta' => 'array',
+    ];
+
+
     public function establishment()
     {
         return $this->belongsTo(Establishment::class);
@@ -19,6 +24,11 @@ class Worker extends Model
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getMetaDataAttribute()
+    {
+        return $this->meta;
     }
 
     public function scopeInEstablishment($query, $establishment) {

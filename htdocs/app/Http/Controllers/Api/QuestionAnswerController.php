@@ -52,21 +52,7 @@ class QuestionAnswerController extends Controller
             'text' => 'required'
         ]);
 
-        $answer = app(QuestionAnswer::class)
-            ->where([ 'worker_id' => $request->worker_id, 'question_id' => $question->id ])->first();
-
-        if(empty($answer))
-            $answer = app(QuestionAnswer::class);
-
-        $answer->fill([
-            'question_id' => $question->id,
-            'worker_id' => $request->worker_id,
-            'answer' => $request->answer,
-            'text' => $request->text,
-            'submitted_at' => now()->toDateTimeString()
-        ])->save();
-
-        $question->answer = $answer;
+        $question->answer = app(QuestionAnswer::class)->saveAnswer($question, $request->all());
 
         return new QuestionAnswerResource($question);
     }
