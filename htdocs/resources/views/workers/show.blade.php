@@ -27,6 +27,8 @@
 </div>
 <hr>
 <div class="grid-row">
+    <div class="column-full">
     <question-index :questions="{{ json_encode($questions) }}"></question-index>
+    </div>
 </div>
 @endsection
