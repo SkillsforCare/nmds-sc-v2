@@ -45,7 +45,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NINUMBER',
             'field_type' => 'text',
             'options' => null,
-            'validation' => 'somtimes|ni_number',
+            'validation' => 'ni_number',
             'order' => 2
         ]);
 
