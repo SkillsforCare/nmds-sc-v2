@@ -21,6 +21,9 @@ class QuestionAnswer extends Model
 
     public function saveAnswer($question, $data)
     {
+        if(empty($data['answer']))
+            $data['answer'] = '';
+
         $answer = app(QuestionAnswer::class)
             ->where([ 'worker_id' => $data['worker_id'], 'question_id' => $question->id ])->first();
 

@@ -56618,8 +56618,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var params = {
                 id: this.item.id,
                 worker_id: this.item.worker_id,
-                text: this.item.answer.text,
-                answer: this.item.answer.answer
+                text: this.item.answer.text || null,
+                answer: this.item.answer.answer || null
             };
 
             axios.post('/api/question_answers', params).then(function (data) {
@@ -56631,6 +56631,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.$emit('modal-submitted', _this.item);
             }).catch(function (error) {
                 console.log(error.response.data.errors.answer[0]);
+
                 _this.error = error.response.data.errors.answer[0];
             });
         },

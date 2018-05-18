@@ -48,8 +48,7 @@ class QuestionAnswerController extends Controller
 
         $this->validate($request,[
             'worker_id' => 'required',
-            'answer' => $question->validation,
-            'text' => 'required'
+            'answer' => $question->validation
         ]);
 
         $question->answer = app(QuestionAnswer::class)->saveAnswer($question, $request->all());

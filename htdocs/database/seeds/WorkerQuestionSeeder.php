@@ -35,6 +35,20 @@ class WorkerQuestionSeeder extends Seeder
             'order' => 1
         ]);
 
+        // 32.
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $personnel->id,
+            'number' => '32',
+            'question' => 'What is the national insurance number of this worker?',
+            'help_text' => null,
+            'field' => 'NINUMBER',
+            'field_type' => 'text',
+            'options' => null,
+            'validation' => 'somtimes|ni_number',
+            'order' => 2
+        ]);
+
         // 34.
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
@@ -46,7 +60,7 @@ class WorkerQuestionSeeder extends Seeder
             'field_type' => 'date',
             'options' => null,
             'validation' => 'required|date|age_between14-100',
-            'order' => 2
+            'order' => 3
         ]);
 
         // Employment
