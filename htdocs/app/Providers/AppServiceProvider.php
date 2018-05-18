@@ -16,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('age_between', function ($attribute, $value, $parameters, $validator) {
+
+            if(empty($value))
+                return true;
+
             $minAge = 14;
             $maxAge = 100;
 

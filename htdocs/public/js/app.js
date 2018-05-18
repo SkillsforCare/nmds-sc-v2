@@ -1566,14 +1566,16 @@ module.exports = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_FSelect__ = __webpack_require__("./resources/assets/js/components/form/FSelect.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_FSelect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__form_FSelect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_FYesNo__ = __webpack_require__("./resources/assets/js/components/form/FYesNo.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_FYesNo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__form_FYesNo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__form_FDate__ = __webpack_require__("./resources/assets/js/components/form/FDate.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__form_FDate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__form_FDate__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__form_FTextArea__ = __webpack_require__("./resources/assets/js/components/form/FTextArea.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__form_FTextArea___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__form_FTextArea__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__form_FText__ = __webpack_require__("./resources/assets/js/components/form/FText.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__form_FText___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__form_FText__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_FRadioList__ = __webpack_require__("./resources/assets/js/components/form/FRadioList.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_FRadioList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__form_FRadioList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__form_FYesNo__ = __webpack_require__("./resources/assets/js/components/form/FYesNo.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__form_FYesNo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__form_FYesNo__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__form_FDate__ = __webpack_require__("./resources/assets/js/components/form/FDate.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__form_FDate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__form_FDate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__form_FTextArea__ = __webpack_require__("./resources/assets/js/components/form/FTextArea.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__form_FTextArea___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__form_FTextArea__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__form_FText__ = __webpack_require__("./resources/assets/js/components/form/FText.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__form_FText___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__form_FText__);
 //
 //
 //
@@ -1583,6 +1585,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -1619,7 +1623,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: false
         }
     },
-    components: { FSelect: __WEBPACK_IMPORTED_MODULE_0__form_FSelect___default.a, FYesNo: __WEBPACK_IMPORTED_MODULE_1__form_FYesNo___default.a, FDate: __WEBPACK_IMPORTED_MODULE_2__form_FDate___default.a, FTextArea: __WEBPACK_IMPORTED_MODULE_3__form_FTextArea___default.a, FText: __WEBPACK_IMPORTED_MODULE_4__form_FText___default.a },
+    components: { FSelect: __WEBPACK_IMPORTED_MODULE_0__form_FSelect___default.a, FRadioList: __WEBPACK_IMPORTED_MODULE_1__form_FRadioList___default.a, FYesNo: __WEBPACK_IMPORTED_MODULE_2__form_FYesNo___default.a, FDate: __WEBPACK_IMPORTED_MODULE_3__form_FDate___default.a, FTextArea: __WEBPACK_IMPORTED_MODULE_4__form_FTextArea___default.a, FText: __WEBPACK_IMPORTED_MODULE_5__form_FText___default.a },
     methods: {
         updated: function updated(event) {
             this.$emit('updated', event);
@@ -1917,6 +1921,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-display',
@@ -1948,6 +1953,97 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$emit('change', {
                 text: this.d_value,
+                value: this.d_value
+            });
+        }
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/form/FRadioList.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'f-radio-list',
+    props: {
+        label: {
+            type: String,
+            required: true
+        },
+        field: {
+            type: String,
+            required: true
+        },
+        options: {
+            type: Array,
+            required: false
+        },
+        help_text: {
+            type: String,
+            required: false
+        },
+        error: {
+            type: String,
+            required: false
+        },
+        value: {
+            required: true
+        }
+    },
+    created: function created() {
+        this.d_value = this.value;
+    },
+    data: function data() {
+        return {
+            d_value: null
+        };
+    },
+
+    methods: {
+        change: function change(event) {
+            var _this = this;
+
+            var text = this.options.filter(function (x) {
+                return x.value === _this.d_value;
+            })[0];
+            this.$emit('change', {
+                text: text.text,
                 value: this.d_value
             });
         }
@@ -47734,6 +47830,32 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      _c("f-radio-list", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.type === "radio-list",
+            expression: "type === 'radio-list'"
+          }
+        ],
+        attrs: {
+          field: _vm.field,
+          help_text: _vm.help_text,
+          error: _vm.error,
+          label: _vm.label,
+          options: _vm.options
+        },
+        on: { change: _vm.updated },
+        model: {
+          value: _vm.value,
+          callback: function($$v) {
+            _vm.value = $$v
+          },
+          expression: "value"
+        }
+      }),
+      _vm._v(" "),
       _c("f-yes-no", {
         directives: [
           {
@@ -48157,6 +48279,93 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-64e6ffb8\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/form/FRadioList.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "form-group", class: { "form-group-error": _vm.error } },
+    [
+      _c(
+        "fieldset",
+        { staticClass: "inline" },
+        [
+          _c("legend", [
+            _c("span", { staticClass: "form-label-bold" }, [
+              _vm._v("\n            " + _vm._s(_vm.label) + "\n            ")
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.help_text
+            ? _c("span", { staticClass: "form-hint" }, [
+                _vm._v("\n        " + _vm._s(_vm.help_text) + "\n    ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.error
+            ? _c("span", { staticClass: "error-message" }, [
+                _vm._v("\n        " + _vm._s(_vm.error) + "\n    ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.options, function(option) {
+            return _c("div", { staticClass: "multiple-choice" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.d_value,
+                    expression: "d_value"
+                  }
+                ],
+                attrs: {
+                  id: _vm.field + "-" + option.value,
+                  type: "radio",
+                  name: _vm.field + "-group"
+                },
+                domProps: {
+                  value: option.value,
+                  checked: _vm.d_value === option.value,
+                  checked: _vm._q(_vm.d_value, option.value)
+                },
+                on: {
+                  change: [
+                    function($event) {
+                      _vm.d_value = option.value
+                    },
+                    _vm.change
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: _vm.field + "-" + option.value } }, [
+                _vm._v(_vm._s(option.text))
+              ])
+            ])
+          })
+        ],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-64e6ffb8", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-72f35df3\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/form/FYesNo.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -48342,6 +48551,10 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _vm.d_value.field_type === "select"
+            ? _c("span", [_vm._v(_vm._s(_vm.d_value.answer.text))])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.d_value.field_type === "radio-list"
             ? _c("span", [_vm._v(_vm._s(_vm.d_value.answer.text))])
             : _vm._e()
         ])
@@ -58695,6 +58908,54 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-bb84fc26", Component.options)
   } else {
     hotAPI.reload("data-v-bb84fc26", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/form/FRadioList.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/form/FRadioList.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-64e6ffb8\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/form/FRadioList.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\form\\FRadioList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-64e6ffb8", Component.options)
+  } else {
+    hotAPI.reload("data-v-64e6ffb8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

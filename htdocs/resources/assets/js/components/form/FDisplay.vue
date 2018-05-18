@@ -7,6 +7,7 @@
             <span v-if="d_value.field_type === 'text'">{{ d_value.answer.answer }}</span>
             <span v-if="d_value.field_type === 'date'">{{ d_value.answer.text }}</span>
             <span v-if="d_value.field_type === 'select'">{{ d_value.answer.text }}</span>
+            <span v-if="d_value.field_type === 'radio-list'">{{ d_value.answer.text }}</span>
         </span>
     </div>
 </template>

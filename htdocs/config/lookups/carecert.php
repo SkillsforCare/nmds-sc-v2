@@ -1,16 +1,6 @@
 <?php
 
-return  [
-    [
-        'text' => 'Yes',
-        'value' => 1
-    ],
-    [
-        'text' => 'No',
-        'value' => 2
-    ],
-    [
-        'text' => 'In progress',
-        'value' => 3
-    ]
-];
+return [[ 'text' => 'Yes completed', 'value' => 1],
+    [ 'text' => 'Yes in progress or partially completed', 'value' => 3],
+    [ 'text' => 'No not started', 'value' => 2],
+    [ 'text' => 'No not applicable', 'value' => 4]];
