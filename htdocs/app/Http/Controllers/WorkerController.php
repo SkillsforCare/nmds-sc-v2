@@ -70,7 +70,6 @@ class WorkerController extends Controller
                 return $question;
             })
             ->sortBy('section.order')
-            ->sortBy('order')
             ->groupBy(function ($item, $key) {
                 return $item->section->name;
             });
