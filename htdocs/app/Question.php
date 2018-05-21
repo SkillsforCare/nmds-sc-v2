@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $casts = [
-        'options' => 'array',
+    protected $appends = [
+        'options',
     ];
 
     public function category()
@@ -18,6 +18,11 @@ class Question extends Model
     public function section()
     {
         return $this->belongsTo(QuestionSection::class, 'question_section_id');
+    }
+
+    public function getOptionsAttribute()
+    {
+        return config('lookups.' . strtolower($this->field), null);
     }
 
 

@@ -29,6 +29,7 @@ mix
     .options({
         processCssUrls: false
     })
+    .version()
     .browserSync({
         proxy: 'http://nmds-sc-v21.test:81'
     });

@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('pageTitle') | {{ config('app.name') }}</title>
 
     <!-- Fonts -->
-    <link href="/css/app.css" rel="stylesheet" type="text/css">
+    <link href="{{ mix('/css/app.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body class="js-enabled">
 <div id="app">
@@ -28,6 +29,6 @@
 
     @include('layouts.footer')
 </div>
-<script src="/js/app.js"></script>
+<script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>

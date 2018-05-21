@@ -21,7 +21,7 @@ class WorkerSeeder extends Seeder
         $establishment = Establishment::first();
 
         // Default answers.
-        $questions = Question::whereIn('field', ['IDENTIFIER', 'JOBROLE'])->get();
+        $questions = Question::whereIn('field', ['UNIQUEWORKERID', 'MAINJOBROLE'])->get();
 
         factory(App\Worker::class, 20)->create([
             'establishment_id' => $establishment->id
@@ -32,7 +32,7 @@ class WorkerSeeder extends Seeder
             // the worker's meta fields.
 
             // ID
-            $identifier = $questions->where('field', 'IDENTIFIER')->first();
+            $identifier = $questions->where('field', 'UNIQUEWORKERID')->first();
 
             $id = app(QuestionAnswer::class)->create([
                 'question_id' => $identifier->id,
@@ -43,7 +43,7 @@ class WorkerSeeder extends Seeder
             ]);
 
             // Job
-            $jobrole = $questions->where('field', 'JOBROLE')->first();
+            $jobrole = $questions->where('field', 'MAINJOBROLE')->first();
 
             $job = collect($jobrole->options)->random();
 

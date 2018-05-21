@@ -53,8 +53,8 @@
                 let params = {
                     id: this.item.id,
                     worker_id: this.item.worker_id,
-                    text: this.item.answer.text,
-                    answer: this.item.answer.answer,
+                    text: this.item.answer.text || null,
+                    answer: this.item.answer.answer || null,
                 }
 
                 axios
@@ -69,6 +69,7 @@
                     })
                     .catch((error) => {
                         console.log(error.response.data.errors.answer[0])
+
                         this.error = error.response.data.errors.answer[0]
                     });
             },

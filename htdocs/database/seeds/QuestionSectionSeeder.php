@@ -18,8 +18,8 @@ class QuestionSectionSeeder extends Seeder
         ]);
 
         factory(App\QuestionSection::class)->create([
-            'slug' => 'employment',
-            'name' => 'Employment',
+            'slug' => 'employment-details',
+            'name' => 'Employment details',
             'order' => 2
         ]);
 
@@ -27,6 +27,12 @@ class QuestionSectionSeeder extends Seeder
             'slug' => 'learning-development',
             'name' => 'Learning and Development',
             'order' => 3
+        ]);
+
+        factory(App\QuestionSection::class)->create([
+            'slug' => 'training',
+            'name' => 'Training',
+            'order' => 4
         ]);
 
     }

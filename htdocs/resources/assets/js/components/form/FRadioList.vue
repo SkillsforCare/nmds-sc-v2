@@ -1,20 +1,38 @@
 <template>
     <div class="form-group" :class="{ 'form-group-error': error }">
-        <label class="form-label-bold" :for="field">{{ label }}</label>
-        <span v-if="help_text" class="form-hint">
+        <fieldset class="inline">
+            <legend>
+                <span class="form-label-bold">
+                {{ label }}
+                </span>
+            </legend>
+
+            <span v-if="help_text" class="form-hint">
             {{ help_text }}
         </span>
-        <span v-if="error" class="error-message">
+            <span v-if="error" class="error-message">
             {{ error }}
         </span>
-        <select class="form-control" v-model="d_value" :id="field" :name="field" @change="change">
-            <option v-for="option in options" :value="option.value">{{ option.text }}</option>
-        </select>
+
+            <div v-for="option in options" class="multiple-choice">
+                <input
+                        :id="field + '-' + option.value"
+                        type="radio"
+                        :name="field + '-group'"
+                        :value="option.value"
+                        v-model="d_value"
+                        :checked="d_value === option.value"
+                        @change="change"
+                >
+                <label :for="field + '-' + option.value">{{ option.text }}</label>
+            </div>
+        </fieldset>
+
     </div>
 </template>
 <script>
     export default {
-        name: 'f-select',
+        name: 'f-radio-list',
         props: {
             label: {
                 type: String,
@@ -53,7 +71,7 @@
                 let text = this.options.filter(x => x.value ===  this.d_value)[0]
                 this.$emit('change', {
                     text: text.text,
-                    value: event.target.value
+                    value: this.d_value
                 })
             }
         }

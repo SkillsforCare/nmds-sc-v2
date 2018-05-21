@@ -2819,6 +2819,22 @@ input[type=number] {
   margin-right: 10px;
 }
 
+.training-index {
+  margin-top: 20px;
+}
+
+.s-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.s-justify-end {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
 .site-wrapper {
   max-width: 960px;
   margin: 0 auto;

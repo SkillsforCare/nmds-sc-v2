@@ -55,7 +55,11 @@ class WorkerController extends Controller
         $answers = $worker->answers;
 
         $questions = Question::inCategory('worker')
-            ->with('section')
+            ->join(\DB::raw('question_sections qs'), 'question_section_id', '=', 'qs.id')
+            ->whereNull('hidden_at')
+            ->select('questions.*')
+            ->orderBy('qs.order')
+            ->orderBy('order')
             ->get()
             ->transform(function($question) use($answers, $worker) {
                 $question->worker_id = $worker->id;
@@ -69,8 +73,6 @@ class WorkerController extends Controller
 
                 return $question;
             })
-            ->sortBy('section.order')
-            ->sortBy('order')
             ->groupBy(function ($item, $key) {
                 return $item->section->name;
             });

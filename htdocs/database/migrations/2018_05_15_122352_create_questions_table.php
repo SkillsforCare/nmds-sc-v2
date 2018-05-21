@@ -22,9 +22,9 @@ class CreateQuestionsTable extends Migration
             $table->text('help_text')->nullable();
             $table->string('field')->unique();
             $table->string('field_type');
-            $table->json('options')->nullable();
             $table->string('validation')->nullable();
             $table->unsignedInteger('order');
+            $table->timestamp('hidden_at')->nullable();
             $table->timestamps();
         });
     }

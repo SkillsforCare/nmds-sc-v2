@@ -21,6 +21,7 @@ Vue.use(VModal, { dialog: true });
 Vue.component('modal-component', require('./components/ModalComponent.vue'));
 Vue.component('form-builder', require('./components/FormBuilder.vue'));
 Vue.component('question-index', require('./components/QuestionIndex.vue'));
+Vue.component('training-index', require('./components/TrainingIndex.vue'));
 Vue.component('f-display', require('./components/form/FDisplay.vue'));
 
 if (typeof Object.assign != 'function') {
