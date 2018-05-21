@@ -13,6 +13,8 @@ class WorkerQuestionSeeder extends Seeder
      */
     public function run()
     {
+        $now = now()->toDateTimeString();
+
         $category = QuestionCategory::where('slug', 'worker')->first();
         $sections = QuestionSection::get();
 

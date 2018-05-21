@@ -24,6 +24,7 @@ class CreateQuestionsTable extends Migration
             $table->string('field_type');
             $table->string('validation')->nullable();
             $table->unsignedInteger('order');
+            $table->timestamp('hidden_at')->nullable();
             $table->timestamps();
         });
     }
