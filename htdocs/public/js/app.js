@@ -48697,7 +48697,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Add qualification")]
+          [_vm._v("Add training")]
         )
       ]),
       _vm._v(" "),
