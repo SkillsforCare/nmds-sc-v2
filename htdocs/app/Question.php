@@ -33,8 +33,33 @@ class Question extends Model
         });
     }
 
-    public function scopeWithWorkerAnswers($query, $worker)
+    public function getQuestions($category, $type)
     {
+        $answers = $type->answers;
 
+        $questions = Question::inCategory($category)
+            ->join(\DB::raw('question_sections qs'), 'question_section_id', '=', 'qs.id')
+            ->whereNull('hidden_at')
+            ->select('questions.*')
+            ->orderBy('qs.order')
+            ->orderBy('order')
+            ->get()
+            ->transform(function($question) use($answers, $type) {
+                $question->worker_id = $type->id;
+
+                $workerAnswer = $answers->where('question_id', $question->id)->first();
+
+                $question->answer = app(WorkerQuestionAnswer::class);
+
+                if($workerAnswer)
+                    $question->answer = $workerAnswer;
+
+                return $question;
+            })
+            ->groupBy(function ($item, $key) {
+                return $item->section->name;
+            });
+
+        return $questions;
     }
 }

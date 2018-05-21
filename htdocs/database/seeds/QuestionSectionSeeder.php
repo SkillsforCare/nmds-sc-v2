@@ -35,5 +35,11 @@ class QuestionSectionSeeder extends Seeder
             'order' => 4
         ]);
 
+        factory(App\QuestionSection::class)->create([
+            'slug' => 'establishment-details',
+            'name' => 'Establishment Details',
+            'order' => 5
+        ]);
+
     }
 }

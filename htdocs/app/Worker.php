@@ -18,7 +18,7 @@ class Worker extends Model
 
     public function answers()
     {
-        return $this->hasMany(QuestionAnswer::class);
+        return $this->hasMany(WorkerQuestionAnswer::class);
     }
 
     public function getFullNameAttribute()

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuestionAnswerResource;
 use App\Question;
-use App\QuestionAnswer;
+use App\WorkerQuestionAnswer;
 use App\QuestionType;
 use Illuminate\Http\Request;
 
@@ -51,7 +51,7 @@ class QuestionAnswerController extends Controller
             'answer' => $question->validation ?? []
         ]);
 
-        $question->answer = app(QuestionAnswer::class)->saveAnswer($question, $request->all());
+        $question->answer = app(WorkerQuestionAnswer::class)->saveAnswer($question, $request->all());
 
         return new QuestionAnswerResource($question);
     }

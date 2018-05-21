@@ -2,7 +2,7 @@
 
 use App\Establishment;
 use App\Question;
-use App\QuestionAnswer;
+use App\WorkerQuestionAnswer;
 use Illuminate\Database\Seeder;
 
 use Faker\Factory as Faker;
@@ -34,7 +34,7 @@ class WorkerSeeder extends Seeder
             // ID
             $identifier = $questions->where('field', 'UNIQUEWORKERID')->first();
 
-            $id = app(QuestionAnswer::class)->create([
+            $id = app(WorkerQuestionAnswer::class)->create([
                 'question_id' => $identifier->id,
                 'worker_id' => $worker->id,
                 'answer' => $faker->firstName . ' ' . $faker->lastName,
@@ -47,7 +47,7 @@ class WorkerSeeder extends Seeder
 
             $job = collect($jobrole->options)->random();
 
-            $job = app(QuestionAnswer::class)->create([
+            $job = app(WorkerQuestionAnswer::class)->create([
                 'question_id' => $jobrole->id,
                 'worker_id' => $worker->id,
                 'answer' =>  $job['value'],

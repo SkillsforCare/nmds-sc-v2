@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class QuestionAnswer extends Model
+class WorkerQuestionAnswer extends Model
 {
     protected $fillable = [
         'question_id',
@@ -24,11 +24,11 @@ class QuestionAnswer extends Model
         if(empty($data['answer']))
             $data['answer'] = '';
 
-        $answer = app(QuestionAnswer::class)
+        $answer = app(WorkerQuestionAnswer::class)
             ->where([ 'worker_id' => $data['worker_id'], 'question_id' => $question->id ])->first();
 
         if(empty($answer))
-            $answer = app(QuestionAnswer::class);
+            $answer = app(WorkerQuestionAnswer::class);
 
         $answer->fill([
             'question_id' => $question->id,

@@ -16,6 +16,7 @@ class CreateEstablishmentsTable extends Migration
         Schema::create('establishments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }

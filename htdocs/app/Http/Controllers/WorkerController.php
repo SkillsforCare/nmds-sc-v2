@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
-use App\QuestionAnswer;
+use App\WorkerQuestionAnswer;
 use App\QuestionCategory;
 use App\Worker;
 use Illuminate\Http\Request;
@@ -66,7 +66,7 @@ class WorkerController extends Controller
 
                 $workerAnswer = $answers->where('question_id', $question->id)->first();
 
-                $question->answer = app(QuestionAnswer::class);
+                $question->answer = app(WorkerQuestionAnswer::class);
 
                 if($workerAnswer)
                     $question->answer = $workerAnswer;

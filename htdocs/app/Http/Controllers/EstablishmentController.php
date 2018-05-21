@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Establishment;
+use App\Question;
 use Illuminate\Http\Request;
 
 class EstablishmentController extends Controller
@@ -46,7 +47,13 @@ class EstablishmentController extends Controller
      */
     public function show(Establishment $establishment)
     {
-        //
+
+        if(!$establishment->id)
+            $establishment = auth()->user()->person->establishment;
+
+        $questions = app(Question::class)->getQuestions('establishment', $establishment);
+
+        return view('establishments.show', compact('establishment', 'questions'));
     }
 
     /**
