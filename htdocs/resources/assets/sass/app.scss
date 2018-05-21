@@ -3,6 +3,16 @@
 @import "govuk/template";
 @import "skillsforcare/check_your_answers";
 @import "skillsforcare/modal";
+@import "skillsforcare/training_index";
+
+
+.s-flex {
+  display: flex;
+}
+
+.s-justify-end {
+  justify-content: flex-end;
+}
 
 .site-wrapper {
   max-width: 960px;

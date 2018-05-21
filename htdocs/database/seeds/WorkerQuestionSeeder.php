@@ -33,7 +33,22 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'UNIQUEWORKERID',
             'field_type' => 'text',
             'validation' => 'required|max:50',
-            'order' => 1
+            'order' => 1,
+            'hidden_at' => null
+        ]);
+
+        // 56-1.
+        factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $personnel->id,
+            'number' => '56-1',
+            'question' => 'Is this worker on parental leave?',
+            'help_text' => null,
+            'field' => 'PARENTALLEAVE',
+            'field_type' => 'radio-list',
+            'validation' => null,
+            'order' => 2,
+            'hidden_at' => null
         ]);
 
         // 32.
@@ -46,7 +61,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NINUMBER',
             'field_type' => 'text',
             'validation' => 'ni_number',
-            'order' => 2
+            'order' => 3,
+            'hidden_at' => null
         ]);
 
         // 33.
@@ -59,7 +75,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'POSTCODE',
             'field_type' => 'text',
             'validation' => '',
-            'order' => 3
+            'order' => 4,
+            'hidden_at' => null
         ]);
 
         // 34.
@@ -72,7 +89,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'DOB',
             'field_type' => 'date',
             'validation' => 'sometimes|date|age_between',
-            'order' => 4
+            'order' => 5,
+            'hidden_at' => null
         ]);
 
         // 35.
@@ -85,7 +103,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'GENDER',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 5
+            'order' => 6,
+            'hidden_at' => null
         ]);
 
         // 36.
@@ -98,7 +117,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'DISABLED',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 6
+            'order' => 7,
+            'hidden_at' => null
         ]);
 
         // 37.
@@ -111,7 +131,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'ETHNICITY',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 7
+            'order' => 8,
+            'hidden_at' => null
         ]);
 
         // 38.
@@ -124,7 +145,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NATIONALITY',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 8
+            'order' => 9,
+            'hidden_at' => null
         ]);
 
         // 39.
@@ -137,7 +159,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'BRITISHCITIZENSHIP',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 8
+            'order' => 10,
+            'hidden_at' => $now
         ]);
 
         // 40.
@@ -145,12 +168,13 @@ class WorkerQuestionSeeder extends Seeder
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
             'number' => '40',
-            'question' => 'What is this worker\'s nationality?',
+            'question' => 'If not British, what is this worker\'s nationality?',
             'help_text' => null,
             'field' => 'NATIONALITY-1',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 9
+            'order' => 11,
+            'hidden_at' => $now
         ]);
 
         // 41.
@@ -163,7 +187,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'COUNTRYOFBIRTH',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 10
+            'order' => 12,
+            'hidden_at' => $now
         ]);
 
         // 42.
@@ -176,7 +201,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'COUNTRYOFBIRTH-1',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 11
+            'order' => 13,
+            'hidden_at' => $now
         ]);
 
         // 43.
@@ -189,7 +215,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'YEAROFENTRY',
             'field_type' => 'text',
             'validation' => null,
-            'order' => 12
+            'order' => 14,
+            'hidden_at' => $now
         ]);
 
 
@@ -206,7 +233,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'EMPLSTATUS',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 1
+            'order' => 1,
+            'hidden_at' => null
         ]);
 
         // 45
@@ -219,7 +247,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'STARTDATE',
             'field_type' => 'date',
             'validation' => null,
-            'order' => 2
+            'order' => 2,
+            'hidden_at' => null
         ]);
 
         // 46
@@ -232,7 +261,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'RECSOURCE',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 3
+            'order' => 3,
+            'hidden_at' => null
         ]);
 
         // 47
@@ -245,7 +275,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'STARTINSECT',
             'field_type' => 'date',
             'validation' => null,
-            'order' => 4
+            'order' => 4,
+            'hidden_at' => null
         ]);
 
 
@@ -259,7 +290,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'MAINJOBROLE',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 5
+            'order' => 5,
+            'hidden_at' => null
         ]);
 
         // 49.
@@ -272,7 +304,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'OTHERJOBROLE',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 6
+            'order' => 6,
+            'hidden_at' => null
         ]);
 
         // 50.
@@ -285,7 +318,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'ZEROHRCONT',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 7
+            'order' => 7,
+            'hidden_at' => null
         ]);
 
         // 51.
@@ -298,7 +332,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'CONTHOURS',
             'field_type' => 'text',
             'validation' => null,
-            'order' => 8
+            'order' => 8,
+            'hidden_at' => null
         ]);
 
         // 52.
@@ -311,7 +346,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'ADDLHOURS',
             'field_type' => 'text',
             'validation' => null,
-            'order' => 9
+            'order' => 9,
+            'hidden_at' => null
         ]);
 
         // 52-1.
@@ -324,7 +360,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'AVHOURS',
             'field_type' => 'text',
             'validation' => null,
-            'order' => 10
+            'order' => 10,
+            'hidden_at' => null
         ]);
 
         // 53.
@@ -337,7 +374,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'FULLTIME',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 11
+            'order' => 11,
+            'hidden_at' => null
         ]);
 
         // 54.
@@ -350,7 +388,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'SALARYINT',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 12
+            'order' => 12,
+            'hidden_at' => null
         ]);
 
         // 55.
@@ -363,7 +402,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'SALARY',
             'field_type' => 'text',
             'validation' => null,
-            'order' => 13
+            'order' => 13,
+            'hidden_at' => null
         ]);
 
         // 56.
@@ -376,21 +416,11 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'DAYSSICK',
             'field_type' => 'text',
             'validation' => null,
-            'order' => 14
+            'order' => 14,
+            'hidden_at' => null
         ]);
 
-        // 56-1.
-        factory(App\Question::class)->create([
-            'question_category_id' => $category->id,
-            'question_section_id' => $employment->id,
-            'number' => '56-1',
-            'question' => 'Is this worker on parental leave?',
-            'help_text' => null,
-            'field' => 'PARENTALLEAVE',
-            'field_type' => 'radio-list',
-            'validation' => null,
-            'order' => 15
-        ]);
+
 
         // Learning and dev.
         $learning =  $sections->where('slug', 'learning-development')->first();
@@ -405,7 +435,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'CARECERT',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 1
+            'order' => 1,
+            'hidden_at' => null
         ]);
 
         // 60.
@@ -418,7 +449,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'CARECERTDATE',
             'field_type' => 'date',
             'validation' => 'date',
-            'order' => 2
+            'order' => 2,
+            'hidden_at' => $now
         ]);
 
         // 62.
@@ -431,7 +463,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'SCQUAL',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 3
+            'order' => 3,
+            'hidden_at' => null
         ]);
 
         // 63.
@@ -444,7 +477,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'SCQUAL-1',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 4
+            'order' => 4,
+            'hidden_at' => $now
         ]);
 
         // 64.
@@ -457,7 +491,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NONSCQUAL',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 5
+            'order' => 5,
+            'hidden_at' => null
         ]);
 
         // 65.
@@ -470,7 +505,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NONSCQUAL-1',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 6
+            'order' => 6,
+            'hidden_at' => $now
         ]);
 
         // Training
@@ -481,12 +517,13 @@ class WorkerQuestionSeeder extends Seeder
             'question_category_id' => $category->id,
             'question_section_id' => $training->id,
             'number' => '67-1',
-            'question' => 'Does this worker have any training?',
+            'question' => 'Do you want to add training for this worker?',
             'help_text' => null,
             'field' => 'TRAINING',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 1
+            'order' => 1,
+            'hidden_at' => null
         ]);
 
         // 67-2.
@@ -499,7 +536,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'TRAINING-1',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 2
+            'order' => 2,
+            'hidden_at' => $now
         ]);
 
         // 67-2.
@@ -512,7 +550,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'TRAININGNAME',
             'field_type' => 'text',
             'validation' => null,
-            'order' => 3
+            'order' => 3,
+            'hidden_at' => $now
         ]);
 
         // 67-3.
@@ -525,7 +564,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'TRAININGDATECOMPLETED',
             'field_type' => 'date',
             'validation' => null,
-            'order' => 4
+            'order' => 4,
+            'hidden_at' => $now
         ]);
 
         // 67-3.
@@ -538,7 +578,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'TRAININGDATEEXPIRY',
             'field_type' => 'date',
             'validation' => null,
-            'order' => 5
+            'order' => 5,
+            'hidden_at' => $now
         ]);
 
         // 67-4.
@@ -551,7 +592,8 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'TRAININGACCREDITED',
             'field_type' => 'radio-list',
             'validation' => null,
-            'order' => 6
+            'order' => 6,
+            'hidden_at' => $now
         ]);
     }
 }

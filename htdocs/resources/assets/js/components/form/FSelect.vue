@@ -1,6 +1,6 @@
 <template>
     <div class="form-group" :class="{ 'form-group-error': error }">
-        <label class="form-label" :for="field">{{ label }}</label>
+        <label class="form-label-bold" :for="field">{{ label }}</label>
         <span v-if="help_text" class="form-hint">
             {{ help_text }}
         </span>

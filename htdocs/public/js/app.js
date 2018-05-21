@@ -1751,6 +1751,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'QuestionIndex',
@@ -1762,10 +1768,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.d_questions = this.questions;
+        this.show_training();
     },
     data: function data() {
         return {
-            d_questions: null
+            d_questions: null,
+            d_show_training: false
         };
     },
 
@@ -1791,8 +1799,122 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var question = this.flat_questions.filter(function (x) {
                 return x.id === event.id;
             })[0];
+
             question.answer = event.answer;
+
+            this.show_training();
+        },
+        show_training: function show_training() {
+
+            var questions = this.flat_questions;
+
+            var question = questions.filter(function (x) {
+                return x.field === 'TRAINING';
+            })[0];
+
+            if (!question.answer) {
+                return false;
+            }
+
+            return this.d_show_training = question.answer.text === 'Yes';
         }
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/TrainingIndex.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'TrainingIndex',
+    data: function data() {
+        return {
+            d_options: [{
+                text: 'Category 1',
+                value: 1
+            }, {
+                text: 'Category 2',
+                value: 2
+            }, {
+                text: 'Category 3',
+                value: 3
+            }],
+            d_accredited_list: [{
+                text: 'Yes',
+                value: 1
+            }, {
+                text: 'No',
+                value: 2
+            }],
+            value: ''
+        };
     }
 });
 
@@ -47725,9 +47847,11 @@ var render = function() {
     "div",
     { staticClass: "form-group", class: { "form-group-error": _vm.error } },
     [
-      _c("label", { staticClass: "form-label", attrs: { for: _vm.field } }, [
-        _vm._v(_vm._s(_vm.label))
-      ]),
+      _c(
+        "label",
+        { staticClass: "form-label-bold", attrs: { for: _vm.field } },
+        [_vm._v(_vm._s(_vm.label))]
+      ),
       _vm._v(" "),
       _vm.help_text
         ? _c("span", { staticClass: "form-hint" }, [
@@ -48158,7 +48282,7 @@ var render = function() {
     "div",
     { staticClass: "form-group", class: { "form-group-error": _vm.error } },
     [
-      _c("label", { staticClass: "form-label", attrs: { for: "field" } }, [
+      _c("label", { staticClass: "form-label-bold", attrs: { for: "field" } }, [
         _vm._v("\n        " + _vm._s(_vm.label) + "\n    ")
       ]),
       _vm._v(" "),
@@ -48224,7 +48348,7 @@ var render = function() {
     "div",
     { staticClass: "form-group", class: { "form-group-error": _vm.error } },
     [
-      _c("label", { staticClass: "form-label", attrs: { for: "field" } }, [
+      _c("label", { staticClass: "form-label-bold", attrs: { for: "field" } }, [
         _vm._v("\n        " + _vm._s(_vm.label) + "\n    ")
       ]),
       _vm._v(" "),
@@ -48462,61 +48586,80 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.questions, function(section, key) {
-        return _c("div", [
-          _c("h2", { staticClass: "heading-large", attrs: { id: key } }, [
-            _vm._v(_vm._s(key))
-          ]),
-          _vm._v(" "),
-          _c(
-            "dl",
-            { staticClass: "govuk-check-your-answers" },
-            _vm._l(section, function(q) {
-              return _c("div", [
-                _c("dt", { staticClass: "cya-question" }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(q.question) +
-                      "\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "dd",
-                  { staticClass: "cya-answer" },
-                  [_c("f-display", { attrs: { data: q } })],
-                  1
-                ),
-                _vm._v(" "),
-                _c("dd", { staticClass: "cya-change" }, [
+      _c(
+        "div",
+        _vm._l(_vm.questions, function(section, key) {
+          return _c("div", [
+            _c("h2", { staticClass: "heading-large", attrs: { id: key } }, [
+              _vm._v(_vm._s(key))
+            ]),
+            _vm._v(" "),
+            _c(
+              "dl",
+              { staticClass: "govuk-check-your-answers" },
+              _vm._l(section, function(q) {
+                return _c("div", [
+                  _c("dt", { staticClass: "cya-question" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(q.question) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
                   _c(
-                    "a",
-                    {
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.$modal.show("update-question", q)
+                    "dd",
+                    { staticClass: "cya-answer" },
+                    [_c("f-display", { attrs: { data: q } })],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("dd", { staticClass: "cya-change" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.$modal.show("update-question", q)
+                          }
                         }
-                      }
-                    },
-                    [
-                      _vm._v("\n                    Change"),
-                      _c("span", { staticClass: "visually-hidden" }, [
-                        _vm._v(" name")
-                      ])
-                    ]
-                  )
+                      },
+                      [
+                        _vm._v("\n                        Change"),
+                        _c("span", { staticClass: "visually-hidden" }, [
+                          _vm._v(" name")
+                        ])
+                      ]
+                    )
+                  ])
                 ])
-              ])
-            })
-          )
-        ])
-      }),
+              })
+            )
+          ])
+        })
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.d_show_training,
+              expression: "d_show_training"
+            }
+          ]
+        },
+        [_c("training-index")],
+        1
+      ),
       _vm._v(" "),
       _c("modal-component", { on: { "modal-submitted": _vm.updateAnswer } })
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -48526,6 +48669,290 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-76ca28a5", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-9ffca39e\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/TrainingIndex.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "training-index" },
+    [
+      _c("div", { staticClass: "s-flex s-justify-end" }, [
+        _c(
+          "a",
+          {
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.$modal.show("training")
+              }
+            }
+          },
+          [_vm._v("Add qualification")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c("table", [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("tbody", [
+            _c("tr", [
+              _c("th", { attrs: { scope: "row" } }, [
+                _vm._v("Health and Safety")
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v("HS Pass Plus")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("30 June 2018")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("30 June 2019")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.$modal.show("training")
+                      }
+                    }
+                  },
+                  [_vm._v("Change")]
+                ),
+                _vm._v(" "),
+                _c("a", { attrs: { href: "" } }, [_vm._v("Delete")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { attrs: { scope: "row" } }, [
+                _vm._v("Health and Safety")
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v("HS Pass Plus")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("30 June 2018")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("30 June 2019")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.$modal.show("training", _vm.q)
+                      }
+                    }
+                  },
+                  [_vm._v("Change")]
+                ),
+                _vm._v(" "),
+                _c("a", { attrs: { href: "" } }, [_vm._v("Delete")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { attrs: { scope: "row" } }, [
+                _vm._v("Health and Safety")
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v("HS Pass Plus")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("30 June 2018")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("30 June 2019")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.$modal.show("training")
+                      }
+                    }
+                  },
+                  [_vm._v("Change")]
+                ),
+                _vm._v(" "),
+                _c("a", { attrs: { href: "" } }, [_vm._v("Delete")])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("modal", { attrs: { name: "training", height: "auto" } }, [
+        _c("div", { staticClass: "modal" }, [
+          _c(
+            "div",
+            { staticClass: "modal-content" },
+            [
+              _c("form-builder", {
+                attrs: {
+                  label: "Select category",
+                  field: "category",
+                  options: _vm.d_options,
+                  type: "select"
+                },
+                model: {
+                  value: _vm.value,
+                  callback: function($$v) {
+                    _vm.value = $$v
+                  },
+                  expression: "value"
+                }
+              }),
+              _vm._v(" "),
+              _c("form-builder", {
+                attrs: {
+                  label: "Name of training",
+                  field: "name",
+                  type: "text"
+                },
+                model: {
+                  value: _vm.value,
+                  callback: function($$v) {
+                    _vm.value = $$v
+                  },
+                  expression: "value"
+                }
+              }),
+              _vm._v(" "),
+              _c("form-builder", {
+                attrs: {
+                  label: "Date completed",
+                  field: "completed_at",
+                  type: "date"
+                },
+                model: {
+                  value: _vm.value,
+                  callback: function($$v) {
+                    _vm.value = $$v
+                  },
+                  expression: "value"
+                }
+              }),
+              _vm._v(" "),
+              _c("form-builder", {
+                attrs: {
+                  label: "Expiry date",
+                  field: "expires_at",
+                  type: "date"
+                },
+                model: {
+                  value: _vm.value,
+                  callback: function($$v) {
+                    _vm.value = $$v
+                  },
+                  expression: "value"
+                }
+              }),
+              _vm._v(" "),
+              _c("form-builder", {
+                attrs: {
+                  label: "Is this training accredited?",
+                  field: "accredited",
+                  type: "radio-list",
+                  options: _vm.d_accredited_list
+                },
+                model: {
+                  value: _vm.value,
+                  callback: function($$v) {
+                    _vm.value = $$v
+                  },
+                  expression: "value"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-actions" }, [
+            _c("input", {
+              staticClass: "button",
+              attrs: { type: "submit", value: "Save" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.$modal.hide("training")
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                attrs: { href: "" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.$modal.hide("training")
+                  }
+                }
+              },
+              [_vm._v("Cancel")]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Date completed")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Expiry date")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Accredited")]),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-9ffca39e", module.exports)
   }
 }
 
@@ -58574,6 +59001,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default.a, { dialog: true });
 Vue.component('modal-component', __webpack_require__("./resources/assets/js/components/ModalComponent.vue"));
 Vue.component('form-builder', __webpack_require__("./resources/assets/js/components/FormBuilder.vue"));
 Vue.component('question-index', __webpack_require__("./resources/assets/js/components/QuestionIndex.vue"));
+Vue.component('training-index', __webpack_require__("./resources/assets/js/components/TrainingIndex.vue"));
 Vue.component('f-display', __webpack_require__("./resources/assets/js/components/form/FDisplay.vue"));
 
 if (typeof Object.assign != 'function') {
@@ -58812,6 +59240,54 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-76ca28a5", Component.options)
   } else {
     hotAPI.reload("data-v-76ca28a5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/TrainingIndex.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/TrainingIndex.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-9ffca39e\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/TrainingIndex.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\TrainingIndex.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9ffca39e", Component.options)
+  } else {
+    hotAPI.reload("data-v-9ffca39e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

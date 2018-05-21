@@ -56,6 +56,7 @@ class WorkerController extends Controller
 
         $questions = Question::inCategory('worker')
             ->join(\DB::raw('question_sections qs'), 'question_section_id', '=', 'qs.id')
+            ->whereNull('hidden_at')
             ->select('questions.*')
             ->orderBy('qs.order')
             ->orderBy('order')
