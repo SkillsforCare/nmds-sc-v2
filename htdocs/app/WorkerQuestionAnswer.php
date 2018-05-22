@@ -14,7 +14,7 @@ class WorkerQuestionAnswer extends Model
         'submitted_at'
     ];
 
-    protected $metaToSave = [
+    public $metaToSave = [
         'UNIQUEWORKERID',
         'MAINJOBROLE'
     ];
