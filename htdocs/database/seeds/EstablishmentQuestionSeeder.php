@@ -72,7 +72,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'number' => '1',
             'question' => 'What is the name of your establishment?',
             'help_text' => null,
-            'field' => 'CQCLOCATIONID',
+            'field' => 'ESTABLISHMENTNAME',
             'field_type' => '',
             'validation' => null,
             'order' => 4,
@@ -104,20 +104,6 @@ class EstablishmentQuestionSeeder extends Seeder
             'field_type' => 'text',
             'validation' => null,
             'order' => 6,
-            'hidden_at' => null
-        ]);
-
-        // 17. Main service.
-        $question = factory(App\Question::class)->create([
-            'question_category_id' => $category->id,
-            'question_section_id' => $details->id,
-            'number' => '17',
-            'question' => 'What is the main service you provide?',
-            'help_text' => null,
-            'field' => 'MAINSERVICE',
-            'field_type' => 'select',
-            'validation' => null,
-            'order' => 7,
             'hidden_at' => null
         ]);
 
