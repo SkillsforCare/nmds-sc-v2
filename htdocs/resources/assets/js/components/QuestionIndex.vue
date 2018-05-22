@@ -82,6 +82,9 @@
 
                 let question = questions.filter(x => x.field === 'TRAINING')[0]
 
+                if(question.entity_type === 'establishment')
+                    return false;
+
                 if(!question.answer) {
                     return false
                 }

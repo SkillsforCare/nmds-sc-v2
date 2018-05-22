@@ -16,13 +16,19 @@
 @section('content')
 <div class="grid-row">
     <div class="column-two-thirds">
-        <div class="column-full">
-            <question-index :questions="{{ json_encode($questions) }}"></question-index>
-        </div>
+        <h1 class="heading-large">{{ $worker->meta_data['identifier'] }}</h1>
+        <p class="lede">In this worker record:</p>
+        <ul class="list list-contents">
+            @foreach($questions as $key => $section)
+                <li><a href="#{{ $key }}">{{ $key }}</a></li>
+            @endforeach
+        </ul>
     </div>
 </div>
 <hr>
 <div class="grid-row">
-
+    <div class="column-full">
+        <question-index :questions="{{ json_encode($questions) }}"></question-index>
+    </div>
 </div>
 @endsection

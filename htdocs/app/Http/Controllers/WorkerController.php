@@ -52,32 +52,7 @@ class WorkerController extends Controller
      */
     public function show(Worker $worker)
     {
-        $answers = $worker->answers;
-
-        $questions = Question::inCategory('worker')
-            ->join(\DB::raw('question_sections qs'), 'question_section_id', '=', 'qs.id')
-            ->whereNull('hidden_at')
-            ->select('questions.*')
-            ->orderBy('qs.order')
-            ->orderBy('order')
-            ->get()
-            ->transform(function($question) use($answers, $worker) {
-                $question->worker_id = $worker->id;
-
-                $workerAnswer = $answers->where('question_id', $question->id)->first();
-
-                $question->answer = app(WorkerQuestionAnswer::class);
-
-                if($workerAnswer)
-                    $question->answer = $workerAnswer;
-
-                return $question;
-            })
-            ->groupBy(function ($item, $key) {
-                return $item->section->name;
-            });
-
-       // dd($questions->toArray());
+        $questions = app(Question::class)->getQuestions('worker', $worker);
 
         return view('workers.show', compact('worker', 'questions'));
     }

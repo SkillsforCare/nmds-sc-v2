@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuestionAnswerResource;
 use App\Question;
+use App\QuestionAnswer;
 use App\WorkerQuestionAnswer;
-use App\QuestionType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class QuestionAnswerController extends Controller
 {
@@ -18,12 +19,6 @@ class QuestionAnswerController extends Controller
      */
     public function index()
     {
-        $question_type = QuestionType::where('slug', request()->query('filter')['question_type'])->firstOrFail();
-
-        $questions = (new Question)->personAnswers($question_type, auth()->user()->person);
-
-
-        return QuestionAnswerResource::collection($questions);
     }
 
     /**
@@ -47,11 +42,12 @@ class QuestionAnswerController extends Controller
         $question = app(Question::class)->findorFail($request->id);
 
         $this->validate($request,[
-            'worker_id' => 'required',
+            'entity_id' => 'required',
+            'entity_type' => [ 'required', Rule::in(['worker', 'establishment']) ],
             'answer' => $question->validation ?? []
         ]);
 
-        $question->answer = app(WorkerQuestionAnswer::class)->saveAnswer($question, $request->all());
+        $question->answer = app(QuestionAnswer::class)->saveAnswer($question, $request->all());
 
         return new QuestionAnswerResource($question);
     }

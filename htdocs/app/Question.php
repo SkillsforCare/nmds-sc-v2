@@ -44,15 +44,18 @@ class Question extends Model
             ->orderBy('qs.order')
             ->orderBy('order')
             ->get()
-            ->transform(function($question) use($answers, $type) {
-                $question->worker_id = $type->id;
+            ->transform(function($question) use($answers, $type, $category) {
+                $question->entity_id = $type->id;
+                $question->entity_type = $category;
 
-                $workerAnswer = $answers->where('question_id', $question->id)->first();
+                $answer = $answers->where('question_id', $question->id)->first();
 
-                $question->answer = app(WorkerQuestionAnswer::class);
+                $question->answer = app(EstablishmentQuestionAnswer::class);
+                if($category == 'worker')
+                    $question->answer = app(WorkerQuestionAnswer::class);
 
-                if($workerAnswer)
-                    $question->answer = $workerAnswer;
+                if($answer)
+                    $question->answer = $answer;
 
                 return $question;
             })

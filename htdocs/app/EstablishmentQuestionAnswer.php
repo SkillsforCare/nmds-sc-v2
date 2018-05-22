@@ -14,7 +14,7 @@ class EstablishmentQuestionAnswer extends Model
         'submitted_at'
     ];
 
-    protected $metaToSave = [];
+    public $metaToSave = [];
 
     public function saveAnswer($question, $data)
     {

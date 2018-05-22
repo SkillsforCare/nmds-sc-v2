@@ -1694,7 +1694,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var params = {
                 id: this.item.id,
-                worker_id: this.item.worker_id,
+                entity_id: this.item.entity_id,
+                entity_type: this.item.entity_type,
                 text: this.item.answer.text || null,
                 answer: this.item.answer.answer || null
             };
@@ -1811,6 +1812,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var question = questions.filter(function (x) {
                 return x.field === 'TRAINING';
             })[0];
+
+            if (question.entity_type === 'establishment') return false;
 
             if (!question.answer) {
                 return false;

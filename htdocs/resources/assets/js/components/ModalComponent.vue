@@ -52,7 +52,8 @@
 
                 let params = {
                     id: this.item.id,
-                    worker_id: this.item.worker_id,
+                    entity_id: this.item.entity_id,
+                    entity_type: this.item.entity_type,
                     text: this.item.answer.text || null,
                     answer: this.item.answer.answer || null,
                 }
