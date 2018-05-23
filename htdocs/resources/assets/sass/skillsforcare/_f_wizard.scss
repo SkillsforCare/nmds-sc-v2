@@ -1,0 +1,26 @@
+.f-wizard {
+  display: flex;
+  .f-navigation {
+    margin-right: 60px;
+
+    .f-section {
+      margin-bottom: 20px;
+      h2 {
+        font-weight: bold;
+      }
+    }
+  }
+  .f-content {
+    flex: auto;
+    .heading-medium {
+      margin: 0;
+    }
+
+    .f-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+}

@@ -27,7 +27,7 @@
         <div class="column-one-half">
             <h2 class="heading-medium">Workers</h2>
             <p><a href="{{ route('records.workers') }}">View and update worker records</a></p>
-            <p><a href="#">Add a new worker record</a></p>
+            <p><a href="{{ route('records.workers.create') }}">Add a new worker record</a></p>
             <p><a href="#">Bulk upload worker records</a></p>
         </div>
     </div>

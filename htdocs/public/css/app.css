@@ -2823,6 +2823,46 @@ input[type=number] {
   margin-top: 20px;
 }
 
+.f-wizard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.f-wizard .f-navigation {
+  margin-right: 60px;
+}
+
+.f-wizard .f-navigation .f-section {
+  margin-bottom: 20px;
+}
+
+.f-wizard .f-navigation .f-section h2 {
+  font-weight: bold;
+}
+
+.f-wizard .f-content {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
+.f-wizard .f-content .heading-medium {
+  margin: 0;
+}
+
+.f-wizard .f-content .f-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .s-flex {
   display: -webkit-box;
   display: -ms-flexbox;
