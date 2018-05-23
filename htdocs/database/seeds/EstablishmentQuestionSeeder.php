@@ -23,71 +23,118 @@ class EstablishmentQuestionSeeder extends Seeder
         // Details
         $details = $sections->where('slug', 'establishment-details')->first();
 
-        // 13.
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
-            'number' => '13',
+            'number' => null,
             'question' => 'Are you regulated by CQC?',
             'help_text' => null,
-            'field' => 'CQCREGULATED',
+            'field' => 'REGTYPE',
             'field_type' => 'radio-list',
             'validation' => null,
             'order' => 1,
             'hidden_at' => null
         ]);
 
-        // Postcode.
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
-            'number' => '13-1',
+            'number' => null,
             'question' => 'What is the postcode of your establishment?',
             'help_text' => null,
-            'field' => 'POSTCODE1',
+            'field' => 'POSTCODE',
             'field_type' => 'text',
             'validation' => null,
             'order' => 2,
             'hidden_at' => null
         ]);
 
-        // 15. Location ID
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
-            'number' => '15',
-            'question' => 'Please select your CQC Location ID:',
+            'number' => null,
+            'question' => 'Please select your location ID:',
             'help_text' => null,
-            'field' => 'CQCLOCATIONID',
+            'field' => 'LOCATIONID',
             'field_type' => 'select',
             'validation' => null,
             'order' => 3,
             'hidden_at' => null
         ]);
 
-        // 1. Establishment name.
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
-            'number' => '1',
+            'number' => '15',
+            'question' => 'Enter provider ID',
+            'help_text' => null,
+            'field' => 'PROVNUM',
+            'field_type' => 'select',
+            'validation' => null,
+            'order' => 3,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
             'question' => 'What is the name of your establishment?',
             'help_text' => null,
-            'field' => 'ESTABLISHMENTNAME',
+            'field' => 'ESTNAME',
             'field_type' => '',
-            'validation' => null,
+            'validation' => 'required|max:120',
             'order' => 4,
             'hidden_at' => null
         ]);
 
-        // 2. Establishment address.
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
-            'number' => '1',
-            'question' => 'What is the address of your establishment?',
+            'number' => null,
+            'question' => 'What is the address of your establishment 1?',
             'help_text' => null,
-            'field' => 'ADDRESS',
-            'field_type' => 'textarea',
+            'field' => 'ADDRESS1',
+            'field_type' => 'text',
+            'validation' => null,
+            'order' => 5,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'question' => 'Enter address 2?',
+            'help_text' => null,
+            'field' => 'ADDRESS2',
+            'field_type' => 'text',
+            'validation' => null,
+            'order' => 6,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'question' => 'Enter address 3?',
+            'help_text' => null,
+            'field' => 'ADDRESS3',
+            'field_type' => 'text',
+            'validation' => null,
+            'order' => 7,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'question' => 'Enter post town?',
+            'help_text' => null,
+            'field' => 'POST',
+            'field_type' => 'text',
             'validation' => null,
             'order' => 5,
             'hidden_at' => null
@@ -120,5 +167,36 @@ class EstablishmentQuestionSeeder extends Seeder
             'order' => 7,
             'hidden_at' => null
         ]);
+
+        // 18. Other service.
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => '17',
+            'question' => 'Do you provide any other service?',
+            'help_text' => null,
+            'field' => 'OTHERSERVICE',
+            'field_type' => 'select',
+            'validation' => null,
+            'order' => 8,
+            'hidden_at' => null
+        ]);
+
+        // 19. Other service list.
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => '18',
+            'question' => 'Do you provide any other service?',
+            'help_text' => null,
+            'field' => 'OTHERSERVICE-1',
+            'field_type' => 'select',
+            'validation' => null,
+            'order' => 9,
+            'hidden_at' => null
+        ]);
+
+
+
     }
 }

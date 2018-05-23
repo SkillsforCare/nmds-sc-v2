@@ -11,7 +11,6 @@ class EstablishmentSeeder extends Seeder
      */
     public function run()
     {
-        
         factory(App\Establishment::class)->create([
             'name' => 'Rothley Meadows',
         ]);

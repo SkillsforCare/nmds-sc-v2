@@ -1,5 +1,5 @@
 <?php
 
-return [[ 'text' => 'Yes', 'value' => 1],
-    [ 'text' => 'No', 'value' => 2]];
+return [[ 'text' => 'Yes', 'value' => 2],
+    [ 'text' => 'No', 'value' => 0]];
 
