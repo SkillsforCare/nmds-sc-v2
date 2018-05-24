@@ -17,7 +17,9 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('question_category_id')->index();
             $table->unsignedInteger('question_section_id')->index();
+            $table->unsignedInteger('question_group_id')->nullable()->index();
             $table->string('number')->nullable();
+            $table->string('label');
             $table->text('question');
             $table->text('help_text')->nullable();
             $table->string('field');

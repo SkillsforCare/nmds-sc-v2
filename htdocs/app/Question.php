@@ -20,6 +20,11 @@ class Question extends Model
         return $this->belongsTo(QuestionSection::class, 'question_section_id');
     }
 
+    public function group()
+    {
+        return $this->belongsTo(QuestionGroup::class, 'question_group_id');
+    }
+
     public function getOptionsAttribute()
     {
         return config('lookups.' . strtolower($this->field), null);
