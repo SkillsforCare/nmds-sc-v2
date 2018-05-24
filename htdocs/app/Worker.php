@@ -26,6 +26,15 @@ class Worker extends Model
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    public function getAttentionRequiredAttribute()
+    {
+        if(empty($this->finished_adding_at)) {
+            return [ 'message' => 'Complete the worker record', 'url' => route('records.workers.create') ];
+        }
+
+        return null;
+    }
+
     public function getMetaDataAttribute()
     {
         return $this->meta;

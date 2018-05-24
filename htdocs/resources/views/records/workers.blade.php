@@ -14,6 +14,7 @@ Workers
 
 @section('content')
 <h1 class="heading-large">Your {{ $workers->count() }} workers</h1>
+<p><a href="{{ route('records.workers.create') }}">Add a new worker record</a></p>
 <div class="grid-row">
     <div class="column-full">
         <table>
@@ -21,7 +22,7 @@ Workers
             <tr>
                 <th scope="row">Name / ID&nbsp;&nbsp;<i class="arrow down"></i></th>
                 <th>Job role&nbsp;&nbsp;<i class="arrow down"></i></th>
-                <th>Attention required&nbsp;&nbsp;<i class="arrow down"></i></th>
+                <th>Attention required</th>
                 <th></th>
             </tr>
             </thead>
@@ -31,7 +32,12 @@ Workers
             <tr>
                 <td>{{ $worker->meta_data['identifier'] }}</td>
                 <td>{{ $worker->meta_data['jobrole'] }}</td>
-                <td></td>
+                <td>
+                    <f-status-tag
+                        :message="{{ json_encode($worker->attention_required['message']) }}"
+                        :url="{{ json_encode($worker->attention_required['url']) }}"
+                    />
+                </td>
                 <td><a href="{{ route('records.workers.show', $worker) }}">View</a></td>
             </tr>
             @empty

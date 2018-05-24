@@ -2250,6 +2250,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/form/FStatusTag.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'f-status-tag',
+    props: {
+        url: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        message: {
+            type: String,
+            required: false,
+            default: ''
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/form/FText.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2401,6 +2431,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48703,6 +48741,8 @@ var render = function() {
       "div",
       { staticClass: "f-navigation" },
       [
+        _c("div", { staticClass: "f-section" }),
+        _vm._v(" "),
         _vm._l(_vm.d_structure, function(section) {
           return _c("div", { staticClass: "f-section" }, [
             _c("h2", [_vm._v(_vm._s(section.name))]),
@@ -48807,7 +48847,7 @@ var render = function() {
                               [_vm._v("Prev")]
                             )
                           : _vm._e(),
-                        _vm._v(" "),
+                        _vm._v("\n                     \n                    "),
                         _c("div", [
                           _c("a", { attrs: { href: "" } }, [
                             _vm._v("Save progress")
@@ -49040,6 +49080,33 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-3162d6da", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3560909a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/form/FStatusTag.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.message
+    ? _c("span", { staticClass: "status-tag" }, [
+        _vm.url
+          ? _c("a", { attrs: { href: _vm.url } }, [_vm._v(_vm._s(_vm.message))])
+          : _c("span", [_vm._v(_vm._s(_vm.message))])
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3560909a", module.exports)
   }
 }
 
@@ -59781,7 +59848,9 @@ Vue.component('modal-component', __webpack_require__("./resources/assets/js/comp
 Vue.component('form-builder', __webpack_require__("./resources/assets/js/components/FormBuilder.vue"));
 Vue.component('question-index', __webpack_require__("./resources/assets/js/components/QuestionIndex.vue"));
 Vue.component('training-index', __webpack_require__("./resources/assets/js/components/TrainingIndex.vue"));
+
 Vue.component('f-display', __webpack_require__("./resources/assets/js/components/form/FDisplay.vue"));
+Vue.component('f-status-tag', __webpack_require__("./resources/assets/js/components/form/FStatusTag.vue"));
 Vue.component('f-wizard', __webpack_require__("./resources/assets/js/components/form/FWizard.vue"));
 
 if (typeof Object.assign != 'function') {
@@ -60260,6 +60329,54 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-0a8663a1", Component.options)
   } else {
     hotAPI.reload("data-v-0a8663a1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/form/FStatusTag.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/form/FStatusTag.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3560909a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/form/FStatusTag.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\form\\FStatusTag.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3560909a", Component.options)
+  } else {
+    hotAPI.reload("data-v-3560909a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

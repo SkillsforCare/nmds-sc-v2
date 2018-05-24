@@ -64,6 +64,12 @@ class WorkerSeeder extends Seeder
 
             $worker->meta = $meta;
 
+            // Randomly assign an 'unfinished' record
+            $number = rand(1,3);
+
+            if($number == 2)
+                $worker->finished_adding_at = now();
+
             $worker->save();
         });
     }

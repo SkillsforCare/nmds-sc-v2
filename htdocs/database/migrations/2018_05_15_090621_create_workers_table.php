@@ -17,6 +17,7 @@ class CreateWorkersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('establishment_id')->index();
             $table->json('meta')->nullable();
+            $table->timestamp('finished_adding_at')->nullable();
             $table->timestamps();
         });
     }

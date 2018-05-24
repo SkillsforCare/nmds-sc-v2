@@ -1,6 +1,13 @@
 <template>
     <div class="f-wizard">
         <div class="f-navigation">
+
+            <div v-if="" class="f-section">
+
+            </div>
+
+
+
             <div class="f-section" v-for="section in d_structure">
                 <h2>{{ section.name }}</h2>
                 <ul v-if="section.categories[0].name !== section.name">
@@ -25,6 +32,7 @@
                     <hr>
                     <div class="f-footer">
                         <a href="" v-if="category.prev_category" @click.prevent="prevCategory(category)" >Prev</a>
+                        &nbsp;
                         <div>
                             <a href="">Save progress</a>
                             <button class="button" v-if="category.next_category" @click="nextCategory(category)">Next</button>
