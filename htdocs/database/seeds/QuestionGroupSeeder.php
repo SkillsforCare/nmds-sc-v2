@@ -68,16 +68,7 @@ class QuestionGroupSeeder extends Seeder
             'name' => 'Pay',
             'order' => 2
         ]);
-
-        $group = factory(App\QuestionGroup::class)->create([
-            'question_section_id' => $sections->where('slug', 'employment-details')->first()->id,
-            'group_previous_id' => $group->id,
-            'group_next_id' => $group->id + 2,
-            'slug' => 'experience',
-            'name' => 'Experience',
-            'order' => 3
-        ]);
-
+        
         $group = factory(App\QuestionGroup::class)->create([
             'question_section_id' => $sections->where('slug', 'learning-development')->first()->id,
             'group_previous_id' => $group->id,

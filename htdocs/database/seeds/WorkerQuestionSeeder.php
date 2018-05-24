@@ -206,7 +206,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'ethnicity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'born-in-uk')->first()->id,
             'number' => '41',
             'label' => 'Born in UK?',
             'question' => 'Was this worker born in the UK?',
@@ -222,7 +222,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'ethnicity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'born-in-uk')->first()->id,
             'number' => '42',
             'label' => 'Country of Birth',
             'question' => 'What country was this worker born in?',
@@ -238,7 +238,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'ethnicity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'born-in-uk')->first()->id,
             'number' => '43',
             'label' => 'Arrived in UK',
             'question' => 'What year did this worker arrive in the UK?',

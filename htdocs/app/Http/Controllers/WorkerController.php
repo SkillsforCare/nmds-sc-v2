@@ -40,6 +40,16 @@ class WorkerController extends Controller
                 $group->prev_group = $group->group_previous_id;
                 $group->next_group = $group->group_next_id;
 
+                $group->questions->each(function($question) {
+
+                    $question->answer = (object) [
+                        'text' => null,
+                        'answer' => null
+                    ];
+
+                    return $question;
+                });
+
                 return $group;
             });
         });

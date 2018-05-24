@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $appends = [
-        'options',
-        'answer'
+        'options'
     ];
 
     public function category()
@@ -30,14 +29,6 @@ class Question extends Model
     {
         return config('lookups.' . strtolower($this->field), null);
     }
-
-    public function getAnswerAttribute()
-    {
-        return (object) [
-            'answer'
-        ];
-    }
-
 
     public function scopeInCategory($query, $category)
     {
