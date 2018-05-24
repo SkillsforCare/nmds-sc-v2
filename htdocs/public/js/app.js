@@ -2551,7 +2551,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         nextGroup: function nextGroup(current) {
             current.selected = false;
             var group = this.flat_groups.filter(function (x) {
-                return x.id === current.group;
+                return x.id === current.next_group;
             })[0];
             group.selected = true;
             this.selected_group = group;
@@ -48761,6 +48761,7 @@ var render = function() {
                                     staticClass: "button",
                                     on: {
                                       click: function($event) {
+                                        $event.preventDefault()
                                         _vm.nextGroup(group)
                                       }
                                     }

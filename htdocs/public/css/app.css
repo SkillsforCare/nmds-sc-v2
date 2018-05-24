@@ -2847,7 +2847,13 @@ input[type=number] {
           flex: auto;
 }
 
-.f-wizard .f-content .heading-medium {
+.f-wizard .f-content .f-header {
+  border-bottom: 1px solid #0b0c0c;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+}
+
+.f-wizard .f-content .f-header .heading-medium {
   margin: 0;
 }
 
@@ -2855,6 +2861,9 @@ input[type=number] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  border-bottom: 1px solid #0b0c0c;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
 }
 
 .f-wizard .f-content .f-form div {

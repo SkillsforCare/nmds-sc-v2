@@ -34,6 +34,16 @@ class WorkerController extends Controller
             ->where('slug', 'worker')
             ->get()[0]->sections;
 
+        $questions->each(function($section) {
+            return $section->groups->each(function($group){
+
+                $group->prev_group = $group->group_previous_id;
+                $group->next_group = $group->group_next_id;
+
+                return $group;
+            });
+        });
+
         return view('workers.create', compact('questions'));
     }
 

@@ -16,6 +16,8 @@ class CreateQuestionGroupsTable extends Migration
         Schema::create('question_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('question_section_id')->index();
+            $table->unsignedInteger('group_previous_id')->nullable()->index();
+            $table->unsignedInteger('group_next_id')->nullable()->index();
             $table->string('slug');
             $table->string('name');
             $table->unsignedInteger('order');

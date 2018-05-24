@@ -36,7 +36,7 @@
                     &nbsp;   </div>
                         <div v-if="started">
                             <a href="">Save progress</a>
-                            <button class="button" v-if="group.next_group" @click="nextGroup(group)">Next</button>
+                            <button class="button" v-if="group.next_group" @click.prevent="nextGroup(group)">Next</button>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
 
             nextGroup(current) {
                 current.selected = false
-                let group = this.flat_groups.filter(x => x.id === current.group)[0]
+                let group = this.flat_groups.filter(x => x.id === current.next_group)[0]
                 group.selected = true
                 this.selected_group = group
             },
