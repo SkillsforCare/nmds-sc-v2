@@ -2644,8 +2644,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }],
                 order: 3
             }],
-            answer: ''
+            answer: '',
+            selected_category: {
+                name: null
+            },
+            started: false
         };
+    },
+    created: function created() {
+        this.defaultCategory();
     },
 
     computed: {
@@ -2681,12 +2688,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        start: function start(category) {
+            this.started = true;
+            this.nextCategory(category);
+        },
+        defaultCategory: function defaultCategory() {
+            var category = this.flat_categories.filter(function (x) {
+                return x.name === 'Start';
+            })[0];
+            category.selected = true;
+            this.selected_category = category;
+        },
         nextCategory: function nextCategory(current) {
             current.selected = false;
             var category = this.flat_categories.filter(function (x) {
                 return x.id === current.next_category;
             })[0];
             category.selected = true;
+            this.selected_category = category;
         },
         prevCategory: function prevCategory(current) {
             current.selected = false;
@@ -2694,17 +2713,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return x.id === current.prev_category;
             })[0];
             category.selected = true;
+            this.selected_category = category;
         },
         selectCategory: function selectCategory(category) {
 
             this.resetCategories();
             category.selected = true;
+            this.selected_category = category;
         },
         resetCategories: function resetCategories() {
             var category = this.flat_categories.filter(function (x) {
                 return x.selected === true;
             })[0];
             category.selected = false;
+            this.selected_category = null;
         }
     }
 });
@@ -48737,51 +48759,51 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "f-wizard" }, [
-    _c(
-      "div",
-      { staticClass: "f-navigation" },
-      [
-        _c("div", { staticClass: "f-section" }),
-        _vm._v(" "),
-        _vm._l(_vm.d_structure, function(section) {
-          return _c("div", { staticClass: "f-section" }, [
-            _c("h2", [_vm._v(_vm._s(section.name))]),
+    _vm.selected_category.name !== "Start"
+      ? _c(
+          "div",
+          { staticClass: "f-navigation" },
+          [
+            _vm._l(_vm.d_structure, function(section) {
+              return _c("div", { staticClass: "f-section" }, [
+                _c("h2", [_vm._v(_vm._s(section.name))]),
+                _vm._v(" "),
+                section.categories[0].name !== section.name
+                  ? _c(
+                      "ul",
+                      _vm._l(section.categories, function(category) {
+                        return _c("li", [
+                          !category.selected
+                            ? _c("span", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        _vm.selectCategory(category)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(category.name))]
+                                )
+                              ])
+                            : _c("span", [
+                                _c("strong", [_vm._v(_vm._s(category.name))])
+                              ])
+                        ])
+                      })
+                    )
+                  : _vm._e()
+              ])
+            }),
             _vm._v(" "),
-            section.categories[0].name !== section.name
-              ? _c(
-                  "ul",
-                  _vm._l(section.categories, function(category) {
-                    return _c("li", [
-                      !category.selected
-                        ? _c("span", [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    _vm.selectCategory(category)
-                                  }
-                                }
-                              },
-                              [_vm._v(_vm._s(category.name))]
-                            )
-                          ])
-                        : _c("span", [
-                            _c("strong", [_vm._v(_vm._s(category.name))])
-                          ])
-                    ])
-                  })
-                )
-              : _vm._e()
-          ])
-        }),
-        _vm._v(" "),
-        _vm._m(0)
-      ],
-      2
-    ),
+            _vm._m(0)
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
@@ -48792,86 +48814,115 @@ var render = function() {
             "div",
             _vm._l(section.categories, function(category) {
               return category.selected
-                ? _c(
-                    "div",
-                    [
-                      _c("h3", { staticClass: "heading-medium" }, [
-                        _vm._v(_vm._s(section.name) + " "),
-                        category.location
-                          ? _c("small", [
-                              _vm._v("(" + _vm._s(category.location) + ")")
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      category.name !== section.name
-                        ? _c("small", [_vm._v(_vm._s(category.name))])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _vm._l(category.questions, function(question) {
-                        return _c("form-builder", {
-                          attrs: {
-                            label: question.question,
-                            field: question.field,
-                            type: question.type,
-                            options: question.options,
-                            help_text: ""
-                          },
-                          model: {
-                            value: question.answer.answer,
-                            callback: function($$v) {
-                              _vm.$set(question.answer, "answer", $$v)
-                            },
-                            expression: "question.answer.answer"
-                          }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "f-footer" }, [
-                        category.prev_category
-                          ? _c(
-                              "a",
-                              {
-                                attrs: { href: "" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    _vm.prevCategory(category)
-                                  }
-                                }
-                              },
-                              [_vm._v("Prev")]
-                            )
-                          : _vm._e(),
-                        _vm._v("\n                     \n                    "),
-                        _c("div", [
-                          _c("a", { attrs: { href: "" } }, [
-                            _vm._v("Save progress")
+                ? _c("div", [
+                    _vm.started
+                      ? _c("div", { staticClass: "f-header" }, [
+                          _c("h3", { staticClass: "heading-medium" }, [
+                            _vm._v(_vm._s(section.name) + " "),
+                            category.location
+                              ? _c("small", [
+                                  _vm._v("(" + _vm._s(category.location) + ")")
+                                ])
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
-                          category.next_category
+                          category.name !== section.name
+                            ? _c("small", [_vm._v(_vm._s(category.name))])
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "f-form" }, [
+                      _c(
+                        "div",
+                        [
+                          _vm._l(category.questions, function(question, index) {
+                            return _c("form-builder", {
+                              key: index,
+                              attrs: {
+                                label: question.question,
+                                field: question.field,
+                                type: question.type,
+                                options: question.options,
+                                help_text: ""
+                              },
+                              model: {
+                                value: question.answer.answer,
+                                callback: function($$v) {
+                                  _vm.$set(question.answer, "answer", $$v)
+                                },
+                                expression: "question.answer.answer"
+                              }
+                            })
+                          }),
+                          _vm._v(" "),
+                          !_vm.started
                             ? _c(
-                                "button",
+                                "a",
                                 {
-                                  staticClass: "button",
+                                  staticClass: "button button-start",
+                                  attrs: { href: "#", role: "button" },
                                   on: {
                                     click: function($event) {
-                                      _vm.nextCategory(category)
+                                      $event.preventDefault()
+                                      _vm.start(category)
                                     }
                                   }
                                 },
-                                [_vm._v("Next")]
+                                [_vm._v("Save and continue")]
                               )
                             : _vm._e()
-                        ])
-                      ])
-                    ],
-                    2
-                  )
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "f-footer" }, [
+                      _vm.started
+                        ? _c("div", [
+                            category.prev_category
+                              ? _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        _vm.prevCategory(category)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Prev")]
+                                )
+                              : _vm._e(),
+                            _vm._v("\n                    ")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.started
+                        ? _c("div", [
+                            _c("a", { attrs: { href: "" } }, [
+                              _vm._v("Save progress")
+                            ]),
+                            _vm._v(" "),
+                            category.next_category
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "button",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.nextCategory(category)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Next")]
+                                )
+                              : _vm._e()
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
                 : _vm._e()
             })
           )

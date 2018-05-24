@@ -2851,6 +2851,18 @@ input[type=number] {
   margin: 0;
 }
 
+.f-wizard .f-content .f-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.f-wizard .f-content .f-form div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
 .f-wizard .f-content .f-footer {
   display: -webkit-box;
   display: -ms-flexbox;

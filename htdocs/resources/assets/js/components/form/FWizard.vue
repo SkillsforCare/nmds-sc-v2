@@ -1,12 +1,6 @@
 <template>
     <div class="f-wizard">
-        <div class="f-navigation">
-
-            <div v-if="" class="f-section">
-
-            </div>
-
-
+        <div class="f-navigation" v-if="selected_category.name !== 'Start'">
 
             <div class="f-section" v-for="section in d_structure">
                 <h2>{{ section.name }}</h2>
@@ -25,18 +19,24 @@
         <div class="f-content">
             <div v-for="section in d_structure">
                 <div v-if="category.selected" v-for="category in section.categories">
-                    <h3 class="heading-medium">{{ section.name }} <small v-if="category.location">({{ category.location }})</small></h3>
-                    <small v-if="category.name !== section.name">{{ category.name }}</small>
-                    <hr>
-                    <form-builder v-for="question in category.questions" :label="question.question" v-model="question.answer.answer" :field="question.field" :type="question.type" :options="question.options" help_text="" />
-                    <hr>
-                    <div class="f-footer">
-                        <a href="" v-if="category.prev_category" @click.prevent="prevCategory(category)" >Prev</a>
-                        &nbsp;
+                    <div v-if="started" class="f-header">
+                        <h3 class="heading-medium">{{ section.name }} <small v-if="category.location">({{ category.location }})</small></h3>
+                        <small v-if="category.name !== section.name">{{ category.name }}</small>
+                    </div>
+                    <div class="f-form">
                         <div>
+                            <form-builder v-for="(question, index) in category.questions" :key="index" :label="question.question" v-model="question.answer.answer" :field="question.field" :type="question.type" :options="question.options" help_text="" />
+
+                            <a v-if="!started" class="button button-start" @click.prevent="start(category)"  href="#" role="button">Save and continue</a>
+                        </div>
+                    </div>
+                    <div class="f-footer">
+                        <div v-if="started">
+                            <a href="" v-if="category.prev_category" @click.prevent="prevCategory(category)" >Prev</a>
+                    &nbsp;   </div>
+                        <div v-if="started">
                             <a href="">Save progress</a>
                             <button class="button" v-if="category.next_category" @click="nextCategory(category)">Next</button>
-
                         </div>
                     </div>
                 </div>
@@ -267,8 +267,15 @@
                     },
 
                 ],
-                answer: ''
+                answer: '',
+                selected_category: {
+                    name: null
+                },
+                started: false
             }
+        },
+        created() {
+            this.defaultCategory()
         },
         computed: {
 
@@ -307,27 +314,43 @@
 
         },
         methods: {
+
+            start(category) {
+                this.started = true
+                this.nextCategory(category)
+            },
+
+            defaultCategory() {
+                let category = this.flat_categories.filter(x => x.name === 'Start')[0]
+                category.selected = true
+                this.selected_category = category
+            },
+
             nextCategory(current) {
                 current.selected = false
                 let category = this.flat_categories.filter(x => x.id === current.next_category)[0]
                 category.selected = true
+                this.selected_category = category
             },
 
             prevCategory(current) {
                 current.selected = false
                 let category = this.flat_categories.filter(x => x.id === current.prev_category)[0]
                 category.selected = true
+                this.selected_category = category
             },
 
             selectCategory(category) {
 
                 this.resetCategories()
                 category.selected = true
+                this.selected_category = category
             },
 
             resetCategories() {
                 let category = this.flat_categories.filter(x => x.selected === true)[0]
                 category.selected = false
+                this.selected_category = null
             }
 
 
