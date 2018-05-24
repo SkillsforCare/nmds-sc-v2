@@ -2486,201 +2486,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-wizard',
+    props: {
+        questions: {
+            type: Array,
+            required: true
+        }
+    },
     data: function data() {
         return {
-            d_structure: [{
-                id: 1,
-                name: 'Start',
-                selected: true,
-                categories: [{
-                    id: 1,
-                    location: null,
-                    prev_category: null,
-                    next_category: 2,
-                    name: 'Start',
-                    selected: true,
-                    questions: [{ entity_id: 1,
-                        entity_type: 'worker', question: 'Name / Worker ID', answer: { answer: 'text', text: 'Test' }, field: 'worker1', type: 'text' }, { entity_id: 1,
-                        entity_type: 'worker', question: 'Job title', answer: 'Test', field: 'worker2', type: 'select' }]
-                }],
-                order: 1
-            }, {
-                id: 2,
-                name: 'Personal Details',
-                categories: [{
-                    id: 2,
-                    location: '1 of 4',
-                    prev_category: 1,
-                    next_category: 3,
-                    name: 'Basic details',
-                    selected: false,
-                    questions: [{ entity_id: 1,
-                        entity_type: 'worker', question: 'NI Number', answer: '', field: 'worker1', type: 'text' }, { entity_id: 1,
-                        entity_type: 'worker', question: 'Postcode', answer: '', field: 'worker2', type: 'text' }, { entity_id: 1,
-                        entity_type: 'worker', question: 'Date of birth', answer: '', field: 'worker2', type: 'date' }, {
-                        entity_id: 1,
-                        entity_type: 'worker',
-                        question: 'Gender', answer: '', field: 'worker2', type: 'radio-list',
-                        options: [{
-                            'text': 'Male',
-                            'value': 0
-                        }, {
-                            'text': 'Female',
-                            'value': 0
-                        }, {
-                            'text': 'Unspecified',
-                            'value': 0
-                        }]
-                    }]
-                }, {
-                    id: 3,
-                    location: '2 of 4',
-                    prev_category: 2,
-                    next_category: 4,
-                    name: 'Disability',
-                    selected: false,
-                    questions: [{
-                        entity_id: 1,
-                        entity_type: 'worker',
-                        question: 'Any disability?', answer: '', field: 'worker2', type: 'radio-list',
-                        options: [{
-                            'text': 'Yes',
-                            'value': 0
-                        }, {
-                            'text': 'No',
-                            'value': 0
-                        }]
-                    }]
-                }, {
-                    id: 4,
-                    location: '3 of 4',
-                    prev_category: 3,
-                    next_category: 5,
-                    name: 'Ethnic origin',
-                    selected: false,
-                    questions: [{
-                        entity_id: 1,
-                        entity_type: 'worker',
-                        question: 'Ethnic origin', answer: '', field: 'worker2', type: 'radio-list',
-                        options: [{
-                            'text': 'British (including English, Scottish, Welsh and Northern Irish)',
-                            'value': 0
-                        }, {
-                            'text': 'Irish',
-                            'value': 0
-                        }, {
-                            'text': 'Citizen of a different country',
-                            'value': 0
-                        }]
-                    }]
-                }, {
-                    id: 5,
-                    location: '4 of 4',
-                    prev_category: 4,
-                    next_category: 6,
-                    name: 'Born in UK',
-                    selected: false,
-                    questions: [{
-                        entity_id: 1,
-                        entity_type: 'worker',
-                        question: 'Born in UK', answer: '', field: 'worker2', type: 'radio-list',
-                        options: [{
-                            'text': 'Yes',
-                            'value': 0
-                        }, {
-                            'text': 'No',
-                            'value': 1
-                        }, {
-                            'text': 'Unknown',
-                            'value': 0
-                        }]
-                    }]
-                }],
-                order: 2
-            }, {
-                id: 3,
-                name: 'Employment Details',
-                categories: [{
-                    id: 6,
-                    location: '1 of 2',
-                    prev_category: 5,
-                    next_category: 7,
-                    name: 'Employment status',
-                    selected: false,
-                    questions: [{
-                        entity_id: 1,
-                        entity_type: 'worker',
-                        question: 'Employment Status', answer: '', field: 'worker2', type: 'radio-list',
-                        options: [{
-                            'text': 'Permanent',
-                            'value': 0
-                        }, {
-                            'text': 'Temporary',
-                            'value': 1
-                        }, {
-                            'text': 'Agency',
-                            'value': 0
-                        }]
-                    }, { label: 'Start Date', answer: '', field: 'worker2', type: 'date' }]
-                }, {
-                    id: 7,
-                    location: '2 of 2',
-                    prev_category: 6,
-                    next_category: 8,
-                    name: 'Experience',
-                    selected: false,
-                    questions: [{
-                        entity_id: 1,
-                        entity_type: 'worker',
-                        question: 'How many years experience?', answer: '', field: 'worker2', type: 'radio-list',
-                        options: [{
-                            'text': '1',
-                            'value': 0
-                        }, {
-                            'text': '2',
-                            'value': 1
-                        }]
-                    }]
-                }],
-                order: 3
-            }],
             answer: '',
-            selected_category: {
+            selected_group: {
                 name: null
             },
-            started: false
+            started: true,
+            d_questions: []
         };
     },
-    created: function created() {
-        this.defaultCategory();
+    mounted: function mounted() {
+        this.d_questions = this.questions;
     },
 
     computed: {
         summary: function summary() {
             var flat_array = {};
 
-            var sections = this.d_structure;
+            var sections = this.questions;
 
             sections.forEach(function (section) {
-                console.log(section);
-
-                section.categories.forEach(function (category) {
-                    flat_array[section.name] = category.questions;
+                section.groups.forEach(function (group) {
+                    flat_array[section.name] = group.questions;
                 });
             });
 
             return flat_array;
         },
-        flat_categories: function flat_categories() {
+        flat_groups: function flat_groups() {
 
             var flat_array = [];
 
-            var sections = this.d_structure;
+            var sections = this.questions;
 
             sections.forEach(function (section) {
 
-                section.categories.forEach(function (category) {
-                    flat_array.push(category);
+                section.groups.forEach(function (group) {
+                    flat_array.push(group);
                 });
             });
 
@@ -2688,45 +2537,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        start: function start(category) {
+        start: function start(group) {
             this.started = true;
-            this.nextCategory(category);
+            this.nextGroup(group);
         },
-        defaultCategory: function defaultCategory() {
-            var category = this.flat_categories.filter(function (x) {
+        defaultGroup: function defaultGroup() {
+            var group = this.flat_groups.filter(function (x) {
                 return x.name === 'Start';
             })[0];
-            category.selected = true;
-            this.selected_category = category;
+            group.selected = true;
+            this.selected_group = group;
         },
-        nextCategory: function nextCategory(current) {
+        nextGroup: function nextGroup(current) {
             current.selected = false;
-            var category = this.flat_categories.filter(function (x) {
-                return x.id === current.next_category;
+            var group = this.flat_groups.filter(function (x) {
+                return x.id === current.group;
             })[0];
-            category.selected = true;
-            this.selected_category = category;
+            group.selected = true;
+            this.selected_group = group;
         },
-        prevCategory: function prevCategory(current) {
+        prevGroup: function prevGroup(current) {
             current.selected = false;
-            var category = this.flat_categories.filter(function (x) {
-                return x.id === current.prev_category;
+            var group = this.flat_groups.filter(function (x) {
+                return x.id === current.prev_group;
             })[0];
-            category.selected = true;
-            this.selected_category = category;
+            group.selected = true;
+            this.selected_group = group;
         },
-        selectCategory: function selectCategory(category) {
+        selectGroup: function selectGroup(group) {
 
-            this.resetCategories();
-            category.selected = true;
-            this.selected_category = category;
+            this.resetGroups();
+            group.selected = true;
+            this.selected_group = group;
         },
-        resetCategories: function resetCategories() {
-            var category = this.flat_categories.filter(function (x) {
+        resetGroups: function resetGroups() {
+            var group = this.flat_groups.filter(function (x) {
                 return x.selected === true;
             })[0];
-            category.selected = false;
-            this.selected_category = null;
+
+            if (group) group.selected = false;
+
+            this.selected_group = null;
         }
     }
 });
@@ -48759,75 +48610,73 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "f-wizard" }, [
-    _vm.selected_category.name !== "Start"
-      ? _c(
-          "div",
-          { staticClass: "f-navigation" },
-          [
-            _vm._l(_vm.d_structure, function(section) {
-              return _c("div", { staticClass: "f-section" }, [
-                _c("h2", [_vm._v(_vm._s(section.name))]),
-                _vm._v(" "),
-                section.categories[0].name !== section.name
-                  ? _c(
-                      "ul",
-                      _vm._l(section.categories, function(category) {
-                        return _c("li", [
-                          !category.selected
-                            ? _c("span", [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.selectCategory(category)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(category.name))]
-                                )
-                              ])
-                            : _c("span", [
-                                _c("strong", [_vm._v(_vm._s(category.name))])
-                              ])
-                        ])
-                      })
-                    )
-                  : _vm._e()
-              ])
-            }),
+    _c(
+      "div",
+      { staticClass: "f-navigation" },
+      [
+        _vm._l(_vm.d_questions, function(section) {
+          return _c("div", { staticClass: "f-section" }, [
+            _c("h2", [_vm._v(_vm._s(section.name))]),
             _vm._v(" "),
-            _vm._m(0)
-          ],
-          2
-        )
-      : _vm._e(),
+            section.groups[0].name !== section.name
+              ? _c(
+                  "ul",
+                  _vm._l(section.groups, function(group) {
+                    return _c("li", [
+                      !group.selected
+                        ? _c("span", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    _vm.selectGroup(group)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(group.name))]
+                            )
+                          ])
+                        : _c("span", [
+                            _c("strong", [_vm._v(_vm._s(group.name))])
+                          ])
+                    ])
+                  })
+                )
+              : _vm._e()
+          ])
+        }),
+        _vm._v(" "),
+        _vm._m(0)
+      ],
+      2
+    ),
     _vm._v(" "),
     _c(
       "div",
       { staticClass: "f-content" },
       [
-        _vm._l(_vm.d_structure, function(section) {
+        _vm._l(_vm.d_questions, function(section) {
           return _c(
             "div",
-            _vm._l(section.categories, function(category) {
-              return category.selected
+            _vm._l(section.groups, function(group) {
+              return group.selected
                 ? _c("div", [
                     _vm.started
                       ? _c("div", { staticClass: "f-header" }, [
                           _c("h3", { staticClass: "heading-medium" }, [
                             _vm._v(_vm._s(section.name) + " "),
-                            category.location
+                            group.location
                               ? _c("small", [
-                                  _vm._v("(" + _vm._s(category.location) + ")")
+                                  _vm._v("(" + _vm._s(group.location) + ")")
                                 ])
                               : _vm._e()
                           ]),
                           _vm._v(" "),
-                          category.name !== section.name
-                            ? _c("small", [_vm._v(_vm._s(category.name))])
+                          group.name !== section.name
+                            ? _c("small", [_vm._v(_vm._s(group.name))])
                             : _vm._e()
                         ])
                       : _vm._e(),
@@ -48836,13 +48685,13 @@ var render = function() {
                       _c(
                         "div",
                         [
-                          _vm._l(category.questions, function(question, index) {
+                          _vm._l(group.questions, function(question, index) {
                             return _c("form-builder", {
                               key: index,
                               attrs: {
                                 label: question.question,
                                 field: question.field,
-                                type: question.type,
+                                type: question.field_type,
                                 options: question.options,
                                 help_text: ""
                               },
@@ -48865,7 +48714,7 @@ var render = function() {
                                   on: {
                                     click: function($event) {
                                       $event.preventDefault()
-                                      _vm.start(category)
+                                      _vm.start(group)
                                     }
                                   }
                                 },
@@ -48880,7 +48729,7 @@ var render = function() {
                     _c("div", { staticClass: "f-footer" }, [
                       _vm.started
                         ? _c("div", [
-                            category.prev_category
+                            group.prev_group
                               ? _c(
                                   "a",
                                   {
@@ -48888,7 +48737,7 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
-                                        _vm.prevCategory(category)
+                                        _vm.prevGroup(group)
                                       }
                                     }
                                   },
@@ -48905,14 +48754,14 @@ var render = function() {
                               _vm._v("Save progress")
                             ]),
                             _vm._v(" "),
-                            category.next_category
+                            group.next_group
                               ? _c(
                                   "button",
                                   {
                                     staticClass: "button",
                                     on: {
                                       click: function($event) {
-                                        _vm.nextCategory(category)
+                                        _vm.nextGroup(group)
                                       }
                                     }
                                   },

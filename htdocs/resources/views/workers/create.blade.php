@@ -17,7 +17,7 @@
 <div class="grid-row">
     <div class="column-full">
         <h1 class="heading-large">Add worker</h1>
-        <f-wizard></f-wizard>
+        <f-wizard :questions="{{ json_encode($questions) }}"></f-wizard>
     </div>
 </div>
 @endsection

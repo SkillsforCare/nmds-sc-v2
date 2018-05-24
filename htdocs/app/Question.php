@@ -8,6 +8,7 @@ class Question extends Model
 {
     protected $appends = [
         'options',
+        'answer'
     ];
 
     public function category()
@@ -28,6 +29,13 @@ class Question extends Model
     public function getOptionsAttribute()
     {
         return config('lookups.' . strtolower($this->field), null);
+    }
+
+    public function getAnswerAttribute()
+    {
+        return (object) [
+            'answer'
+        ];
     }
 
 

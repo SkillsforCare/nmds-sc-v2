@@ -38,7 +38,8 @@ class WorkerQuestionSeeder extends Seeder
             'field_type' => 'text',
             'validation' => 'required|max:50',
             'order' => 1,
-            'hidden_at' => null
+            'hidden_at' => null,
+            'mandatory_at' => $now
         ]);
 
         // 56-1.
@@ -331,7 +332,8 @@ class WorkerQuestionSeeder extends Seeder
             'field_type' => 'select',
             'validation' => null,
             'order' => 5,
-            'hidden_at' => null
+            'hidden_at' => null,
+            'mandatory_at' => $now
         ]);
 
         // 49.

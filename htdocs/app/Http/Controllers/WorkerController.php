@@ -30,7 +30,11 @@ class WorkerController extends Controller
      */
     public function create()
     {
-        return view('workers.create');
+        $questions = QuestionCategory::with('sections.groups.questions')
+            ->where('slug', 'worker')
+            ->get()[0]->sections;
+
+        return view('workers.create', compact('questions'));
     }
 
     /**
