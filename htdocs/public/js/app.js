@@ -2483,12 +2483,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-wizard',
     props: {
         questions: {
             type: Array,
+            required: true
+        },
+        worker_id: {
+            type: String,
             required: true
         }
     },
@@ -2531,6 +2544,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 section.groups.forEach(function (group) {
                     flat_array.push(group);
+                });
+            });
+
+            return flat_array;
+        },
+        flat_questions: function flat_questions() {
+
+            var flat_array = [];
+
+            var sections = this.questions;
+
+            var that = this;
+
+            sections.forEach(function (section) {
+
+                section.groups.forEach(function (group) {
+
+                    group.questions.forEach(function (question) {
+
+                        var data = {
+                            id: question.id,
+                            worker_id: that.worker_id,
+                            answer: question.answer.answer,
+                            text: question.answer.text
+                        };
+
+                        flat_array.push(data);
+                    });
                 });
             });
 
@@ -2579,6 +2620,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (group) group.selected = false;
 
             this.selected_group = null;
+        },
+        fieldUpdated: function fieldUpdated(question, event) {
+            question.answer.answer = event.value;
+            question.answer.text = event.text;
+        },
+        saveProgress: function saveProgress() {
+            var _this = this;
+
+            axios.put('/api/question_answers_bulk/' + this.worker_id + '/update', this.flat_questions).then(function (data) {
+                _this.reassignQuestions(data.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        reassignQuestions: function reassignQuestions(questions) {
+
+            var that = this;
+
+            questions.forEach(function (question) {
+                that.d_questions.forEach(function (section) {
+
+                    section.groups.forEach(function (group) {
+                        group.questions.forEach(function (q) {
+                            if (q.id === question.id) {
+                                q.answer = question.answer;
+
+                                if (question.errors) {
+                                    q.error = question.errors;
+                                }
+                            }
+                        });
+                    });
+                });
+            });
         }
     }
 });
@@ -48432,161 +48507,125 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("f-select", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "select",
-            expression: "type === 'select'"
-          }
-        ],
-        attrs: {
-          field: _vm.field,
-          help_text: _vm.help_text,
-          error: _vm.error,
-          label: _vm.label,
-          options: _vm.options
-        },
-        on: { change: _vm.updated },
-        model: {
-          value: _vm.value,
-          callback: function($$v) {
-            _vm.value = $$v
-          },
-          expression: "value"
-        }
-      }),
+      _vm.type === "select"
+        ? _c("f-select", {
+            attrs: {
+              field: _vm.field,
+              help_text: _vm.help_text,
+              error: _vm.error,
+              label: _vm.label,
+              options: _vm.options
+            },
+            on: { change: _vm.updated },
+            model: {
+              value: _vm.value,
+              callback: function($$v) {
+                _vm.value = $$v
+              },
+              expression: "value"
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("f-radio-list", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "radio-list",
-            expression: "type === 'radio-list'"
-          }
-        ],
-        attrs: {
-          field: _vm.field,
-          help_text: _vm.help_text,
-          error: _vm.error,
-          label: _vm.label,
-          options: _vm.options
-        },
-        on: { change: _vm.updated },
-        model: {
-          value: _vm.value,
-          callback: function($$v) {
-            _vm.value = $$v
-          },
-          expression: "value"
-        }
-      }),
+      _vm.type === "radio-list"
+        ? _c("f-radio-list", {
+            attrs: {
+              field: _vm.field,
+              help_text: _vm.help_text,
+              error: _vm.error,
+              label: _vm.label,
+              options: _vm.options
+            },
+            on: { change: _vm.updated },
+            model: {
+              value: _vm.value,
+              callback: function($$v) {
+                _vm.value = $$v
+              },
+              expression: "value"
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("f-yes-no", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "yes_no",
-            expression: "type === 'yes_no'"
-          }
-        ],
-        attrs: {
-          field: _vm.field,
-          help_text: _vm.help_text,
-          error: _vm.error,
-          label: _vm.label,
-          options: _vm.options
-        },
-        on: { change: _vm.updated },
-        model: {
-          value: _vm.value,
-          callback: function($$v) {
-            _vm.value = $$v
-          },
-          expression: "value"
-        }
-      }),
+      _vm.type === "yes_no"
+        ? _c("f-yes-no", {
+            attrs: {
+              field: _vm.field,
+              help_text: _vm.help_text,
+              error: _vm.error,
+              label: _vm.label,
+              options: _vm.options
+            },
+            on: { change: _vm.updated },
+            model: {
+              value: _vm.value,
+              callback: function($$v) {
+                _vm.value = $$v
+              },
+              expression: "value"
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("f-date", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "date",
-            expression: "type === 'date'"
-          }
-        ],
-        attrs: {
-          field: _vm.field,
-          help_text: _vm.help_text,
-          error: _vm.error,
-          label: _vm.label,
-          options: _vm.options
-        },
-        on: { change: _vm.updated },
-        model: {
-          value: _vm.value,
-          callback: function($$v) {
-            _vm.value = $$v
-          },
-          expression: "value"
-        }
-      }),
+      _vm.type === "date"
+        ? _c("f-date", {
+            attrs: {
+              field: _vm.field,
+              help_text: _vm.help_text,
+              error: _vm.error,
+              label: _vm.label,
+              options: _vm.options
+            },
+            on: { change: _vm.updated },
+            model: {
+              value: _vm.value,
+              callback: function($$v) {
+                _vm.value = $$v
+              },
+              expression: "value"
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("f-text-area", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "text-area",
-            expression: "type === 'text-area'"
-          }
-        ],
-        attrs: {
-          field: _vm.field,
-          help_text: _vm.help_text,
-          error: _vm.error,
-          label: _vm.label,
-          options: _vm.options
-        },
-        on: { change: _vm.updated },
-        model: {
-          value: _vm.value,
-          callback: function($$v) {
-            _vm.value = $$v
-          },
-          expression: "value"
-        }
-      }),
+      _vm.type === "text-area"
+        ? _c("f-text-area", {
+            attrs: {
+              field: _vm.field,
+              help_text: _vm.help_text,
+              error: _vm.error,
+              label: _vm.label,
+              options: _vm.options
+            },
+            on: { change: _vm.updated },
+            model: {
+              value: _vm.value,
+              callback: function($$v) {
+                _vm.value = $$v
+              },
+              expression: "value"
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("f-text", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "text",
-            expression: "type === 'text'"
-          }
-        ],
-        attrs: {
-          field: _vm.field,
-          help_text: _vm.help_text,
-          error: _vm.error,
-          label: _vm.label,
-          options: _vm.options
-        },
-        on: { change: _vm.updated },
-        model: {
-          value: _vm.value,
-          callback: function($$v) {
-            _vm.value = $$v
-          },
-          expression: "value"
-        }
-      })
+      _vm.type === "text"
+        ? _c("f-text", {
+            attrs: {
+              field: _vm.field,
+              help_text: _vm.help_text,
+              error: _vm.error,
+              label: _vm.label,
+              options: _vm.options
+            },
+            on: { change: _vm.updated },
+            model: {
+              value: _vm.value,
+              callback: function($$v) {
+                _vm.value = $$v
+              },
+              expression: "value"
+            }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -48694,7 +48733,13 @@ var render = function() {
                                 field: question.field,
                                 type: question.field_type,
                                 options: question.options,
-                                help_text: ""
+                                help_text: "",
+                                error: question.error
+                              },
+                              on: {
+                                updated: function($event) {
+                                  _vm.fieldUpdated(question, $event)
+                                }
                               },
                               model: {
                                 value: question.answer.answer,
@@ -48751,9 +48796,19 @@ var render = function() {
                       _vm._v(" "),
                       _vm.started
                         ? _c("div", [
-                            _c("a", { attrs: { href: "" } }, [
-                              _vm._v("Save progress")
-                            ]),
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.saveProgress($event)
+                                  }
+                                }
+                              },
+                              [_vm._v("Save progress")]
+                            ),
                             _vm._v(" "),
                             group.next_group
                               ? _c(

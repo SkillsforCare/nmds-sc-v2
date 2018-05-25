@@ -25,7 +25,16 @@
                     </div>
                     <div class="f-form">
                         <div>
-                            <form-builder v-for="(question, index) in group.questions" :key="index" :label="question.question" v-model="question.answer.answer" :field="question.field" :type="question.field_type" :options="question.options" help_text="" />
+                            <form-builder
+                                v-for="(question, index) in group.questions"
+                                :key="index" :label="question.question"
+                                v-model="question.answer.answer"
+                                :field="question.field"
+                                :type="question.field_type"
+                                :options="question.options" help_text=""
+                                :error="question.error"
+                                @updated="fieldUpdated(question, $event)"
+                            />
 
                             <a v-if="!started" class="button button-start" @click.prevent="start(group)"  href="#" role="button">Save and continue</a>
                         </div>
@@ -35,7 +44,7 @@
                             <a href="" v-if="group.prev_group" @click.prevent="prevGroup(group)" >Prev</a>
                     &nbsp;   </div>
                         <div v-if="started">
-                            <a href="">Save progress</a>
+                            <a href="" @click.prevent="saveProgress">Save progress</a>
                             <button class="button" v-if="group.next_group" @click.prevent="nextGroup(group)">Next</button>
                         </div>
                     </div>
@@ -56,6 +65,10 @@
         props: {
             questions: {
                 type: Array,
+                required: true
+            },
+            worker_id: {
+                type: String,
                 required: true
             }
         },
@@ -106,6 +119,38 @@
                 return flat_array;
             },
 
+            flat_questions() {
+
+                let flat_array = [];
+
+                let sections = this.questions;
+
+                let that = this
+
+                sections.forEach(function(section) {
+
+                    section.groups.forEach(function(group) {
+
+                        group.questions.forEach(function(question) {
+
+                            let data = {
+                                id: question.id,
+                                worker_id: that.worker_id,
+                                answer: question.answer.answer,
+                                text: question.answer.text
+                            }
+
+                            flat_array.push(data)
+                        })
+
+                    });
+
+                });
+
+                return flat_array;
+
+            }
+
         },
         methods: {
 
@@ -150,8 +195,45 @@
                 this.selected_group = null
             },
 
+            fieldUpdated(question, event) {
+                question.answer.answer = event.value
+                question.answer.text = event.text
+            },
 
+            saveProgress() {
+                axios
+                    .put('/api/question_answers_bulk/' + this.worker_id + '/update', this.flat_questions)
+                    .then((data) => {
+                        this.reassignQuestions(data.data)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            },
 
+            reassignQuestions(questions) {
+
+                let that = this
+
+                questions.forEach(function(question) {
+                    that.d_questions.forEach(function(section) {
+
+                        section.groups.forEach(function(group) {
+                            group.questions.forEach(function(q) {
+                                if(q.id === question.id) {
+                                    q.answer = question.answer
+
+                                    if(question.errors) {
+                                        q.error = question.errors
+                                    }
+                                }
+                            })
+
+                        });
+
+                    });
+                });
+            }
         }
     }
 </script>

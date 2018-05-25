@@ -17,7 +17,7 @@
 <div class="grid-row">
     <div class="column-full">
         <h1 class="heading-large">Adding worker: {{ $worker->meta_data['UNIQUEWORKERID'] }}</h1>
-        <f-wizard :questions="{{ json_encode($questions) }}"></f-wizard>
+        <f-wizard :questions="{{ json_encode($questions) }}" worker_id="{{ $worker->id }}" ></f-wizard>
     </div>
 </div>
 @endsection

@@ -42,6 +42,9 @@ class WorkerController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($request->all());
+
         // Get the submitted questions to validate.
         $rules = [];
         $questions = Question::whereIn('field', array_keys($request->all()))

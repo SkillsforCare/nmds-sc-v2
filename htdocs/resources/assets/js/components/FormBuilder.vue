@@ -1,11 +1,11 @@
 <template>
     <div>
-        <f-select v-show="type === 'select'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-select>
-        <f-radio-list v-show="type === 'radio-list'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-radio-list>
-        <f-yes-no v-show="type === 'yes_no'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-yes-no>
-        <f-date v-show="type === 'date'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-date>
-        <f-text-area v-show="type === 'text-area'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text-area>
-        <f-text v-show="type === 'text'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text>
+        <f-select v-if="type === 'select'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-select>
+        <f-radio-list v-if="type === 'radio-list'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-radio-list>
+        <f-yes-no v-if="type === 'yes_no'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-yes-no>
+        <f-date v-if="type === 'date'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-date>
+        <f-text-area v-if="type === 'text-area'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text-area>
+        <f-text v-if="type === 'text'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text>
     </div>
 </template>
 <script>

@@ -24,5 +24,6 @@ Route::get('/about', function () {
 
 
 Route::prefix('api')->name('api.')->middleware('auth')->group(function () {
+    Route::put('question_answers_bulk/{worker}/update', 'Api\QuestionAnswerBulkController@update');
     Route::resource('question_answers', 'Api\QuestionAnswerController');
 });
