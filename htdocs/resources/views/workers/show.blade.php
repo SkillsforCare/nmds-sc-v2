@@ -16,7 +16,7 @@
 @section('content')
 <div class="grid-row">
     <div class="column-two-thirds">
-        <h1 class="heading-large">{{ $worker->meta_data['identifier'] }}</h1>
+        <h1 class="heading-large">{{ $worker->meta_data['UNIQUEWORKERID'] }}</h1>
         <p class="lede">In this worker record:</p>
         <ul class="list list-contents">
             @foreach($questions as $key => $section)

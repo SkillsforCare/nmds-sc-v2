@@ -30,30 +30,7 @@ class WorkerController extends Controller
      */
     public function create()
     {
-        $questions = QuestionCategory::with('sections.groups.questions')
-            ->where('slug', 'worker')
-            ->get()[0]->sections;
-
-        $questions->each(function($section) {
-            return $section->groups->each(function($group){
-
-                $group->prev_group = $group->group_previous_id;
-                $group->next_group = $group->group_next_id;
-
-                $group->questions->each(function($question) {
-
-                    $question->answer = (object) [
-                        'text' => null,
-                        'answer' => null
-                    ];
-
-                    return $question;
-                });
-
-                return $group;
-            });
-        });
-
+        $questions = Question::inCategory('worker')->mandatory()->get();
         return view('workers.create', compact('questions'));
     }
 
@@ -65,7 +42,41 @@ class WorkerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Get the submitted questions to validate.
+        $rules = [];
+        $questions = Question::whereIn('field', array_keys($request->all()))
+            ->get()
+            ->each(function($question) use(&$rules) {
+                if(!empty($question->validation))
+                    $rules[$question->field] = $question->validation;
+            });
+
+        // Validate the questions
+        $this->validate($request,$rules);
+
+        // Create the worker.
+        $meta_fields = $request->all();
+        unset($meta_fields['_token']);
+
+        $worker = Worker::create(
+            [
+                'establishment_id' => auth()->user()->person->establishment->id
+            ]
+        );
+
+        collect($meta_fields)->each(function($value, $meta_field) use(&$meta, $questions, $worker) {
+
+            // Determine from the questions the field type
+            $question = $questions->where('field', $meta_field)->first();
+
+            // Also create an answer to the question.
+            app(WorkerQuestionAnswer::class)->saveAnswer($question, [
+                'worker_id' => $worker->id,
+                'answer' => $value,
+            ]);
+        });
+
+        return response()->redirectToRoute('records.workers.edit', $worker);
     }
 
     /**
@@ -82,6 +93,7 @@ class WorkerController extends Controller
     }
 
     /**
+     *
      * Show the form for editing the specified resource.
      *
      * @param  \App\Worker  $worker
@@ -89,7 +101,40 @@ class WorkerController extends Controller
      */
     public function edit(Worker $worker)
     {
-        //
+
+        $workerAnswers = $worker->answers;
+
+        $questions = QuestionCategory::with('sections.groups.questions')
+            ->where('slug', 'worker')
+            ->get()[0]->sections;
+
+        $questions->each(function($section) use($workerAnswers ) {
+            return $section->groups->each(function($group) use($workerAnswers) {
+
+                $group->prev_group = $group->group_previous_id;
+                $group->next_group = $group->group_next_id;
+
+                $group->questions->each(function($question) use($workerAnswers) {
+
+                    $question->answer = (object) [
+                        'text' => null,
+                        'answer' => null
+                    ];
+
+                    $answer = $workerAnswers->where('question_id', $question->id)->first();
+
+                    if(!empty($answer)) {
+                        $question->answer = $answer;
+                    }
+
+                    return $question;
+                });
+
+                return $group;
+            });
+        });
+
+        return view('workers.edit', compact('worker', 'questions'));
     }
 
     /**

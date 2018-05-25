@@ -59,8 +59,8 @@ class WorkerSeeder extends Seeder
 
             $meta = $worker->meta;
 
-            $meta['jobrole'] = $job->text;
-            $meta['identifier'] = $id->answer;
+            $meta['MAINJOBROLE'] = $job->text;
+            $meta['UNIQUEWORKERID'] = $id->answer;
 
             $worker->meta = $meta;
 

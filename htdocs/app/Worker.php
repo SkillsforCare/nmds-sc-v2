@@ -10,6 +10,10 @@ class Worker extends Model
         'meta' => 'array',
     ];
 
+    protected $fillable = [
+        'establishment_id'
+    ];
+
     public function establishment()
     {
         return $this->belongsTo(Establishment::class);
@@ -28,7 +32,7 @@ class Worker extends Model
     public function getAttentionRequiredAttribute()
     {
         if(empty($this->finished_adding_at)) {
-            return [ 'message' => 'Continue with this worker record', 'url' => route('records.workers.create') ];
+            return [ 'message' => 'Continue with this worker record', 'url' => route('records.workers.edit', $this) ];
         }
 
         return null;

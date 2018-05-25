@@ -54,7 +54,7 @@ class QuestionAnswer
             }
 
             $meta = $entity->meta;
-            $meta[strtolower($question->field)] = $answer->text;
+            $meta[$question->field] = $answer->text;
             $entity->meta = $meta;
 
             $entity->save();

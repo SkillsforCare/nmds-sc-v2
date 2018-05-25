@@ -71,6 +71,7 @@
         },
         mounted() {
             this.d_questions = this.questions
+            this.defaultGroup()
         },
         computed: {
 
@@ -114,7 +115,7 @@
             },
 
             defaultGroup() {
-                let group = this.flat_groups.filter(x => x.name === 'Start')[0]
+                let group = this.flat_groups.filter(x => x.name === 'Basic Details')[0]
                 group.selected = true
                 this.selected_group = group
             },
@@ -147,7 +148,8 @@
                     group.selected = false
 
                 this.selected_group = null
-            }
+            },
+
 
 
         }

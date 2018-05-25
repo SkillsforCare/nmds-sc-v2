@@ -330,7 +330,7 @@ class WorkerQuestionSeeder extends Seeder
             'help_text' => null,
             'field' => 'MAINJOBROLE',
             'field_type' => 'select',
-            'validation' => null,
+            'validation' => 'required',
             'order' => 5,
             'hidden_at' => null,
             'mandatory_at' => $now

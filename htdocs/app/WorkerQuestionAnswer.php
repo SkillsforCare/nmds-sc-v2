@@ -34,15 +34,27 @@ class WorkerQuestionAnswer extends Model
             'question_id' => $question->id,
             'worker_id' => $data['worker_id'],
             'answer' => $data['answer'],
-            'text' => $data['text'],
             'submitted_at' => now()->toDateTimeString()
-        ])->save();
+        ]);
+
+        $text = $data['answer'];
+
+        if ($question->field_type === 'select' or $question->field_type === 'radio-list') {
+            $text = collect(config('lookups.' . strtolower($question->field)))
+                ->where('value', $data['answer'])
+                ->first()['text'];
+        }
+
+        $answer->text = $text;
+        $answer->save();
 
         if(in_array($question->field, $this->metaToSave)) {
             $worker = app(Worker::class)->find($data['worker_id']);
 
             $meta = $worker->meta;
-            $meta[strtolower($question->field)] = $answer->text;
+
+            $meta[$question->field] = $text;
+
             $worker->meta = $meta;
 
             $worker->save();

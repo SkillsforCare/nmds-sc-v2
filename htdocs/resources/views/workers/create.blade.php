@@ -17,7 +17,26 @@
 <div class="grid-row">
     <div class="column-full">
         <h1 class="heading-large">Add worker</h1>
-        <f-wizard :questions="{{ json_encode($questions) }}"></f-wizard>
+
+        <form action="{{ route('records.workers.store') }}" method="post">
+            @include('form.csrf')
+
+            @foreach($questions as $question)
+            @include('form.input-'. $question->field_type,
+                [
+                    'label' => $question->question,
+                    'field' => $question->field,
+                    'value' => '',
+                    'options' => $question->options,
+                    'error' => $errors->first($question->field)
+                ])
+            @endforeach
+
+            <div class="form-group">
+                <input class="button button-start" type="submit" value="Start">
+            </div>
+        </form>
+
     </div>
 </div>
 @endsection

@@ -37,6 +37,11 @@ class Question extends Model
         });
     }
 
+    public function scopeMandatory($query)
+    {
+        return $query->whereNotNull('mandatory_at');
+    }
+
     public function getQuestions($category, $type)
     {
         $answers = $type->answers;
