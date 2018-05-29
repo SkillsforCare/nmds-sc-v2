@@ -19,8 +19,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => null,
             'group_next_id' => 2,
-            'slug' => 'personal-details',
-            'name' => 'Personal details',
+            'slug' => 'basic-details',
+            'name' => 'Basic Details',
             'order' => 1
         ]);
 
@@ -28,8 +28,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'personal-information',
-            'name' => 'Personal information',
+            'slug' => 'disability',
+            'name' => 'Disability',
             'order' => 2
         ]);
 
@@ -37,8 +37,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'nationality',
-            'name' => 'Nationality',
+            'slug' => 'ethnicity',
+            'name' => 'Ethnicity',
             'order' => 3
         ]);
 
@@ -46,8 +46,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'place-of-birth',
-            'name' => 'Place of birth',
+            'slug' => 'born-in-uk',
+            'name' => 'Born in UK',
             'order' => 4
         ]);
 
@@ -55,8 +55,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'employment-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'experience',
-            'name' => 'Experience',
+            'slug' => 'employment-status',
+            'name' => 'Employment Status',
             'order' => 1
         ]);
 
@@ -64,72 +64,27 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'employment-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'sick-leave',
-            'name' => 'Sick leave',
+            'slug' => 'pay',
+            'name' => 'Pay',
             'order' => 2
         ]);
-
-        $group = factory(App\QuestionGroup::class)->create([
-            'question_section_id' => $sections->where('slug', 'employment-details')->first()->id,
-            'group_previous_id' => $group->id,
-            'group_next_id' => $group->id + 2,
-            'slug' => 'contract-type',
-            'name' => 'Contract type',
-            'order' => 3
-        ]);
-
-        $group = factory(App\QuestionGroup::class)->create([
-            'question_section_id' => $sections->where('slug', 'employment-details')->first()->id,
-            'group_previous_id' => $group->id,
-            'group_next_id' => $group->id + 2,
-            'slug' => 'zero-hours-contract-details',
-            'name' => 'Zero hours contract details',
-            'order' => 4
-        ]);
-
-        $group = factory(App\QuestionGroup::class)->create([
-            'question_section_id' => $sections->where('slug', 'employment-details')->first()->id,
-            'group_previous_id' => $group->id,
-            'group_next_id' => $group->id + 2,
-            'slug' => 'pay-and-hours',
-            'name' => 'Pay and hours',
-            'order' => 5
-        ]);
-
+        
         $group = factory(App\QuestionGroup::class)->create([
             'question_section_id' => $sections->where('slug', 'learning-development')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
             'slug' => 'care-certificate',
-            'name' => 'Care certificate',
-            'order' => 1
-        ]);
-
-        $group = factory(App\QuestionGroup::class)->create([
-            'question_section_id' => $sections->where('slug', 'learning-development')->first()->id,
-            'group_previous_id' => $group->id,
-            'group_next_id' => $group->id + 2,
-            'slug' => 'apprenticeship',
-            'name' => 'Apprenticeship',
-            'order' => 2
-        ]);
-
-        $group = factory(App\QuestionGroup::class)->create([
-            'question_section_id' => $sections->where('slug', 'learning-development')->first()->id,
-            'group_previous_id' => $group->id,
-            'group_next_id' => $group->id + 2,
-            'slug' => 'social-care-qualifications',
-            'name' => 'Social care qualifications',
-            'order' => 3
-        ]);
-
-        $group = factory(App\QuestionGroup::class)->create([
-            'question_section_id' => $sections->where('slug', 'learning-development')->first()->id,
-            'group_previous_id' => $group->id,
-            'group_next_id' => $group->id + 2,
-            'slug' => 'other-qualifications',
-            'name' => 'Other qualifications',
+            'name' => 'Care Certificate',
             'order' => 4
+        ]);
+
+        $group = factory(App\QuestionGroup::class)->create([
+            'question_section_id' => $sections->where('slug', 'learning-development')->first()->id,
+            'group_previous_id' => $group->id,
+            'group_next_id' => $group->id + 2,
+            'slug' => 'qualifications',
+            'name' => 'Qualifications',
+            'order' => 5
         ]);
 
         factory(App\QuestionGroup::class)->create([
@@ -138,7 +93,7 @@ class QuestionGroupSeeder extends Seeder
             'group_next_id' => null,
             'slug' => 'training',
             'name' => 'Training',
-            'order' => 1
+            'order' => 6
         ]);
     }
 }
