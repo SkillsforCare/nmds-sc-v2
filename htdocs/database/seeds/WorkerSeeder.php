@@ -45,7 +45,7 @@ class WorkerSeeder extends Seeder
             // Job
             $jobrole = $questions->where('field', 'MAINJOBROLE')->first();
 
-            $job = collect($jobrole->options)->random();
+            $job = collect($jobrole->options)->where('value', '!=', null)->random();
 
             $job = app(WorkerQuestionAnswer::class)->create([
                 'question_id' => $jobrole->id,

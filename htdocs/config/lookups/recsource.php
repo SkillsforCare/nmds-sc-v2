@@ -11,4 +11,4 @@ return [[ 'text' => 'Adult social care - local authority', 'value' => 1],
     [ 'text' => 'Not in employment', 'value' => 10],
     [ 'text' => 'Graduate', 'value' => 18],
     [ 'text' => 'Other describe (outside adult social care)', 'value' => 15],
-    [ 'text' => 'Not known', 'value' => 16]];
+    [ 'text' => 'Don\'t know, 'value' => 16]];

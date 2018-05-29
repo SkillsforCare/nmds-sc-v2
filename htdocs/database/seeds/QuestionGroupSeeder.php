@@ -19,9 +19,24 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => null,
             'group_next_id' => 2,
+            'slug' => 'basic-details',
+            'name' => 'Basic details',
+            'order' => 1
+        ]);
+
+        $group = factory(App\QuestionGroup::class)->create([
+            'id' => 1,
+            'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
+            'group_previous_id' => null,
+            'group_next_id' => 2,
             'slug' => 'personal-details',
+<<<<<<< HEAD
             'name' => 'Personal Details',
             'order' => 1
+=======
+            'name' => 'Personal details',
+            'order' => 2
+>>>>>>> 0834d76d734f0cb14f654c0baffd3e122859648d
         ]);
 
         $group = factory(App\QuestionGroup::class)->create([
@@ -30,15 +45,6 @@ class QuestionGroupSeeder extends Seeder
             'group_next_id' => $group->id + 2,
             'slug' => 'identity',
             'name' => 'Identity',
-            'order' => 2
-        ]);
-
-        $group = factory(App\QuestionGroup::class)->create([
-            'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
-            'group_previous_id' => $group->id,
-            'group_next_id' => $group->id + 2,
-            'slug' => 'ethnicity',
-            'name' => 'Ethnicity',
             'order' => 3
         ]);
 
@@ -46,9 +52,30 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
+<<<<<<< HEAD
+            'slug' => 'ethnicity',
+            'name' => 'Ethnicity',
+            'order' => 3
+=======
+            'slug' => 'nationality',
+            'name' => 'Nationality',
+            'order' => 4
+>>>>>>> 0834d76d734f0cb14f654c0baffd3e122859648d
+        ]);
+
+        $group = factory(App\QuestionGroup::class)->create([
+            'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
+            'group_previous_id' => $group->id,
+            'group_next_id' => $group->id + 2,
+<<<<<<< HEAD
             'slug' => 'born-in-uk',
             'name' => 'Born in UK',
             'order' => 4
+=======
+            'slug' => 'place-of-birth',
+            'name' => 'Place of birth',
+            'order' => 5
+>>>>>>> 0834d76d734f0cb14f654c0baffd3e122859648d
         ]);
 
         $group = factory(App\QuestionGroup::class)->create([

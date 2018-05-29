@@ -255,4 +255,5 @@ return [[ 'text' => 'Afghanistan', 'value' => 4],
 [ 'text' => 'Western Sahara', 'value' => 732],
 [ 'text' => 'Yemen', 'value' => 887],
 [ 'text' => 'Zambia', 'value' => 894],
-[ 'text' => 'Zimbabwe', 'value' => 716]];
+[ 'text' => 'Zimbabwe', 'value' => 716]
+[ 'text' => 'Don\'t know', 'value' => 999]];
