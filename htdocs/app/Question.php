@@ -27,6 +27,11 @@ class Question extends Model
 
     public function getOptionsAttribute()
     {
+        if($this->field_type === 'select')
+            return array_values(array_sort(config('lookups.' . strtolower($this->field), null), function($value){
+                return $value['text'];
+            }));
+
         return config('lookups.' . strtolower($this->field), null);
     }
 
