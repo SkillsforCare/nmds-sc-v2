@@ -65,7 +65,7 @@ class WorkerQuestionSeeder extends Seeder
             'question_group_id' => $groups->where('slug', 'basic-details')->first()->id,
             'number' => '32',
             'label' => 'NI Number',
-            'question' => 'What is the national insurance number of this worker?',
+            'question' => 'What is their national insurance number?',
             'help_text' => null,
             'field' => 'NINUMBER',
             'field_type' => 'text',
