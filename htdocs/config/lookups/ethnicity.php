@@ -18,4 +18,4 @@ return [[ 'text' => 'English/Welsh/scottish/Northern Irish/British', 'value' => 
     [ 'text' => 'Any other Black/African/Carribean background', 'value' => 46],
     [ 'text' => 'Arab', 'value' => 47],
     [ 'text' => 'Any other ethnic group', 'value' => 98],
-    [ 'text' => 'Not known', 'value' => 99]];
+    [ 'text' => 'Don\'t know', 'value' => 99]];

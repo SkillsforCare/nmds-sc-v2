@@ -19,9 +19,19 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => null,
             'group_next_id' => 2,
+            'slug' => 'basic-details',
+            'name' => 'Basic details',
+            'order' => 1
+        ]);
+
+        $group = factory(App\QuestionGroup::class)->create([
+            'id' => 1,
+            'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
+            'group_previous_id' => null,
+            'group_next_id' => 2,
             'slug' => 'personal-details',
             'name' => 'Personal details',
-            'order' => 1
+            'order' => 2
         ]);
 
         $group = factory(App\QuestionGroup::class)->create([
@@ -30,7 +40,7 @@ class QuestionGroupSeeder extends Seeder
             'group_next_id' => $group->id + 2,
             'slug' => 'identity',
             'name' => 'Identity',
-            'order' => 2
+            'order' => 3
         ]);
 
         $group = factory(App\QuestionGroup::class)->create([
@@ -39,7 +49,7 @@ class QuestionGroupSeeder extends Seeder
             'group_next_id' => $group->id + 2,
             'slug' => 'nationality',
             'name' => 'Nationality',
-            'order' => 3
+            'order' => 4
         ]);
 
         $group = factory(App\QuestionGroup::class)->create([
@@ -48,7 +58,7 @@ class QuestionGroupSeeder extends Seeder
             'group_next_id' => $group->id + 2,
             'slug' => 'place-of-birth',
             'name' => 'Place of birth',
-            'order' => 4
+            'order' => 5
         ]);
 
         $group = factory(App\QuestionGroup::class)->create([
