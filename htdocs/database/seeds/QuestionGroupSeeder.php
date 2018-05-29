@@ -19,8 +19,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => null,
             'group_next_id' => 2,
-            'slug' => 'basic-details',
-            'name' => 'Basic Details',
+            'slug' => 'personal-details',
+            'name' => 'Personal Details',
             'order' => 1
         ]);
 
@@ -28,8 +28,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'disability',
-            'name' => 'Disability',
+            'slug' => 'identity',
+            'name' => 'Identity',
             'order' => 2
         ]);
 

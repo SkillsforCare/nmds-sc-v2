@@ -2884,6 +2884,14 @@ input[type=number] {
           align-items: center;
 }
 
+.f-select-search .multiselect__input {
+  width: 95%;
+}
+
+.f-select-search .multiselect__element {
+  cursor: pointer;
+}
+
 .status-tag {
   font-size: 14px;
   color: #fff;
