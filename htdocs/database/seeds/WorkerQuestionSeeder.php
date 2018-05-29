@@ -29,7 +29,7 @@ class WorkerQuestionSeeder extends Seeder
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'basic-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'personal-details')->first()->id,
             'number' => '31',
             'label' => 'Name / Worker ID',
             'question' => 'Please provide an identifier for this worker.',
@@ -46,7 +46,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'basic-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'personal-details')->first()->id,
             'number' => '56-1',
             'label' => 'Parental Leave',
             'question' => 'Is this worker on parental leave?',
@@ -62,7 +62,7 @@ class WorkerQuestionSeeder extends Seeder
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'basic-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'personal-details')->first()->id,
             'number' => '32',
             'label' => 'NI Number',
             'question' => 'What is their national insurance number?',
@@ -78,7 +78,7 @@ class WorkerQuestionSeeder extends Seeder
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'basic-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'personal-details')->first()->id,
             'number' => '33',
             'label' => 'Postcode',
             'question' => 'What is the home postcode of this worker?',
@@ -94,7 +94,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'basic-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'personal-details')->first()->id,
             'number' => '34',
             'label' => 'Date of Birth',
             'question' => 'What is the date of birth of this worker?',
@@ -110,7 +110,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'basic-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'identity')->first()->id,
             'number' => '35',
             'label' => 'Gender Identity',
             'question' => 'What is the gender identity of this worker?',
@@ -118,7 +118,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'GENDER',
             'field_type' => 'radio-list',
             'validation' => 'nullable',
-            'order' => 6,
+            'order' => 1,
             'hidden_at' => null
         ]);
 
@@ -126,7 +126,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'disability')->first()->id,
+            'question_group_id' => $groups->where('slug', 'identity')->first()->id,
             'number' => '36',
             'label' => 'Disability Identification',
             'question' => 'Has this worker identified as having a disability?',
@@ -134,7 +134,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'DISABLED',
             'field_type' => 'radio-list',
             'validation' => 'nullable',
-            'order' => 7,
+            'order' => 2,
             'hidden_at' => null
         ]);
 
@@ -142,7 +142,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'ethnicity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'identity')->first()->id,
             'number' => '37',
             'label' => 'Ethnic Identity',
             'question' => 'What is the ethnic identity of this worker?',
@@ -150,7 +150,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'ETHNICITY',
             'field_type' => 'select',
             'validation' => 'nullable',
-            'order' => 8,
+            'order' => 3,
             'hidden_at' => null
         ]);
 
@@ -158,7 +158,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'ethnicity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'nationality')->first()->id,
             'number' => '38',
             'label' => 'Nationality',
             'question' => 'What is the nationality of this worker?',
@@ -166,7 +166,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NATIONALITY',
             'field_type' => 'radio-list',
             'validation' => 'nullable',
-            'order' => 9,
+            'order' => 1,
             'hidden_at' => null
         ]);
 
@@ -174,7 +174,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'ethnicity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'nationality')->first()->id,
             'number' => '39',
             'label' => 'British Citizenship?',
             'question' => 'Does this worker hold British citizenship?',
@@ -182,7 +182,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'BRITISHCITIZENSHIP',
             'field_type' => 'radio-list',
             'validation' => 'nullable',
-            'order' => 10,
+            'order' => 2,
             'hidden_at' => $now
         ]);
 
@@ -190,7 +190,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'ethnicity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'nationality')->first()->id,
             'number' => '40',
             'label' => 'Nationality (not British)',
             'question' => 'If not British, what is this worker\'s nationality?',
@@ -198,7 +198,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NATIONALITY-1',
             'field_type' => 'select',
             'validation' => 'nullable',
-            'order' => 11,
+            'order' => 3,
             'hidden_at' => $now
         ]);
 
@@ -206,7 +206,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'born-in-uk')->first()->id,
+            'question_group_id' => $groups->where('slug', 'place-of-birth')->first()->id,
             'number' => '41',
             'label' => 'Born in UK?',
             'question' => 'Was this worker born in the UK?',
@@ -214,7 +214,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'COUNTRYOFBIRTH',
             'field_type' => 'radio-list',
             'validation' => 'nullable',
-            'order' => 12,
+            'order' => 1,
             'hidden_at' => $now
         ]);
 
@@ -222,7 +222,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'born-in-uk')->first()->id,
+            'question_group_id' => $groups->where('slug', 'place-of-birth')->first()->id,
             'number' => '42',
             'label' => 'Country of Birth',
             'question' => 'What country was this worker born in?',
@@ -230,7 +230,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'COUNTRYOFBIRTH-1',
             'field_type' => 'select',
             'validation' => 'nullable',
-            'order' => 13,
+            'order' => 2,
             'hidden_at' => $now
         ]);
 
@@ -238,7 +238,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'born-in-uk')->first()->id,
+            'question_group_id' => $groups->where('slug', 'place-of-birth')->first()->id,
             'number' => '43',
             'label' => 'Arrived in UK',
             'question' => 'What year did this worker arrive in the UK?',
@@ -246,7 +246,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'YEAROFENTRY',
             'field_type' => 'text',
             'validation' => 'nullable',
-            'order' => 14,
+            'order' => 3,
             'hidden_at' => $now
         ]);
 
@@ -258,7 +258,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'ethnicity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'contract-type')->first()->id,
             'number' => '44',
             'label' => 'Employment Status',
             'question' => 'What is the employment status of this worker?',
@@ -266,7 +266,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'EMPLSTATUS',
             'field_type' => 'select',
             'validation' => 'nullable',
-            'order' => 1,
+            'order' => 2,
             'hidden_at' => null
         ]);
 
@@ -274,7 +274,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'contract-type')->first()->id,
             'number' => '45',
             'label' => 'Date started main job',
             'question' => 'Date the worker started in their main job.',
@@ -282,7 +282,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'STARTDATE',
             'field_type' => 'date',
             'validation' => 'nullable',
-            'order' => 2,
+            'order' => 3,
             'hidden_at' => null
         ]);
 
@@ -290,7 +290,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'experience')->first()->id,
             'number' => '46',
             'label' => 'Recruited from',
             'question' => 'Where was this worker recruited from?',
@@ -306,7 +306,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'experience')->first()->id,
             'number' => '47',
             'label' => 'Date started in the adult social care sector',
             'question' => 'When did this worker start working in the adult social care sector?',
@@ -314,7 +314,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'STARTINSECT',
             'field_type' => 'date',
             'validation' => 'nullable',
-            'order' => 4,
+            'order' => 1,
             'hidden_at' => null
         ]);
 
@@ -323,7 +323,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'contract-type')->first()->id,
             'number' => '48',
             'label' => 'Main Job Role',
             'question' => 'What is the main job role of this worker?',
@@ -331,7 +331,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'MAINJOBROLE',
             'field_type' => 'select',
             'validation' => 'required',
-            'order' => 5,
+            'order' => 1,
             'hidden_at' => null,
             'mandatory_at' => $now
         ]);
@@ -340,7 +340,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'contract-type')->first()->id,
             'number' => '49',
             'label' => 'Additional Job Roles',
             'question' => 'Does this worker have any additional job roles?',
@@ -348,7 +348,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'OTHERJOBROLE',
             'field_type' => 'select',
             'validation' => 'nullable',
-            'order' => 6,
+            'order' => 4,
             'hidden_at' => null
         ]);
 
@@ -356,7 +356,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'contract-type')->first()->id,
             'number' => '50',
             'label' => 'Zero-hours contract',
             'question' => 'Is this worker on a zero-hours contract?',
@@ -364,7 +364,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'ZEROHRCONT',
             'field_type' => 'radio-list',
             'validation' => 'nullable',
-            'order' => 7,
+            'order' => 6,
             'hidden_at' => null
         ]);
 
@@ -372,7 +372,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'pay-and-hours')->first()->id,
             'number' => '51',
             'label' => 'Hours contracted to work per week',
             'question' => 'How many hours is this worker contracted to work per week?',
@@ -380,7 +380,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'CONTHOURS',
             'field_type' => 'text',
             'validation' => 'nullable',
-            'order' => 8,
+            'order' => 1,
             'hidden_at' => null
         ]);
 
@@ -388,7 +388,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'pay-and-hours')->first()->id,
             'number' => '52',
             'label' => 'Additional hours last week',
             'question' => 'What additional hours did this worker complete in the last week?',
@@ -396,7 +396,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'ADDLHOURS',
             'field_type' => 'text',
             'validation' => 'nullable',
-            'order' => 9,
+            'order' => 2,
             'hidden_at' => null
         ]);
 
@@ -404,7 +404,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'zero-hours-contract-details')->first()->id,
             'number' => '52-1',
             'label' => 'Average hours per week',
             'question' => 'What are the average hours per week for this worker?',
@@ -412,7 +412,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'AVHOURS',
             'field_type' => 'text',
             'validation' => 'nullable',
-            'order' => 10,
+            'order' => 1,
             'hidden_at' => null
         ]);
 
@@ -420,7 +420,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'employment-status')->first()->id,
+            'question_group_id' => $groups->where('slug', 'contract-type')->first()->id,
             'number' => '53',
             'label' => 'Employment Status',
             'question' => 'This worker is:',
@@ -428,7 +428,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'FULLTIME',
             'field_type' => 'radio-list',
             'validation' => 'nullable',
-            'order' => 11,
+            'order' => 5,
             'hidden_at' => null
         ]);
 
@@ -436,7 +436,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'pay')->first()->id,
+            'question_group_id' => $groups->where('slug', 'pay-and-hours')->first()->id,
             'number' => '54',
             'label' => 'Salary interval',
             'question' => 'How would you like to record this worker\'s pay?',
@@ -452,7 +452,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'pay')->first()->id,
+            'question_group_id' => $groups->where('slug', 'pay-and-hours')->first()->id,
             'number' => '55',
             'label' => 'Salary / Hourly rate',
             'question' => 'Please enter this worker\'s (annual salary/hourly rate):',
@@ -460,7 +460,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'SALARY',
             'field_type' => 'text',
             'validation' => 'nullable',
-            'order' => 13,
+            'order' => 3,
             'hidden_at' => null
         ]);
 
@@ -468,7 +468,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
-            'question_group_id' => $groups->where('slug', 'pay')->first()->id,
+            'question_group_id' => $groups->where('slug', 'sick-leave')->first()->id,
             'number' => '56',
             'label' => 'Days sick in the last 12 months',
             'question' => 'How many sickness days has this worker taken in the last 12 months?',
@@ -476,7 +476,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'DAYSSICK',
             'field_type' => 'text',
             'validation' => 'nullable',
-            'order' => 14,
+            'order' => 1,
             'hidden_at' => null
         ]);
 
@@ -521,7 +521,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $learning->id,
-            'question_group_id' => $groups->where('slug', 'qualifications')->first()->id,
+            'question_group_id' => $groups->where('slug', 'social-care-qualifications')->first()->id,
             'number' => '62',
             'label' => 'Qualification relevant to social care',
             'question' => 'Does this worker hold a qualification relevant to social care?',
@@ -529,7 +529,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'SCQUAL',
             'field_type' => 'select',
             'validation' => 'nullable',
-            'order' => 3,
+            'order' => 1,
             'hidden_at' => null
         ]);
 
@@ -537,7 +537,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $learning->id,
-            'question_group_id' => $groups->where('slug', 'qualifications')->first()->id,
+            'question_group_id' => $groups->where('slug', 'social-care-qualifications')->first()->id,
             'number' => '63',
             'label' => 'Highest social care qualification',
             'question' => 'What is their highest level of social care qualification?',
@@ -545,7 +545,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'SCQUAL-1',
             'field_type' => 'select',
             'validation' => 'nullable',
-            'order' => 4,
+            'order' => 2,
             'hidden_at' => $now
         ]);
 
@@ -553,7 +553,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $learning->id,
-            'question_group_id' => $groups->where('slug', 'qualifications')->first()->id,
+            'question_group_id' => $groups->where('slug', 'other-qualifications')->first()->id,
             'number' => '64',
             'label' => 'Non-social care qualifications',
             'question' => 'Does this worker hold any non-social care qualifications?',
@@ -561,7 +561,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NONSCQUAL',
             'field_type' => 'radio-list',
             'validation' => 'nullable',
-            'order' => 5,
+            'order' => 1,
             'hidden_at' => null
         ]);
 
@@ -569,7 +569,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $learning->id,
-            'question_group_id' => $groups->where('slug', 'qualifications')->first()->id,
+            'question_group_id' => $groups->where('slug', 'other-qualifications')->first()->id,
             'number' => '65',
             'label' => 'Highest non-social care qualification?',
             'question' => 'What is their highest level of non-social care qualification?',
@@ -577,7 +577,7 @@ class WorkerQuestionSeeder extends Seeder
             'field' => 'NONSCQUAL-1',
             'field_type' => 'select',
             'validation' => 'nullable',
-            'order' => 6,
+            'order' => 2,
             'hidden_at' => $now
         ]);
 

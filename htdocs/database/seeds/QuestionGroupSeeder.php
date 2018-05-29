@@ -28,8 +28,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'personal-information',
-            'name' => 'Personal information',
+            'slug' => 'identity',
+            'name' => 'Identity',
             'order' => 2
         ]);
 
