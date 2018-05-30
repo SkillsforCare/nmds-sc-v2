@@ -64,7 +64,7 @@ class WorkerQuestionSeeder extends Seeder
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'personal-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'personal-information')->first()->id,
             'number' => '32',
             'label' => 'NI Number',
             'question' => 'What\'s their national insurance number?',
@@ -80,7 +80,7 @@ class WorkerQuestionSeeder extends Seeder
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'personal-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'personal-information')->first()->id,
             'number' => '33',
             'label' => 'Postcode',
             'question' => 'What\'s their home postcode?',
@@ -96,7 +96,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'personal-details')->first()->id,
+            'question_group_id' => $groups->where('slug', 'personal-information')->first()->id,
             'number' => '34',
             'label' => 'Date of Birth',
             'question' => 'What\'s their date of birth?',
@@ -351,8 +351,7 @@ class WorkerQuestionSeeder extends Seeder
             'field_type' => 'select',
             'validation' => 'nullable',
             'order' => 3,
-            'hidden_at' => null,
-            'mandatory_at' => $now
+            'hidden_at' => null
         ]);
 
         // 50.
@@ -520,6 +519,22 @@ class WorkerQuestionSeeder extends Seeder
             'validation' => 'nullable|date',
             'order' => 2,
             'hidden_at' => $now
+        ]);
+
+        // 61.
+        factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $learning->id,
+            'question_group_id' => $groups->where('slug', 'apprenticeship')->first()->id,
+            'number' => '61',
+            'label' => 'Apprenticeship',
+            'question' => 'Are they doing training as part of an apprenticeship?',
+            'help_text' => null,
+            'field' => 'APPRENTICE',
+            'field_type' => 'radio-list',
+            'validation' => 'nullable',
+            'order' => 1,
+            'hidden_at' => null
         ]);
 
         // 62.
