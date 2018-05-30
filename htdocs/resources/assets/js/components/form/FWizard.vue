@@ -4,7 +4,7 @@
 
             <div class="f-section" v-for="section in d_questions">
                 <h2>{{ section.name }}</h2>
-                <ul v-if="section.groups[0].name !== section.name">
+                <ul>
                     <li v-for="group in section.groups">
                         <span v-if="!group.selected"><a href="#" @click.prevent="selectGroup(group)">{{ group.name }}</a></span>
                         <span v-else><strong>{{ group.name }}</strong></span>
@@ -160,7 +160,7 @@
             },
 
             defaultGroup() {
-                let group = this.flat_groups.filter(x => x.name === 'Basic Details')[0]
+                let group = this.flat_groups.filter(x => x.name === 'Basic details')[0]
                 group.selected = true
                 this.selected_group = group
             },

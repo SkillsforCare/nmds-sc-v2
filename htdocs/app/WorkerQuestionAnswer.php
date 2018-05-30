@@ -39,7 +39,9 @@ class WorkerQuestionAnswer extends Model
 
         $text = $data['answer'];
 
-        if ($question->field_type === 'select' or $question->field_type === 'radio-list') {
+        if ($question->field_type === 'select' or
+            $question->field_type === 'select-search' or
+            $question->field_type === 'radio-list' ) {
             $text = collect(config('lookups.' . strtolower($question->field)))
                 ->where('value', $data['answer'])
                 ->first()['text'];

@@ -28,11 +28,9 @@ class Question extends Model
     public function getOptionsAttribute()
     {
         if($this->field_type === 'select')
-            return array_values(array_sort(config('lookups.' . strtolower($this->field), null), function($value){
-                return $value['text'];
-            }));
+            return array_merge([[ 'text' => 'Please select', 'value' => null ]], config('lookups.' . strtolower($this->field), null));
 
-        return config('lookups.' . strtolower($this->field), null);
+        return config('lookups.' . strtolower($this->field));
     }
 
     public function scopeInCategory($query, $category)

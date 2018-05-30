@@ -15,7 +15,7 @@
         <div class="header-proposition">
             <div class="content">
                 <nav id="proposition-menu">
-                    <a href="{{ route('pages.home') }}" id="proposition-name">{{ config('app.short_name') }}</a>
+                    <a href="{{ route('pages.home') }}" id="proposition-name">{{ config('app.short_name') }}NMD</a>
                     <div style="display: flex; justify-content: space-between;">
                         <ul id="proposition-links">
                         <li><a href="{{ route('pages.about') }}">About</a></li>

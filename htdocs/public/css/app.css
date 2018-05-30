@@ -2831,6 +2831,7 @@ input[type=number] {
 
 .f-wizard .f-navigation {
   margin-right: 60px;
+  width: 200px;
 }
 
 .f-wizard .f-navigation .f-section {
@@ -2882,6 +2883,23 @@ input[type=number] {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.f-select-search .multiselect__input {
+  width: 95%;
+}
+
+.f-select-search .multiselect__element {
+  cursor: pointer;
+}
+
+.f-select-search .multiselect__element:hover {
+  background-color: #bfc1c3;
+}
+
+.f-select-search .multiselect__content-wrapper {
+  overflow: hidden;
+  width: 700px;
 }
 
 .status-tag {

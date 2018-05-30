@@ -23,7 +23,9 @@
         "popper.js": "^1.12",
         "tailwindcss": "^0.5.2",
         "vue": "^2.5.7",
-        "vue-form-wizard": "^0.8.4"
+        "vue-form-wizard": "^0.8.4",
+        "vue-multiselect": "^2.1.0",
+        "vue-select": "^2.4.0"
     },
     "dependencies": {
         "es6-promise": "^4.2.4",
