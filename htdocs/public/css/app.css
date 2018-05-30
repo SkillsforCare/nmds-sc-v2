@@ -2930,6 +2930,12 @@ input[type=number] {
           justify-content: flex-end;
 }
 
+.s-justify-between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .site-wrapper {
   max-width: 960px;
   margin: 0 auto;

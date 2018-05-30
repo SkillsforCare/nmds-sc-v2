@@ -351,7 +351,8 @@ class WorkerQuestionSeeder extends Seeder
             'field_type' => 'select',
             'validation' => 'nullable',
             'order' => 3,
-            'hidden_at' => null
+            'hidden_at' => null,
+            'mandatory_at' => $now
         ]);
 
         // 50.

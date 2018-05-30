@@ -3,22 +3,22 @@
         <div class="f-navigation">
 
             <div class="f-section" v-for="section in d_questions">
-                <h2>{{ section.name }}</h2>
+                <h2 name>{{ section.name }}</h2>
                 <ul>
                     <li v-for="group in section.groups">
-                        <span v-if="!group.selected"><a href="#" @click.prevent="selectGroup(group)">{{ group.name }}</a></span>
+                        <span v-if="!group.selected"><a :href="'#' + group.slug" @click="selectGroup(group)">{{ group.name }}</a></span>
                         <span v-else><strong>{{ group.name }}</strong></span>
                     </li>
                 </ul>
             </div>
 
             <div class="f-section">
-                <h2><a href="#">Summary</a></h2>
+                <h2><a href="#" @click.prevent="showSummary()">Summary</a></h2>
             </div>
         </div>
         <div class="f-content">
             <div v-for="section in d_questions">
-                <div v-if="group.selected" v-for="group in section.groups">
+                <div v-if="group.selected" v-for="group in section.groups" :id="group.slug">
                     <div v-if="started" class="f-header">
                         <h3 class="heading-medium">{{ section.name }} <small v-if="group.location">({{ group.location }})</small></h3>
                         <small v-if="group.name !== section.name">{{ group.name }}</small>
@@ -31,7 +31,8 @@
                                 v-model="question.answer.answer"
                                 :field="question.field"
                                 :type="question.field_type"
-                                :options="question.options" help_text=""
+                                :help_text="question.help_text"
+                                :options="question.options"
                                 :error="question.error"
                                 @updated="fieldUpdated(question, $event)"
                             />
@@ -40,20 +41,26 @@
                         </div>
                     </div>
                     <div class="f-footer">
-                        <div v-if="started">
-                            <a href="" v-if="group.prev_group" @click.prevent="prevGroup(group)" >Prev</a>
-                    &nbsp;   </div>
-                        <div v-if="started">
-                            <a href="" @click.prevent="saveProgress">Save progress</a>
-                            <button class="button" v-if="group.next_group" @click.prevent="nextGroup(group)">Next</button>
-                        </div>
+                        <a href="#" v-if="group.prev_group" @click="prevGroup(group)">Back</a>
+                        <a v-else >Back</a>
+                        <a href="#" @click.prevent="saveProgress">Save progress</a>
+                        <a href="#" class="button" v-if="group.next_group" @click.prevent="nextGroup(group)">Next</a>
+                        <a href="#" class="button" v-if="group.next_group === null" @click.prevent="showSummary">Next</a>
                     </div>
                 </div>
             </div>
 
-            <div v-if="false">
-                asd
-                <question-index :questions="summary"></question-index>
+            <div v-if="show_summary">
+
+                <div v-if="started" class="f-header">
+                    <h3 class="heading-medium">Summary</h3>
+                </div>
+                <div class="f-form">
+                    <question-index :questions="summary" :show_labels="true" :show_change="false"></question-index>
+                </div>
+                <div class="f-footer">
+                    <button class="button" @click.prevent="finishWizard">Finish</button>
+                </div>
             </div>
         </div>
 
@@ -80,6 +87,7 @@
                 },
                 started: true,
                 d_questions: [],
+                show_summary: false
             }
         },
         mounted() {
@@ -95,7 +103,7 @@
 
                 sections.forEach(function(section) {
                     section.groups.forEach(function(group) {
-                        flat_array[section.name] = group.questions
+                        flat_array[section.name + ' - ' + group.name] = group.questions
                     })
                 });
 
@@ -160,7 +168,7 @@
             },
 
             defaultGroup() {
-                let group = this.flat_groups.filter(x => x.name === 'Basic details')[0]
+                let group = this.flat_groups.filter(x => x.name === 'Personal details')[0]
                 group.selected = true
                 this.selected_group = group
             },
@@ -193,6 +201,13 @@
                     group.selected = false
 
                 this.selected_group = null
+
+                this.show_summary = false
+            },
+
+            showSummary() {
+                this.resetGroups();
+                this.show_summary = true
             },
 
             fieldUpdated(question, event) {
@@ -201,14 +216,24 @@
             },
 
             saveProgress() {
-                axios
+                let saved = axios
                     .put('/api/question_answers_bulk/' + this.worker_id + '/update', this.flat_questions)
                     .then((data) => {
                         this.reassignQuestions(data.data)
+                        return true;
                     })
                     .catch((error) => {
                         console.log(error)
+                        return false;
                     });
+            },
+
+            finishWizard() {
+                axios
+                    .post('/api/finish_create_worker_wizard', { 'worker_id': this.worker_id })
+                    .then((data) => {
+                        console.log(data.data)
+                    })
             },
 
             reassignQuestions(questions) {
