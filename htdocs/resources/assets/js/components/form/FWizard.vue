@@ -13,7 +13,10 @@
             </div>
 
             <div class="f-section">
-                <h2><a href="#" @click.prevent="showSummary()">Summary</a></h2>
+                <h2>
+                    <a href="#" v-if="!show_summary" @click.prevent="showSummary()">Summary</a>
+                    <a v-else >Summary</a>
+                </h2>
             </div>
         </div>
         <div class="f-content">
@@ -59,6 +62,7 @@
                     <question-index :questions="summary" :show_labels="true" :show_change="false"></question-index>
                 </div>
                 <div class="f-footer">
+                    <a href="#" @click="lastGroup">Back</a>
                     <button class="button" @click.prevent="finishWizard">Finish</button>
                 </div>
             </div>
@@ -168,7 +172,7 @@
             },
 
             defaultGroup() {
-                let group = this.flat_groups.filter(x => x.name === 'Personal details')[0]
+                let group = this.flat_groups.filter(x => x.name === 'Personal information')[0]
                 group.selected = true
                 this.selected_group = group
             },
@@ -183,6 +187,12 @@
             prevGroup(current) {
                 current.selected = false
                 let group = this.flat_groups.filter(x => x.id === current.prev_group)[0]
+                group.selected = true
+                this.selected_group = group
+            },
+
+            lastGroup() {
+                let group = this.flat_groups[this.flat_groups.length - 1];
                 group.selected = true
                 this.selected_group = group
             },
