@@ -2598,6 +2598,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-wizard',
@@ -2692,7 +2696,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         defaultGroup: function defaultGroup() {
             var group = this.flat_groups.filter(function (x) {
-                return x.name === 'Personal details';
+                return x.name === 'Personal information';
             })[0];
             group.selected = true;
             this.selected_group = group;
@@ -2710,6 +2714,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var group = this.flat_groups.filter(function (x) {
                 return x.id === current.prev_group;
             })[0];
+            group.selected = true;
+            this.selected_group = group;
+        },
+        lastGroup: function lastGroup() {
+            var group = this.flat_groups[this.flat_groups.length - 1];
             group.selected = true;
             this.selected_group = group;
         },
@@ -48826,19 +48835,21 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "f-section" }, [
           _c("h2", [
-            _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.showSummary()
-                  }
-                }
-              },
-              [_vm._v("Summary")]
-            )
+            !_vm.show_summary
+              ? _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.showSummary()
+                      }
+                    }
+                  },
+                  [_vm._v("Summary")]
+                )
+              : _c("a", [_vm._v("Summary")])
           ])
         ])
       ],
@@ -49019,6 +49030,12 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "f-footer" }, [
+                _c(
+                  "a",
+                  { attrs: { href: "#" }, on: { click: _vm.lastGroup } },
+                  [_vm._v("Back")]
+                ),
+                _vm._v(" "),
                 _c(
                   "button",
                   {
