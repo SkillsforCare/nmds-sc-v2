@@ -49396,7 +49396,7 @@ var render = function() {
     [
       _c(
         "fieldset",
-        { staticClass: "inline" },
+        { class: { inline: _vm.options.length < 3 } },
         [
           _c("legend", [
             _c("span", { staticClass: "form-label-bold" }, [
