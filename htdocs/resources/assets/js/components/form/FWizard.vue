@@ -1,5 +1,8 @@
 <template>
     <div class="f-wizard">
+
+        <f-alert></f-alert>
+
         <div class="f-navigation">
 
             <div class="f-section" v-for="section in d_questions">
