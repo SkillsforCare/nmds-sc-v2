@@ -26,10 +26,17 @@ class QuestionGroupSeeder extends Seeder
 
         $group = factory(App\QuestionGroup::class)->create([
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
+<<<<<<< HEAD
             'group_previous_id' => null,
             'group_next_id' => 2,
             'slug' => 'personal-information',
             'name' => 'Personal information',
+=======
+            'group_previous_id' => 1,
+            'group_next_id' => $group->id + 2,
+            'slug' => 'personal-details',
+            'name' => 'Personal details',
+>>>>>>> bf7e58f994d98a89a50d6fc3e0c4951ecdc7808f
             'order' => 2
         ]);
 

@@ -1,6 +1,6 @@
 <template>
     <div class="form-group" :class="{ 'form-group-error': error }">
-        <fieldset class="inline">
+        <fieldset :class="{ inline: options.length < 3 }">
             <legend>
                 <span class="form-label-bold">
                 {{ label }}

@@ -1762,6 +1762,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'QuestionIndex',
@@ -1769,6 +1770,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         questions: {
             type: Object,
             required: true
+        },
+        show_labels: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        show_change: {
+            type: Boolean,
+            required: false,
+            default: true
         }
     },
     mounted: function mounted() {
@@ -2580,6 +2591,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-wizard',
@@ -2600,7 +2618,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 name: null
             },
             started: true,
-            d_questions: []
+            d_questions: [],
+            show_summary: false
         };
     },
     mounted: function mounted() {
@@ -2616,7 +2635,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             sections.forEach(function (section) {
                 section.groups.forEach(function (group) {
-                    flat_array[section.name] = group.questions;
+                    flat_array[section.name + ' - ' + group.name] = group.questions;
                 });
             });
 
@@ -2673,7 +2692,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         defaultGroup: function defaultGroup() {
             var group = this.flat_groups.filter(function (x) {
-                return x.name === 'Basic details';
+                return x.name === 'Personal details';
             })[0];
             group.selected = true;
             this.selected_group = group;
@@ -2708,6 +2727,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (group) group.selected = false;
 
             this.selected_group = null;
+
+            this.show_summary = false;
+        },
+        showSummary: function showSummary() {
+            this.resetGroups();
+            this.show_summary = true;
         },
         fieldUpdated: function fieldUpdated(question, event) {
             question.answer.answer = event.value;
@@ -2716,10 +2741,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         saveProgress: function saveProgress() {
             var _this = this;
 
-            axios.put('/api/question_answers_bulk/' + this.worker_id + '/update', this.flat_questions).then(function (data) {
+            var saved = axios.put('/api/question_answers_bulk/' + this.worker_id + '/update', this.flat_questions).then(function (data) {
                 _this.reassignQuestions(data.data);
+                return true;
             }).catch(function (error) {
                 console.log(error);
+                return false;
+            });
+        },
+        finishWizard: function finishWizard() {
+            axios.post('/api/finish_create_worker_wizard', { 'worker_id': this.worker_id }).then(function (data) {
+                console.log(data.data);
             });
         },
         reassignQuestions: function reassignQuestions(questions) {
@@ -48764,7 +48796,7 @@ var render = function() {
       [
         _vm._l(_vm.d_questions, function(section) {
           return _c("div", { staticClass: "f-section" }, [
-            _c("h2", [_vm._v(_vm._s(section.name))]),
+            _c("h2", { attrs: { name: "" } }, [_vm._v(_vm._s(section.name))]),
             _vm._v(" "),
             _c(
               "ul",
@@ -48775,10 +48807,9 @@ var render = function() {
                         _c(
                           "a",
                           {
-                            attrs: { href: "#" },
+                            attrs: { href: "#" + group.slug },
                             on: {
                               click: function($event) {
-                                $event.preventDefault()
                                 _vm.selectGroup(group)
                               }
                             }
@@ -48793,7 +48824,23 @@ var render = function() {
           ])
         }),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "f-section" }, [
+          _c("h2", [
+            _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.showSummary()
+                  }
+                }
+              },
+              [_vm._v("Summary")]
+            )
+          ])
+        ])
       ],
       2
     ),
@@ -48807,7 +48854,7 @@ var render = function() {
             "div",
             _vm._l(section.groups, function(group) {
               return group.selected
-                ? _c("div", [
+                ? _c("div", { attrs: { id: group.slug } }, [
                     _vm.started
                       ? _c("div", { staticClass: "f-header" }, [
                           _c("h3", { staticClass: "heading-medium" }, [
@@ -48836,8 +48883,8 @@ var render = function() {
                                 label: question.question,
                                 field: question.field,
                                 type: question.field_type,
+                                help_text: question.help_text,
                                 options: question.options,
-                                help_text: "",
                                 error: question.error
                               },
                               on: {
@@ -48877,59 +48924,67 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "f-footer" }, [
-                      _vm.started
-                        ? _c("div", [
-                            group.prev_group
-                              ? _c(
-                                  "a",
-                                  {
-                                    attrs: { href: "" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.prevGroup(group)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Prev")]
-                                )
-                              : _vm._e(),
-                            _vm._v("\n                    ")
-                          ])
+                      group.prev_group
+                        ? _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  _vm.prevGroup(group)
+                                }
+                              }
+                            },
+                            [_vm._v("Back")]
+                          )
+                        : _c("a", [_vm._v("Back")]),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.saveProgress($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Save progress")]
+                      ),
+                      _vm._v(" "),
+                      group.next_group
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "button",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.nextGroup(group)
+                                }
+                              }
+                            },
+                            [_vm._v("Next")]
+                          )
                         : _vm._e(),
                       _vm._v(" "),
-                      _vm.started
-                        ? _c("div", [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.saveProgress($event)
-                                  }
+                      group.next_group === null
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "button",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.showSummary($event)
                                 }
-                              },
-                              [_vm._v("Save progress")]
-                            ),
-                            _vm._v(" "),
-                            group.next_group
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass: "button",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.nextGroup(group)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Next")]
-                                )
-                              : _vm._e()
-                          ])
+                              }
+                            },
+                            [_vm._v("Next")]
+                          )
                         : _vm._e()
                     ])
                   ])
@@ -48938,31 +48993,54 @@ var render = function() {
           )
         }),
         _vm._v(" "),
-        false
-          ? _c(
-              "div",
-              [
-                _vm._v("\n            asd\n            "),
-                _c("question-index", { attrs: { questions: _vm.summary } })
-              ],
-              1
-            )
+        _vm.show_summary
+          ? _c("div", [
+              _vm.started
+                ? _c("div", { staticClass: "f-header" }, [
+                    _c("h3", { staticClass: "heading-medium" }, [
+                      _vm._v("Summary")
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "f-form" },
+                [
+                  _c("question-index", {
+                    attrs: {
+                      questions: _vm.summary,
+                      show_labels: true,
+                      show_change: false
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "f-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.finishWizard($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Finish")]
+                )
+              ])
+            ])
           : _vm._e()
       ],
       2
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "f-section" }, [
-      _c("h2", [_c("a", { attrs: { href: "#" } }, [_vm._v("Summary")])])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -49318,7 +49396,7 @@ var render = function() {
     [
       _c(
         "fieldset",
-        { staticClass: "inline" },
+        { class: { inline: _vm.options.length < 3 } },
         [
           _c("legend", [
             _c("span", { staticClass: "form-label-bold" }, [
@@ -49502,11 +49580,9 @@ var render = function() {
               _vm._l(section, function(q) {
                 return _c("div", [
                   _c("dt", { staticClass: "cya-question" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(q.question) +
-                        "\n                    "
-                    )
+                    _vm.show_labels
+                      ? _c("span", [_vm._v(_vm._s(q.label))])
+                      : _c("span", [_vm._v(_vm._s(q.question))])
                   ]),
                   _vm._v(" "),
                   _c(
@@ -49516,26 +49592,28 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("dd", { staticClass: "cya-change" }, [
-                    _c(
-                      "a",
-                      {
-                        attrs: { href: "#" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            _vm.$modal.show("update-question", q)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v("\n                        Change"),
-                        _c("span", { staticClass: "visually-hidden" }, [
-                          _vm._v(" name")
-                        ])
-                      ]
-                    )
-                  ])
+                  _vm.show_change
+                    ? _c("dd", { staticClass: "cya-change" }, [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.$modal.show("update-question", q)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("\n                        Change"),
+                            _c("span", { staticClass: "visually-hidden" }, [
+                              _vm._v(" name")
+                            ])
+                          ]
+                        )
+                      ])
+                    : _vm._e()
                 ])
               })
             )
