@@ -26,6 +26,7 @@
                 [
                     'label' => $question->question,
                     'field' => $question->field,
+                    'help_text' => $question->help_text,
                     'value' => '',
                     'options' => $question->options,
                     'error' => $errors->first($question->field)
