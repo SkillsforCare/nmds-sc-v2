@@ -17,7 +17,7 @@ class QuestionSectionSeeder extends Seeder
         factory(App\QuestionSection::class)->create([
             'question_category_id' => $categories->where('slug', 'worker')->first()->id,
             'slug' => 'personal-details',
-            'name' => 'Personal Details',
+            'name' => 'Personal details',
             'order' => 1
         ]);
 
@@ -31,7 +31,7 @@ class QuestionSectionSeeder extends Seeder
         factory(App\QuestionSection::class)->create([
             'question_category_id' => $categories->where('slug', 'worker')->first()->id,
             'slug' => 'learning-development',
-            'name' => 'Learning and Development',
+            'name' => 'Learning and development',
             'order' => 3
         ]);
 
@@ -45,7 +45,7 @@ class QuestionSectionSeeder extends Seeder
         factory(App\QuestionSection::class)->create([
             'question_category_id' => $categories->where('slug', 'establishment')->first()->id,
             'slug' => 'establishment-details',
-            'name' => 'Establishment Details',
+            'name' => 'Establishment details',
             'order' => 5
         ]);
 

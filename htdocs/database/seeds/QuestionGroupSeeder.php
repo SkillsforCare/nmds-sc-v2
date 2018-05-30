@@ -28,8 +28,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => null,
             'group_next_id' => 2,
-            'slug' => 'personal-details',
-            'name' => 'Personal details',
+            'slug' => 'personal-information',
+            'name' => 'Personal information',
             'order' => 2
         ]);
 
@@ -37,8 +37,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'personal-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'identity',
-            'name' => 'Identity',
+            'slug' => 'gender-disability-ethnicity',
+            'name' => 'Gender, disability, ethnicity',
             'order' => 3
         ]);
 
@@ -87,14 +87,16 @@ class QuestionGroupSeeder extends Seeder
             'order' => 3
         ]);
 
+        /*
         $group = factory(App\QuestionGroup::class)->create([
             'question_section_id' => $sections->where('slug', 'employment-details')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => $group->id + 2,
-            'slug' => 'zero-hours-contract-details',
-            'name' => 'Zero hours contract details',
+            'slug' => 'pay-and-hours-1',
+            'name' => 'Pay and hours',
             'order' => 4
         ]);
+        */
 
         $group = factory(App\QuestionGroup::class)->create([
             'question_section_id' => $sections->where('slug', 'employment-details')->first()->id,
@@ -145,8 +147,8 @@ class QuestionGroupSeeder extends Seeder
             'question_section_id' => $sections->where('slug', 'training')->first()->id,
             'group_previous_id' => $group->id,
             'group_next_id' => null,
-            'slug' => 'training',
-            'name' => 'Training',
+            'slug' => 'add-training',
+            'name' => 'Add training',
             'order' => 1
         ]);
     }

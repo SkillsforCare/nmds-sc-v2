@@ -33,7 +33,7 @@
             @endforeach
 
             <div class="form-group">
-                <input class="button button-start" type="submit" value="Start">
+                <input class="button button-start" type="submit" value="Add worker">
             </div>
         </form>
 

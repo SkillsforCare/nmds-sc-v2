@@ -112,7 +112,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'identity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'gender-disability-ethnicity')->first()->id,
             'number' => '35',
             'label' => 'Gender Identity',
             'question' => 'What is their gender?',
@@ -128,7 +128,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'identity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'gender-disability-ethnicity')->first()->id,
             'number' => '36',
             'label' => 'Disability Identification',
             'question' => 'Do they identify as having a disability?',
@@ -144,7 +144,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $personnel->id,
-            'question_group_id' => $groups->where('slug', 'identity')->first()->id,
+            'question_group_id' => $groups->where('slug', 'gender-disability-ethnicity')->first()->id,
             'number' => '37',
             'label' => 'Ethnic Identity',
             'question' => 'What is their ethnic identity?',
@@ -266,7 +266,7 @@ class WorkerQuestionSeeder extends Seeder
             'question' => 'What is their employment status?',
             'help_text' => null,
             'field' => 'EMPLSTATUS',
-            'field_type' => 'select',
+            'field_type' => 'radio-list',
             'validation' => 'nullable',
             'order' => 2,
             'hidden_at' => null
@@ -298,7 +298,7 @@ class WorkerQuestionSeeder extends Seeder
             'question' => 'Where were they recruited from?',
             'help_text' => null,
             'field' => 'RECSOURCE',
-            'field_type' => 'select',
+            'field_type' => 'radio-list',
             'validation' => 'nullable',
             'order' => 3,
             'hidden_at' => null
@@ -403,6 +403,7 @@ class WorkerQuestionSeeder extends Seeder
         ]);
 
         // 52-1.
+        /*
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $employment->id,
@@ -417,6 +418,7 @@ class WorkerQuestionSeeder extends Seeder
             'order' => 1,
             'hidden_at' => null
         ]);
+        */
 
         // 53.
         factory(App\Question::class)->create([
@@ -497,7 +499,7 @@ class WorkerQuestionSeeder extends Seeder
             'question' => 'Have they started or completed a care certificate?',
             'help_text' => null,
             'field' => 'CARECERT',
-            'field_type' => 'select',
+            'field_type' => 'radio-list',
             'validation' => 'nullable',
             'order' => 1,
             'hidden_at' => null
@@ -529,7 +531,7 @@ class WorkerQuestionSeeder extends Seeder
             'question' => 'Do they hold a qualification relevant to social care?',
             'help_text' => null,
             'field' => 'SCQUAL',
-            'field_type' => 'select',
+            'field_type' => 'radio-list',
             'validation' => 'nullable',
             'order' => 1,
             'hidden_at' => null
@@ -592,7 +594,7 @@ class WorkerQuestionSeeder extends Seeder
             'question_section_id' => $training->id,
             'question_group_id' => $groups->where('slug', 'training')->first()->id,
             'number' => '67-1',
-            'label' => 'Training',
+            'label' => 'Add training',
             'question' => 'Do you want to add training for this worker?',
             'help_text' => null,
             'field' => 'TRAINING',
