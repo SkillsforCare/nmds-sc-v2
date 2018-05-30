@@ -160,7 +160,7 @@
             },
 
             defaultGroup() {
-                let group = this.flat_groups.filter(x => x.name === 'Personal Details')[0]
+                let group = this.flat_groups.filter(x => x.name === 'Basic details')[0]
                 group.selected = true
                 this.selected_group = group
             },

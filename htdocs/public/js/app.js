@@ -2673,7 +2673,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         defaultGroup: function defaultGroup() {
             var group = this.flat_groups.filter(function (x) {
-                return x.name === 'Personal Details';
+                return x.name === 'Basic details';
             })[0];
             group.selected = true;
             this.selected_group = group;
