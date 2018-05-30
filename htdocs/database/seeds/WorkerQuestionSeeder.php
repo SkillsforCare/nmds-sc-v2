@@ -163,7 +163,7 @@ class WorkerQuestionSeeder extends Seeder
             'question_group_id' => $groups->where('slug', 'nationality')->first()->id,
             'number' => '38',
             'label' => 'Nationality',
-            'question' => 'What is their nationality?',
+            'question' => 'Are they British?',
             'help_text' => null,
             'field' => 'NATIONALITY',
             'field_type' => 'radio-list',
