@@ -608,7 +608,7 @@ class WorkerQuestionSeeder extends Seeder
         factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $training->id,
-            'question_group_id' => $groups->where('slug', 'training')->first()->id,
+            'question_group_id' => $groups->where('slug', 'add-training')->first()->id,
             'number' => '67-1',
             'label' => 'Add training',
             'question' => 'Do you want to add training for this worker?',
