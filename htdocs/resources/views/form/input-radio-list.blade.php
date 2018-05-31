@@ -16,6 +16,7 @@
             <input id="{{ $field }}-{{ $option['value'] }}" type="radio"
                    name="{{ $field }}"
                    value="{{ $option['value'] }}"
+                   {{ $option['value'] == $value ? 'checked' : '' }}
             >
             <label for="{{ $field }}">{{ $option['text'] }}</label>
         </div>

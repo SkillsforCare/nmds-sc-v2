@@ -17,16 +17,19 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('age_between', function ($attribute, $value, $parameters, $validator) {
 
-            if(empty($value))
-                return true;
+            try {
+                $date = Carbon::parse($value);
+            } catch(\Exception $e) {
+                return false;
+            }
 
             $minAge = 14;
             $maxAge = 100;
 
-            $diff = now()->diff(new Carbon($value))->y;
+            $diff = now()->diff($date)->y;
 
             return $diff >= $minAge && $diff <= $maxAge;
-        }, 'The age must be between 14 and 100');
+        });
 
         Validator::extend('ni_number', function ($attribute, $value, $parameters, $validator) {
 

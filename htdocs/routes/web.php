@@ -17,6 +17,8 @@ Route::middleware('auth')->name('records.')->prefix('records')->group(function (
     Route::get('/establishment/{establishment?}', 'EstablishmentController@show')->middleware('auth')->name('establishment.show');
 });
 
+Route::put('question_answers_bulk/{worker}/update', 'QuestionAnswerBulkController@update')->name('question_answer_bulk_update');
+
 
 Route::get('/about', function () {
     return view('pages.about');
@@ -24,7 +26,7 @@ Route::get('/about', function () {
 
 
 Route::prefix('api')->name('api.')->middleware('auth')->group(function () {
-    Route::put('question_answers_bulk/{worker}/update', 'Api\QuestionAnswerBulkController@update');
+
     Route::resource('question_answers', 'Api\QuestionAnswerController');
 
 });

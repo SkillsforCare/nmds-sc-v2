@@ -1958,7 +1958,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         open: {
             required: false,
-            default: false
+            default: true
         }
     },
     data: function data() {
@@ -1966,15 +1966,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             d_open: this.open,
             d_message: this.message
         };
-    },
-
-    computed: {
-        message: function message() {
-            this.d_message = this.message;
-        },
-        open: function open() {
-            this.d_open = this.open;
-        }
     }
 });
 
@@ -49732,7 +49723,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.d_open
     ? _c("div", { staticClass: "f-alert" }, [
-        _c("span", [_vm._v(_vm._s(_vm.d_message))]),
+        _c("span", [_vm._v(_vm._s(_vm.message))]),
         _vm._v(" "),
         _c(
           "a",
