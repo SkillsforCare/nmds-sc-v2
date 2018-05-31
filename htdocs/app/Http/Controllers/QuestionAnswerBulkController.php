@@ -24,6 +24,12 @@ class QuestionAnswerBulkController extends Controller
 
         $data = $request->all();
 
+
+        $next = false;
+        if($request->has('saveNext'))
+            $next = true;
+
+
         $data = collect($data)->transform(function($item){
             if(is_array($item))
                 $item = build_date($item);
@@ -36,6 +42,7 @@ class QuestionAnswerBulkController extends Controller
 
         unset($data['_token']);
         unset($data['_method']);
+        unset($data['saveNext']);
 
         collect($data)->each(function($value, $key) use(&$meta, $questions, $worker) {
 
@@ -50,11 +57,18 @@ class QuestionAnswerBulkController extends Controller
         });
 
         // Get the 'next' group for one of the questions and redirect to it.
-        $group = $questions->first()->group->next_group;
+        $group = $questions->first()->group;
+
+        if($next) {
+            return response()
+                ->redirectToRoute('records.workers.edit',
+                    ['worker' => $worker, 'group' => $group->next_group->slug]
+                )->with('status', 'Progress saved!');
+        }
 
         return response()
             ->redirectToRoute('records.workers.edit',
-                [ 'worker' => $worker, 'group' => $group->slug ]
-            )->with('status', 'Progress saved!');;
+                ['worker' => $worker, 'group' => $group->slug]
+            )->with('status', 'Progress saved!');
     }
 }

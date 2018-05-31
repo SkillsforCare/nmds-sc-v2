@@ -42,7 +42,7 @@
             </div>
             <div class="f-content">
                 @include('form.alert')
-                <form action="{{ route('question_answer_bulk_update', $worker) }}" method="post">
+                <form id="question-form" action="{{ route('question_answer_bulk_update', $worker) }}" method="post">
                     @include('form.put')
                     @include('form.csrf')
                     <div class="f-header">
@@ -70,9 +70,12 @@
                         @else
                         <a>Back</a>
                         @endif
-                        <a href="#">Save progress</a>
+                        <a href="#" onclick="event.preventDefault();
+                                 document.getElementById('question-form').submit();">
+                            Save progress
+                        </a>
                         @if($groupQuestion->next_group)
-                        <button type="submit" class="button">Next</button>
+                        <input type="submit" name="saveNext" class="button" value="Next" />
                         @endif
                     </div>
                 </form>
