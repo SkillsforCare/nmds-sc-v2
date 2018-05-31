@@ -1,5 +1,5 @@
 <div class="form-group {{ $error ? 'form-group-error' : '' }}">
-    <fieldset class="{{ count($options) < 3 ? 'inline' : '' }}">
+    <fieldset>
         <legend>
             <span class="form-label-bold">{{ $label }}</span>
             @if(!empty($help_text))
