@@ -258,7 +258,7 @@
 
             finishWizard() {
                 axios
-                    .post('/api/finish_create_worker_wizard', { 'worker_id': this.worker_id })
+                    .post('/api/finish_worker', { 'worker_id': this.worker_id })
                     .then((data) => {
                         console.log(data.data)
                     })

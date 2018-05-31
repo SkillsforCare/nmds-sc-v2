@@ -47,7 +47,6 @@ Workers
             @endforelse
             </tbody>
         </table>
-        <p><a href="#">Show more workers</a></p>
     </div>
 </div>
 @endsection

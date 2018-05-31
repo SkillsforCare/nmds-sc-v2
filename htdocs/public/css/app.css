@@ -2875,9 +2875,6 @@ input[type=number] {
 }
 
 .f-wizard .f-content .f-form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   border-bottom: 1px solid #0b0c0c;
   margin-bottom: 40px;
   padding-bottom: 40px;

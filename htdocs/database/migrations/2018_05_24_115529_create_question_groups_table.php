@@ -21,6 +21,7 @@ class CreateQuestionGroupsTable extends Migration
             $table->string('slug');
             $table->string('name');
             $table->unsignedInteger('order');
+            $table->timestamp('default_at')->nullable();
             $table->timestamps();
         });
     }

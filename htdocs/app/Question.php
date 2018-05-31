@@ -17,7 +17,7 @@ class Question extends Model
 
     public function section()
     {
-        return $this->belongsTo(QuestionSection::class, 'question_section_id');
+        return $this->belongsTo(QuestionSection::class);
     }
 
     public function group()

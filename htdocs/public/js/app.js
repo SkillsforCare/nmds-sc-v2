@@ -2818,7 +2818,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         finishWizard: function finishWizard() {
-            axios.post('/api/finish_create_worker_wizard', { 'worker_id': this.worker_id }).then(function (data) {
+            axios.post('/api/finish_worker', { 'worker_id': this.worker_id }).then(function (data) {
                 console.log(data.data);
             });
         },

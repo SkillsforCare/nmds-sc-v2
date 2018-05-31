@@ -32,7 +32,10 @@ class Worker extends Model
     public function getAttentionRequiredAttribute()
     {
         if(empty($this->finished_adding_at)) {
-            return [ 'message' => 'Continue with this worker record', 'url' => route('records.workers.edit', $this) ];
+            return [
+                'message' => 'Continue with this worker record',
+                'url' => route('records.workers.edit', ['worker' => $this, 'group' => config('app.default_worker_group')])
+            ];
         }
 
         return null;

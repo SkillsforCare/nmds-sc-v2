@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\QuestionGroup;
 use App\WorkerQuestionAnswer;
 use App\QuestionCategory;
 use App\Worker;
@@ -76,7 +77,7 @@ class WorkerController extends Controller
             ]);
         });
 
-        return response()->redirectToRoute('records.workers.edit', $worker);
+        return response()->redirectToRoute('records.workers.edit', [ 'worker' => $worker, 'group' => QuestionGroup::default()->first()->slug ]);
     }
 
     /**
@@ -96,45 +97,30 @@ class WorkerController extends Controller
      *
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Worker  $worker
+     * @param  \App\Worker $worker
+     * @param QuestionGroup $group
      * @return \Illuminate\Http\Response
      */
-    public function edit(Worker $worker)
+    public function edit(Worker $worker, $group)
     {
+
+        $groupQuestion = QuestionGroup::with('prev_group', 'next_group', 'section', 'questions')->where('slug', $group)->first();
+
+        if(!$groupQuestion) {
+            $groupQuestion = QuestionGroup::default()->first();
+            return response()->redirectToRoute('records.workers.edit',
+                [ 'worker' => $worker, 'group' => $groupQuestion->slug ]);
+        }
+
+        $categories = QuestionCategory::with('sections.groups')
+            ->where('slug', 'worker')
+            ->first();
+
 
         $workerAnswers = $worker->answers;
 
-        $questions = QuestionCategory::with('sections.groups.questions')
-            ->where('slug', 'worker')
-            ->get()[0]->sections;
 
-        $questions->each(function($section) use($workerAnswers ) {
-            return $section->groups->each(function($group) use($workerAnswers) {
-
-                $group->prev_group = $group->group_previous_id;
-                $group->next_group = $group->group_next_id;
-
-                $group->questions->each(function($question) use($workerAnswers) {
-
-                    $question->answer = (object) [
-                        'text' => null,
-                        'answer' => null
-                    ];
-
-                    $answer = $workerAnswers->where('question_id', $question->id)->first();
-
-                    if(!empty($answer)) {
-                        $question->answer = $answer;
-                    }
-
-                    return $question;
-                });
-
-                return $group;
-            });
-        });
-
-        return view('workers.edit', compact('worker', 'questions'));
+        return view('workers.edit', compact('worker', 'categories', 'groupQuestion'));
     }
 
     /**

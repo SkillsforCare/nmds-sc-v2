@@ -30,7 +30,8 @@ class QuestionGroupSeeder extends Seeder
             'group_next_id' => $group->id + 2,
             'slug' => 'personal-information',
             'name' => 'Personal information',
-            'order' => 2
+            'order' => 2,
+            'default_at' => now()->toDateTimeString(),
         ]);
 
         $group = factory(App\QuestionGroup::class)->create([
