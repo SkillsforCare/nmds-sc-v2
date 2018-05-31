@@ -9,11 +9,9 @@
         name: 'f-alert',
         props: {
             message: {
-                type: String,
-                required: true
+                required: false
             },
             open: {
-                type: Boolean,
                 required: false,
                 default: false
             },
@@ -22,6 +20,14 @@
             return {
                 d_open: this.open,
                 d_message: this.message
+            }
+        },
+        computed: {
+            message() {
+                this.d_message = this.message
+            },
+            open() {
+                this.d_open = this.open
             }
         }
     }

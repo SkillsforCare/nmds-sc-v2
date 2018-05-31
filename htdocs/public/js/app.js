@@ -1938,6 +1938,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/form/FAlert.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'f-alert',
+    props: {
+        message: {
+            required: false
+        },
+        open: {
+            required: false,
+            default: false
+        }
+    },
+    data: function data() {
+        return {
+            d_open: this.open,
+            d_message: this.message
+        };
+    },
+
+    computed: {
+        message: function message() {
+            this.d_message = this.message;
+        },
+        open: function open() {
+            this.d_open = this.open;
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/form/FDate.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2602,6 +2644,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'f-wizard',
@@ -2623,7 +2667,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             started: true,
             d_questions: [],
-            show_summary: false
+            show_summary: false,
+            alert: {
+                message: null,
+                open: false
+            }
         };
     },
     mounted: function mounted() {
@@ -2702,7 +2750,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.selected_group = group;
         },
         nextGroup: function nextGroup(current) {
+            this.saveProgress();
             current.selected = false;
+            this.resetGroups();
             var group = this.flat_groups.filter(function (x) {
                 return x.id === current.next_group;
             })[0];
@@ -2711,6 +2761,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         prevGroup: function prevGroup(current) {
             current.selected = false;
+            this.resetGroups();
             var group = this.flat_groups.filter(function (x) {
                 return x.id === current.prev_group;
             })[0];
@@ -2723,7 +2774,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.selected_group = group;
         },
         selectGroup: function selectGroup(group) {
-
             this.resetGroups();
             group.selected = true;
             this.selected_group = group;
@@ -2738,6 +2788,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.selected_group = null;
 
             this.show_summary = false;
+
+            this.alert = {
+                message: null,
+                open: false
+            };
         },
         showSummary: function showSummary() {
             this.resetGroups();
@@ -2752,6 +2807,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var saved = axios.put('/api/question_answers_bulk/' + this.worker_id + '/update', this.flat_questions).then(function (data) {
                 _this.reassignQuestions(data.data);
+
+                _this.alert.message = 'Progess saved!';
+                _this.alert.open = true;
+
                 return true;
             }).catch(function (error) {
                 console.log(error);
@@ -48860,6 +48919,10 @@ var render = function() {
       "div",
       { staticClass: "f-content" },
       [
+        _c("f-alert", {
+          attrs: { message: _vm.alert.message, open: _vm.alert.open }
+        }),
+        _vm._v(" "),
         _vm._l(_vm.d_questions, function(section) {
           return _c(
             "div",
@@ -48954,12 +49017,7 @@ var render = function() {
                         "a",
                         {
                           attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.saveProgress($event)
-                            }
-                          }
+                          on: { click: _vm.saveProgress }
                         },
                         [_vm._v("Save progress")]
                       ),
@@ -48972,7 +49030,6 @@ var render = function() {
                               attrs: { href: "#" },
                               on: {
                                 click: function($event) {
-                                  $event.preventDefault()
                                   _vm.nextGroup(group)
                                 }
                               }
@@ -48987,12 +49044,7 @@ var render = function() {
                             {
                               staticClass: "button",
                               attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.showSummary($event)
-                                }
-                              }
+                              on: { click: _vm.showSummary }
                             },
                             [_vm._v("Next")]
                           )
@@ -49666,6 +49718,45 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-76ca28a5", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-86624372\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/form/FAlert.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.d_open
+    ? _c("div", { staticClass: "f-alert" }, [
+        _c("span", [_vm._v(_vm._s(_vm.d_message))]),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.d_open = false
+              }
+            }
+          },
+          [_vm._v("Close")]
+        )
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-86624372", module.exports)
   }
 }
 
@@ -61342,6 +61433,7 @@ Vue.component('form-builder', __webpack_require__("./resources/assets/js/compone
 Vue.component('question-index', __webpack_require__("./resources/assets/js/components/QuestionIndex.vue"));
 Vue.component('training-index', __webpack_require__("./resources/assets/js/components/TrainingIndex.vue"));
 
+Vue.component('f-alert', __webpack_require__("./resources/assets/js/components/form/FAlert.vue"));
 Vue.component('f-display', __webpack_require__("./resources/assets/js/components/form/FDisplay.vue"));
 Vue.component('f-status-tag', __webpack_require__("./resources/assets/js/components/form/FStatusTag.vue"));
 Vue.component('f-wizard', __webpack_require__("./resources/assets/js/components/form/FWizard.vue"));
@@ -61630,6 +61722,54 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-9ffca39e", Component.options)
   } else {
     hotAPI.reload("data-v-9ffca39e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/form/FAlert.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/form/FAlert.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-86624372\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/form/FAlert.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\form\\FAlert.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-86624372", Component.options)
+  } else {
+    hotAPI.reload("data-v-86624372", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

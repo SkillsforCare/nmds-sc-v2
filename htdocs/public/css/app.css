@@ -2823,6 +2823,18 @@ input[type=number] {
   margin-top: 20px;
 }
 
+.f-alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: 5px solid #006435;
+}
+
 .f-wizard {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2840,6 +2852,10 @@ input[type=number] {
 
 .f-wizard .f-navigation .f-section h2 {
   font-weight: bold;
+}
+
+.f-wizard .f-navigation li {
+  margin-bottom: 5px;
 }
 
 .f-wizard .f-content {

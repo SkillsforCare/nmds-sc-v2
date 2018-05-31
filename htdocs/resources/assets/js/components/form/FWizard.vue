@@ -1,8 +1,6 @@
 <template>
     <div class="f-wizard">
 
-        <f-alert></f-alert>
-
         <div class="f-navigation">
 
             <div class="f-section" v-for="section in d_questions">
@@ -23,6 +21,7 @@
             </div>
         </div>
         <div class="f-content">
+            <f-alert :message="alert.message" :open="alert.open"></f-alert>
             <div v-for="section in d_questions">
                 <div v-if="group.selected" v-for="group in section.groups" :id="group.slug">
                     <div v-if="started" class="f-header">
@@ -49,9 +48,9 @@
                     <div class="f-footer">
                         <a href="#" v-if="group.prev_group" @click="prevGroup(group)">Back</a>
                         <a v-else >Back</a>
-                        <a href="#" @click.prevent="saveProgress">Save progress</a>
-                        <a href="#" class="button" v-if="group.next_group" @click.prevent="nextGroup(group)">Next</a>
-                        <a href="#" class="button" v-if="group.next_group === null" @click.prevent="showSummary">Next</a>
+                        <a href="#" @click="saveProgress">Save progress</a>
+                        <a href="#" class="button" v-if="group.next_group" @click="nextGroup(group)">Next</a>
+                        <a href="#" class="button" v-if="group.next_group === null" @click="showSummary">Next</a>
                     </div>
                 </div>
             </div>
@@ -94,7 +93,11 @@
                 },
                 started: true,
                 d_questions: [],
-                show_summary: false
+                show_summary: false,
+                alert: {
+                    message: null,
+                    open: false
+                }
             }
         },
         mounted() {
@@ -181,7 +184,9 @@
             },
 
             nextGroup(current) {
+                this.saveProgress()
                 current.selected = false
+                this.resetGroups()
                 let group = this.flat_groups.filter(x => x.id === current.next_group)[0]
                 group.selected = true
                 this.selected_group = group
@@ -189,6 +194,7 @@
 
             prevGroup(current) {
                 current.selected = false
+                this.resetGroups()
                 let group = this.flat_groups.filter(x => x.id === current.prev_group)[0]
                 group.selected = true
                 this.selected_group = group
@@ -201,7 +207,6 @@
             },
 
             selectGroup(group) {
-
                 this.resetGroups()
                 group.selected = true
                 this.selected_group = group
@@ -216,6 +221,12 @@
                 this.selected_group = null
 
                 this.show_summary = false
+
+                this.alert = {
+                    message: null,
+                    open: false
+                }
+
             },
 
             showSummary() {
@@ -233,6 +244,10 @@
                     .put('/api/question_answers_bulk/' + this.worker_id + '/update', this.flat_questions)
                     .then((data) => {
                         this.reassignQuestions(data.data)
+
+                        this.alert.message = 'Progess saved!'
+                        this.alert.open = true
+
                         return true;
                     })
                     .catch((error) => {
