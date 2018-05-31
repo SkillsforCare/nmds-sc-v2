@@ -1,4 +1,5 @@
 <div class="form-group {{ $error ? 'form-group-error' : '' }}">
+    
     <label class="form-label" for="{{ $field }}">
         <span class="form-label-bold">{{ $label }}</span>
         @if($error)
@@ -8,7 +9,7 @@
 
     <select class="form-control" name="{{ $field }}" id="{{ $field }}">
         @foreach($options as $option)
-        <option value="{{ $option['value'] }}">{{ $option['text'] }}</option>
+        <option value="{{ $option['value'] }}" {{ $value == $option['value'] ? 'selected': ''  }}>{{ $option['text'] }}</option>
         @endforeach
     </select>
 </div>

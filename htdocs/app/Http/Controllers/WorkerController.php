@@ -119,6 +119,15 @@ class WorkerController extends Controller
 
         $workerAnswers = $worker->answers;
 
+        $groupQuestion->questions->transform(function($question) use($workerAnswers)  {
+
+            $workerAnswer = $workerAnswers->where('question_id', $question->id)->first();
+
+            if($workerAnswer)
+                $question->answer = $workerAnswer;
+
+            return $question;
+        });
 
         return view('workers.edit', compact('worker', 'categories', 'groupQuestion'));
     }

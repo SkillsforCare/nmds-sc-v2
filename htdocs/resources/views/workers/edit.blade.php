@@ -50,13 +50,13 @@
                 <div class="f-form">
                     @foreach($groupQuestion->questions as $question)
                         @include('form.form-builder', [
-                          'label' => $question->label,
+                          'label' => $question->question,
                           'field' => $question->field,
                           'field_type' => $question->field_type,
                           'help_text' => $question->help_text,
                           'options' => $question->options,
                           'error' => $question->error,
-                          'value' => ''
+                          'value' => $question->answer ? $question->answer->answer : ''
                         ])
                     @endforeach
                 </div>
