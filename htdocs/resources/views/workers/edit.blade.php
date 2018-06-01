@@ -18,6 +18,20 @@
     <div class="column-full">
         <h1 class="heading-large">Adding worker: {{ $worker->meta_data['UNIQUEWORKERID'] }}</h1>
 
+        @if($worker->finished_adding_at)
+            <div class="govuk-box-highlight">
+                <h1 class="heading-large">
+                    Worker record saved!
+                </h1>
+                <p class="lede">
+                    <a href="{{ route('records.workers.show', $worker) }}">View worker record <i class="icon icon-right"></i></a>
+                </p>
+            </div>
+            <div class="step-nav s-flex s-justify-between">
+                <a href="{{ route('records.workers') }}" class="back-button"> View all worker records</a>
+                <a href="{{ route('records.workers.create') }}" class="button">Add another worker record</a>
+            </div>
+        @else
         <div class="f-wizard">
             @if($group !== 'summary')
             <div class="f-navigation">
@@ -87,7 +101,11 @@
             <div class="f-content">
                 <div class="s-flex s-justify-between">
                     <a href="#">Back</a>
+                    <form action="{{ route('finish_worker_record', [ 'worker' => $worker->id ]) }}" method="post">
+                        @include('form.csrf')
+                        @include('form.put')
                     <button type="submit" class="button">Save and continue</button>
+                    </form>
                 </div>
                 <div class="f-form">
                     @foreach($groupQuestion as $section)
@@ -113,11 +131,16 @@
                 </div>
                 <div class="s-flex s-justify-between">
                     <a href="{{ route('records.workers.edit', [ 'worker' => $worker, 'group' => $group->slug] ) }}">Back</a>
-                    <button type="submit" class="button">Save and continue</button>
+                    <form action="{{ route('finish_worker_record', [ 'worker' => $worker->id ]) }}" method="post">
+                        @include('form.csrf')
+                        @include('form.put')
+                        <button type="submit" class="button">Save and continue</button>
+                    </form>
                 </div>
             </div>
             @endif
         </div>
+        @endif
     </div>
 </div>
 @endsection

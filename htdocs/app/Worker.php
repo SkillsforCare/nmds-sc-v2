@@ -11,7 +11,8 @@ class Worker extends Model
     ];
 
     protected $fillable = [
-        'establishment_id'
+        'establishment_id',
+        'finished_adding_at'
     ];
 
     public function establishment()

@@ -26,6 +26,23 @@
   max-width: 960px;
   margin: 0 auto;
 }
+
+.govuk-box-highlight {
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.icon.icon-right:before {
+  content: "\25BC";
+  display: inline-block;
+  transform: rotate(-90deg);
+  position: relative;
+  left: 4px;
+  top: -2px;
+}
+
 .padding-bottom {
   padding-bottom: 3em;
 }

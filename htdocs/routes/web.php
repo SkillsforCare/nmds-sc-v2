@@ -17,8 +17,8 @@ Route::middleware('auth')->name('records.')->prefix('records')->group(function (
     Route::get('/establishment/{establishment?}', 'EstablishmentController@show')->middleware('auth')->name('establishment.show');
 });
 
-Route::put('question_answers_bulk/{worker}/update', 'QuestionAnswerBulkController@update')->name('question_answer_bulk_update');
-
+Route::middleware('auth')->put('question_answers_bulk/{worker}/update', 'QuestionAnswerBulkController@update')->name('question_answer_bulk_update');
+Route::middleware('auth')->put('finish_worker_record/{worker}/update', 'FinishWorkerRecordController')->name('finish_worker_record');
 
 Route::get('/about', function () {
     return view('pages.about');

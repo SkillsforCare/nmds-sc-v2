@@ -22,7 +22,7 @@ class Question extends Model
 
     public function section()
     {
-        return $this->belongsTo(QuestionSection::class);
+        return $this->belongsTo(QuestionSection::class, 'question_section_id');
     }
 
     public function group()
@@ -87,8 +87,10 @@ class Question extends Model
 
                 return $question;
             })
-            ->groupBy(function ($item, $key) {
+            ->groupBy(function ($item) {
+
                 return $item->section->name;
+
             });
 
         return $questions;

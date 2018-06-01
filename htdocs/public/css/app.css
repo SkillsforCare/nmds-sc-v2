@@ -2954,6 +2954,21 @@ input[type=number] {
   margin: 0 auto;
 }
 
+.govuk-box-highlight a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.icon.icon-right:before {
+  content: "\25BC";
+  display: inline-block;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  position: relative;
+  left: 4px;
+  top: -2px;
+}
+
 .padding-bottom {
   padding-bottom: 3em;
 }
