@@ -27,6 +27,14 @@
   margin: 0 auto;
 }
 
+.button-start, .button-get-started {
+  background-image: url('/css/icon-pointer.png');
+}
+
+.icon-important {
+  background-image: url('/css/icon-important.png');
+}
+
 .govuk-box-highlight {
   a {
     color: $white;
