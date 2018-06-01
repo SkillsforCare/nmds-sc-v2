@@ -10,6 +10,11 @@ class Question extends Model
         'options'
     ];
 
+    protected $text_answers = [
+        'select',
+        'radio-list'
+    ];
+
     public function category()
     {
         return $this->belongsTo(QuestionCategory::class, 'question_category_id');
@@ -31,6 +36,17 @@ class Question extends Model
             return array_merge([[ 'text' => 'Please select', 'value' => null ]], config('lookups.' . strtolower($this->field), null));
 
         return config('lookups.' . strtolower($this->field));
+    }
+
+    public function getDisplayAnswerAttribute()
+    {
+        if(!$this->answer)
+            return 'Not answered';
+
+        if(in_array($this->field_type, $this->text_answers))
+            return $this->answer->text;
+
+        return $this->answer->answer;
     }
 
     public function scopeInCategory($query, $category)

@@ -19,6 +19,7 @@
         <h1 class="heading-large">Adding worker: {{ $worker->meta_data['UNIQUEWORKERID'] }}</h1>
 
         <div class="f-wizard">
+            @if($group !== 'summary')
             <div class="f-navigation">
                 @foreach($categories->sections as $section)
                 <div class="f-section">
@@ -37,7 +38,7 @@
                 </div>
                 @endforeach
                 <div class="f-section">
-                    <h2><a href="#">Summary</a></h2>
+                    <h2><a href="{{ route('records.workers.edit', [ 'worker' => $worker, 'group' => 'summary' ] ) }}">Summary</a></h2>
                 </div>
             </div>
             <div class="f-content">
@@ -76,10 +77,46 @@
                         </a>
                         @if($groupQuestion->next_group)
                         <input type="submit" name="saveNext" class="button" value="Next" />
+                        @else
+                        <a href="{{ route('records.workers.edit', [ 'worker' => $worker, 'group' => 'summary' ] ) }}" class="button">Summary</a>
                         @endif
                     </div>
                 </form>
             </div>
+            @else
+            <div class="f-content">
+                <div class="s-flex s-justify-between">
+                    <a href="#">Back</a>
+                    <button type="submit" class="button">Save and continue</button>
+                </div>
+                <div class="f-form">
+                    @foreach($groupQuestion as $section)
+                    <h3 class="heading-medium">{{ $section->name }}</h3>
+                        @foreach($section->groups as $group)
+                        <div style="margin-bottom: 40px;">
+                            <div style="border-bottom: 1px solid #000; padding-bottom: 20px">{{ $group->name }}</div>
+                            <dl class="govuk-check-your-answers">
+                            @foreach($group->questions as $question)
+                                <div>
+                                    <dt class="cya-question">
+                                        <span>{{ $question->label }}</span>
+                                    </dt>
+                                    <dd class="cya-answer">
+                                        <span>{{ $question->display_answer }}</span>
+                                    </dd>
+                                </div>
+                            @endforeach
+                            </dl>
+                        </div>
+                        @endforeach
+                    @endforeach
+                </div>
+                <div class="s-flex s-justify-between">
+                    <a href="{{ route('records.workers.edit', [ 'worker' => $worker, 'group' => $group->slug] ) }}">Back</a>
+                    <button type="submit" class="button">Save and continue</button>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>

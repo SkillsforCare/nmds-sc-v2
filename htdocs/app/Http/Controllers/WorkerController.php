@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use App\QuestionGroup;
+use App\QuestionSection;
 use App\WorkerQuestionAnswer;
 use App\QuestionCategory;
 use App\Worker;
@@ -103,33 +104,62 @@ class WorkerController extends Controller
      */
     public function edit(Worker $worker, $group)
     {
-
-        $groupQuestion = QuestionGroup::with('prev_group', 'next_group', 'section', 'questions')->where('slug', $group)->first();
-
-        if(!$groupQuestion) {
-            $groupQuestion = QuestionGroup::default()->first();
-            return response()->redirectToRoute('records.workers.edit',
-                [ 'worker' => $worker, 'group' => $groupQuestion->slug ]);
-        }
-
         $categories = QuestionCategory::with('sections.groups')
             ->where('slug', 'worker')
             ->first();
 
+        if($group !== 'summary') {
+            $groupQuestion = QuestionGroup::with('prev_group', 'next_group', 'section', 'questions')->where('slug', $group)->first();
+
+            if(!$groupQuestion and $group !== 'summary') {
+                $groupQuestion = QuestionGroup::default()->first();
+                return response()->redirectToRoute('records.workers.edit',
+                    [ 'worker' => $worker, 'group' => $groupQuestion->slug ]);
+            }
+
+        } else {
+            $groupQuestion = QuestionSection::whereHas('category', function($q) {
+                $q->where('slug', 'worker');
+            })->with('groups.prev_group', 'groups.next_group', 'groups.questions')->get();
+        }
 
         $workerAnswers = $worker->answers;
 
-        $groupQuestion->questions->transform(function($question) use($workerAnswers)  {
+        if($group !== 'summary') {
+            $groupQuestion->questions->transform(function ($question) use ($workerAnswers) {
 
-            $workerAnswer = $workerAnswers->where('question_id', $question->id)->first();
+                $workerAnswer = $workerAnswers->where('question_id', $question->id)->first();
 
-            if($workerAnswer)
-                $question->answer = $workerAnswer;
+                if ($workerAnswer)
+                    $question->answer = $workerAnswer;
 
-            return $question;
-        });
+                return $question;
+            });
+        } else {
+            $groupQuestion->transform(function($section) use ($workerAnswers) {
 
-        return view('workers.edit', compact('worker', 'categories', 'groupQuestion'));
+                $section->groups->transform(function($group) use ($workerAnswers) {
+
+                    $group->questions->transform(function ($question) use ($workerAnswers) {
+
+                        $workerAnswer = $workerAnswers->where('question_id', $question->id)->first();
+
+                        if ($workerAnswer)
+                            $question->answer = $workerAnswer;
+
+                        return $question;
+                    });
+
+                    return $group;
+
+                });
+
+                return $section;
+            });
+        }
+
+
+        return view('workers.edit', compact('worker', 'categories', 'groupQuestion', 'group'));
     }
 
     /**
