@@ -32,7 +32,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'help_text' => null,
             'field' => 'REGTYPE',
             'field_type' => 'radio-list',
-            'validation' => null,
+            'validation' => 'nullable',
             'order' => 1,
             'hidden_at' => null
         ]);
@@ -46,7 +46,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'help_text' => null,
             'field' => 'POSTCODE',
             'field_type' => 'text',
-            'validation' => null,
+            'validation' => 'nullable',
             'order' => 2,
             'hidden_at' => null
         ]);
@@ -60,7 +60,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'help_text' => null,
             'field' => 'LOCATIONID',
             'field_type' => 'select',
-            'validation' => null,
+            'validation' => 'nullable',
             'order' => 3,
             'hidden_at' => null
         ]);
@@ -68,12 +68,12 @@ class EstablishmentQuestionSeeder extends Seeder
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
-            'number' => '15',
+            'number' => null,
             'label' => 'Provider ID',
             'question' => 'Enter provider ID',
             'help_text' => null,
             'field' => 'PROVNUM',
-            'field_type' => 'select',
+            'field_type' => 'text',
             'validation' => null,
             'order' => 3,
             'hidden_at' => null
@@ -87,7 +87,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'question' => 'What is the name of your establishment?',
             'help_text' => null,
             'field' => 'ESTNAME',
-            'field_type' => '',
+            'field_type' => 'text',
             'validation' => 'required|max:120',
             'order' => 4,
             'hidden_at' => null
@@ -102,7 +102,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'help_text' => null,
             'field' => 'ADDRESS1',
             'field_type' => 'text',
-            'validation' => null,
+            'validation' => 'nullable',
             'order' => 5,
             'hidden_at' => null
         ]);
@@ -116,7 +116,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'help_text' => null,
             'field' => 'ADDRESS2',
             'field_type' => 'text',
-            'validation' => null,
+            'validation' => 'nullable',
             'order' => 6,
             'hidden_at' => null
         ]);
@@ -130,7 +130,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'help_text' => null,
             'field' => 'ADDRESS3',
             'field_type' => 'text',
-            'validation' => null,
+            'validation' => 'nullable',
             'order' => 7,
             'hidden_at' => null
         ]);
@@ -142,25 +142,24 @@ class EstablishmentQuestionSeeder extends Seeder
             'label' => 'Post Town',
             'question' => 'Enter post town?',
             'help_text' => null,
-            'field' => 'POST',
+            'field' => 'POSTTOWN',
             'field_type' => 'text',
-            'validation' => null,
-            'order' => 5,
+            'validation' => 'nullable',
+            'order' => 8,
             'hidden_at' => null
         ]);
 
-        // 3. Establishment telephone number.
         $question = factory(App\Question::class)->create([
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
-            'number' => '3',
+            'number' => null,
             'label' => 'Telephone',
             'question' => 'What is the best number to call you on?',
             'help_text' => null,
-            'field' => 'TELEPHONE',
+            'field' => 'PHONE',
             'field_type' => 'text',
-            'validation' => null,
-            'order' => 6,
+            'validation' => 'nullable',
+            'order' => 9,
             'hidden_at' => null
         ]);
 
@@ -175,7 +174,7 @@ class EstablishmentQuestionSeeder extends Seeder
             'field' => 'MAINSERVICE',
             'field_type' => 'select',
             'validation' => null,
-            'order' => 7,
+            'order' => 10,
             'hidden_at' => null
         ]);
 
@@ -188,9 +187,9 @@ class EstablishmentQuestionSeeder extends Seeder
             'question' => 'Do you provide any other service?',
             'help_text' => null,
             'field' => 'OTHERSERVICE',
-            'field_type' => 'select',
-            'validation' => null,
-            'order' => 8,
+            'field_type' => 'radio-list',
+            'validation' => 'nullable',
+            'order' => 11,
             'hidden_at' => null
         ]);
 
@@ -199,15 +198,86 @@ class EstablishmentQuestionSeeder extends Seeder
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
             'number' => '18',
-            'label' => 'Selected services',
-            'question' => 'Which ones?',
+            'label' => 'Other services',
+            'question' => 'What are the other services you provide?',
             'help_text' => null,
-            'field' => 'OTHERSERVICE-1',
+            'field' => 'ALLSERVICES',
             'field_type' => 'select',
-            'validation' => null,
-            'order' => 9,
+            'validation' => 'nullable',
+            'order' => 12,
             'hidden_at' => null
         ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Capacity',
+            'question' => 'What is the capacity of your main service?',
+            'help_text' => null,
+            'field' => 'CAPACITY',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 13,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Utilisation',
+            'question' => 'What is the current uptake of your main service?',
+            'help_text' => null,
+            'field' => 'UTILISATION',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 14,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Share information with CQC?',
+            'question' => 'Can we share your information with the CQC?',
+            'help_text' => null,
+            'field' => 'PERMCQC',
+            'field_type' => 'radio-list',
+            'validation' => 'nullable',
+            'order' => 15,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Share information with My NHS / NHS Choices?',
+            'question' => 'Can we share your information with My NHS / NHS Choices?',
+            'help_text' => null,
+            'field' => 'PERMNHSC',
+            'field_type' => 'radio-list',
+            'validation' => 'nullable',
+            'order' => 16,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Share information with your local authority?',
+            'question' => 'Can we share your information with your local authority?',
+            'help_text' => null,
+            'field' => 'PERMLA',
+            'field_type' => 'radio-list',
+            'validation' => 'nullable',
+            'order' => 17,
+            'hidden_at' => null
+        ]);
+
 
 
 
