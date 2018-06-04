@@ -278,6 +278,75 @@ class EstablishmentQuestionSeeder extends Seeder
             'hidden_at' => null
         ]);
 
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Selected local authorities.',
+            'question' => 'Select all that apply',
+            'help_text' => null,
+            'field' => 'SHARELA',
+            'field_type' => 'select',
+            'validation' => 'nullable',
+            'order' => 18,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Permanent and temporary staff',
+            'question' => 'How many permanent and temporary staff do you have?',
+            'help_text' => null,
+            'field' => 'TOTALPERMTEMP',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 19,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Type of employer',
+            'question' => 'What type of employer are you?',
+            'help_text' => null,
+            'field' => 'ESTTYPE',
+            'field_type' => 'select',
+            'validation' => 'nullable',
+            'order' => 20,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Other type of employer',
+            'question' => 'What type of employer are you?',
+            'help_text' => null,
+            'field' => 'OTHERTYPE',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 21,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Other type of employer',
+            'question' => 'Please enter the number of workers you have in each job role:',
+            'help_text' => null,
+            'field' => 'ALLJOBROLES',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 22,
+            'hidden_at' => null
+        ]);
 
 
 
