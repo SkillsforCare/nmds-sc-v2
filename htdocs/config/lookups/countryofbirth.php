@@ -1,5 +1,5 @@
 <?php
 
-return [[ 'text' => 'United Kingdom', 'value' => 826],
-    [ 'text' => 'Not United Kingdom, country of birth not known', 'value' => 998],
-    [ 'text' => 'Unknown', 'value' => 999]];
+return [[ 'text' => 'Yes', 'value' => 826],
+    [ 'text' => 'No', 'value' => 998],
+    [ 'text' => 'Don\'t know', 'value' => 999]];

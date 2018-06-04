@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,16 +18,19 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('age_between', function ($attribute, $value, $parameters, $validator) {
 
-            if(empty($value))
-                return true;
+            try {
+                $date = Carbon::parse($value);
+            } catch(\Exception $e) {
+                return false;
+            }
 
             $minAge = 14;
             $maxAge = 100;
 
-            $diff = now()->diff(new Carbon($value))->y;
+            $diff = now()->diff($date)->y;
 
             return $diff >= $minAge && $diff <= $maxAge;
-        }, 'The age must be between 14 and 100');
+        });
 
         Validator::extend('ni_number', function ($attribute, $value, $parameters, $validator) {
 
@@ -40,6 +44,10 @@ class AppServiceProvider extends ServiceProvider
 
             return preg_match('^[ABCEGHJKLMNOPRSTWXYZabceghjklmnoprstwxyz][ABCEGHJKLMNPRSTWXYZabceghjklmnprstwxyz][0-9]{6}[A-D\sa-d]{0,1}$', $value);
         }, 'Invalid National Insurance Number. It must be 9 characters in the format AB123456C');
+
+        Collection::macro('requiresAttention', function () {
+            return $this->where('attention_required', '!=', '');
+        });
     }
 
     /**

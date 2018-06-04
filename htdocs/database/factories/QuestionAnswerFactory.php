@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\QuestionAnswer::class, function (Faker $faker) {
+$factory->define(App\WorkerQuestionAnswer::class, function (Faker $faker) {
     return [
         //
     ];

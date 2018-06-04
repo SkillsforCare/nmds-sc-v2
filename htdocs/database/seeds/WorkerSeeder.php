@@ -2,7 +2,7 @@
 
 use App\Establishment;
 use App\Question;
-use App\QuestionAnswer;
+use App\WorkerQuestionAnswer;
 use Illuminate\Database\Seeder;
 
 use Faker\Factory as Faker;
@@ -34,7 +34,7 @@ class WorkerSeeder extends Seeder
             // ID
             $identifier = $questions->where('field', 'UNIQUEWORKERID')->first();
 
-            $id = app(QuestionAnswer::class)->create([
+            $id = app(WorkerQuestionAnswer::class)->create([
                 'question_id' => $identifier->id,
                 'worker_id' => $worker->id,
                 'answer' => $faker->firstName . ' ' . $faker->lastName,
@@ -45,9 +45,9 @@ class WorkerSeeder extends Seeder
             // Job
             $jobrole = $questions->where('field', 'MAINJOBROLE')->first();
 
-            $job = collect($jobrole->options)->random();
+            $job = collect($jobrole->options)->where('value', '!=', null)->random();
 
-            $job = app(QuestionAnswer::class)->create([
+            $job = app(WorkerQuestionAnswer::class)->create([
                 'question_id' => $jobrole->id,
                 'worker_id' => $worker->id,
                 'answer' =>  $job['value'],
@@ -59,10 +59,16 @@ class WorkerSeeder extends Seeder
 
             $meta = $worker->meta;
 
-            $meta['jobrole'] = $job->text;
-            $meta['identifier'] = $id->answer;
+            $meta['MAINJOBROLE'] = $job->text;
+            $meta['UNIQUEWORKERID'] = $id->answer;
 
             $worker->meta = $meta;
+
+            // Randomly assign an 'unfinished' record
+            $number = rand(1,3);
+
+            if($number == 2)
+                $worker->finished_adding_at = now();
 
             $worker->save();
         });

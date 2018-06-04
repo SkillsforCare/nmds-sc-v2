@@ -17,14 +17,17 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('question_category_id')->index();
             $table->unsignedInteger('question_section_id')->index();
-            $table->string('number');
+            $table->unsignedInteger('question_group_id')->nullable()->index();
+            $table->string('number')->nullable();
+            $table->string('label');
             $table->text('question');
             $table->text('help_text')->nullable();
-            $table->string('field')->unique();
+            $table->string('field');
             $table->string('field_type');
             $table->string('validation')->nullable();
             $table->unsignedInteger('order');
             $table->timestamp('hidden_at')->nullable();
+            $table->timestamp('mandatory_at')->nullable();
             $table->timestamps();
         });
     }

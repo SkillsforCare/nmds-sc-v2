@@ -1,15 +1,17 @@
 <template>
     <div>
-        <f-select v-show="type === 'select'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-select>
-        <f-radio-list v-show="type === 'radio-list'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-radio-list>
-        <f-yes-no v-show="type === 'yes_no'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-yes-no>
-        <f-date v-show="type === 'date'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-date>
-        <f-text-area v-show="type === 'text-area'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text-area>
-        <f-text v-show="type === 'text'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text>
+        <f-select v-if="type === 'select'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-select>
+        <f-select-search v-if="type === 'select-search'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-select-search>
+        <f-radio-list v-if="type === 'radio-list'" v-model="value" :field="field" :help_text="help_text" :error="error" :label="label" :options="options" @change="updated"></f-radio-list>
+        <f-yes-no v-if="type === 'yes_no'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-yes-no>
+        <f-date v-if="type === 'date'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-date>
+        <f-text-area v-if="type === 'text-area'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text-area>
+        <f-text v-if="type === 'text'" v-model="value" :field="field" :help_text="help_text" :error="error"  :label="label" :options="options" @change="updated"></f-text>
     </div>
 </template>
 <script>
     import FSelect  from './form/FSelect'
+    import FSelectSearch from './form/FSelectSearch'
     import FRadioList  from './form/FRadioList'
     import FYesNo  from './form/FYesNo'
     import FDate  from './form/FDate'
@@ -45,7 +47,7 @@
                 required: false
             }
         },
-        components: { FSelect, FRadioList, FYesNo, FDate, FTextArea, FText },
+        components: { FSelect, FSelectSearch, FRadioList, FYesNo, FDate, FTextArea, FText },
         methods: {
             updated(event) {
                 this.$emit('updated', event)

@@ -13,10 +13,10 @@ class CreateQuestionAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('question_answers', function (Blueprint $table) {
+        Schema::create('worker_question_answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('question_id');
-            $table->unsignedInteger('worker_id');
+            $table->unsignedInteger('question_id')->index();
+            $table->unsignedInteger('worker_id')->index();
             $table->text('answer');
             $table->string('text')->nullable();
             $table->timestamp('submitted_at')->nullable();
@@ -31,6 +31,6 @@ class CreateQuestionAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('question_answers');
+        Schema::dropIfExists('worker_question_answers');
     }
 }

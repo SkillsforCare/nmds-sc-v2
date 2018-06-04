@@ -1,0 +1,15 @@
+.f-select-search {
+  .multiselect__input {
+    width: 95%;
+  }
+  .multiselect__element {
+    cursor: pointer;
+  }
+  .multiselect__element:hover {
+    background-color: $grey-2;
+  }
+  .multiselect__content-wrapper {
+    overflow: hidden;
+    width: 700px;
+  }
+}

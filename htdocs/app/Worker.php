@@ -10,6 +10,10 @@ class Worker extends Model
         'meta' => 'array',
     ];
 
+    protected $fillable = [
+        'establishment_id',
+        'finished_adding_at'
+    ];
 
     public function establishment()
     {
@@ -18,7 +22,7 @@ class Worker extends Model
 
     public function answers()
     {
-        return $this->hasMany(QuestionAnswer::class);
+        return $this->hasMany(WorkerQuestionAnswer::class);
     }
 
     public function getFullNameAttribute()
@@ -26,12 +30,28 @@ class Worker extends Model
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    public function getAttentionRequiredAttribute()
+    {
+        if(empty($this->finished_adding_at)) {
+            return [
+                'message' => 'Continue with this worker record',
+                'url' => route('records.workers.edit', ['worker' => $this, 'group' => QuestionGroup::default()->first()->slug])
+            ];
+        }
+
+        return null;
+    }
+
     public function getMetaDataAttribute()
     {
         return $this->meta;
     }
 
-    public function scopeInEstablishment($query, $establishment) {
+    public function scopeInEstablishment($query, $establishment = null) {
+
+        if(empty($establishment))
+            $establishment = auth()->user()->person->establishment;
+
         return $query->whereHas('establishment', function ($query) use ($establishment) {
             $query->where('id', $establishment->id);
         });

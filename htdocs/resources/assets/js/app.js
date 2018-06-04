@@ -8,9 +8,12 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import VModal from 'vue-js-modal';
 
+import VModal from 'vue-js-modal';
 Vue.use(VModal, { dialog: true });
+
+import VueFormWizard from 'vue-form-wizard'
+Vue.use(VueFormWizard)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -22,7 +25,12 @@ Vue.component('modal-component', require('./components/ModalComponent.vue'));
 Vue.component('form-builder', require('./components/FormBuilder.vue'));
 Vue.component('question-index', require('./components/QuestionIndex.vue'));
 Vue.component('training-index', require('./components/TrainingIndex.vue'));
+
+Vue.component('f-alert', require('./components/form/FAlert.vue'));
 Vue.component('f-display', require('./components/form/FDisplay.vue'));
+Vue.component('f-status-tag', require('./components/form/FStatusTag.vue'));
+Vue.component('f-wizard', require('./components/form/FWizard.vue'));
+
 
 if (typeof Object.assign != 'function') {
     // Must be writable: true, enumerable: false, configurable: true

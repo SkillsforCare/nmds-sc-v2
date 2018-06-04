@@ -10,4 +10,9 @@ class QuestionCategory extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function sections()
+    {
+        return $this->hasMany(QuestionSection::class);
+    }
 }

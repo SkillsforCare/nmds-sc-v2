@@ -15,6 +15,7 @@ class CreateQuestionSectionsTable extends Migration
     {
         Schema::create('question_sections', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('question_category_id')->index();
             $table->string('slug');
             $table->string('name');
             $table->unsignedInteger('order');

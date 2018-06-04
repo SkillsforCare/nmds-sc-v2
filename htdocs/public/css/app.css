@@ -2823,6 +2823,114 @@ input[type=number] {
   margin-top: 20px;
 }
 
+.f-alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: 5px solid #006435;
+}
+
+.f-wizard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.f-wizard .f-navigation {
+  margin-right: 60px;
+  width: 200px;
+}
+
+.f-wizard .f-navigation .f-section {
+  margin-bottom: 20px;
+}
+
+.f-wizard .f-navigation .f-section h2 {
+  font-weight: bold;
+}
+
+.f-wizard .f-navigation li {
+  margin-bottom: 5px;
+}
+
+.f-wizard .f-content {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
+.f-wizard .f-content .f-header {
+  border-bottom: 1px solid #0b0c0c;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+}
+
+.f-wizard .f-content .f-header .heading-medium {
+  margin: 0;
+}
+
+.f-wizard .f-content .f-form {
+  border-bottom: 1px solid #0b0c0c;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+}
+
+.f-wizard .f-content .f-form div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.f-wizard .f-content .f-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.f-select-search .multiselect__input {
+  width: 95%;
+}
+
+.f-select-search .multiselect__element {
+  cursor: pointer;
+}
+
+.f-select-search .multiselect__element:hover {
+  background-color: #bfc1c3;
+}
+
+.f-select-search .multiselect__content-wrapper {
+  overflow: hidden;
+  width: 700px;
+}
+
+.status-tag {
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.25em 0.5em 0.2em 0.5em;
+  background: #f47738;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.status-tag a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .s-flex {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2835,9 +2943,43 @@ input[type=number] {
           justify-content: flex-end;
 }
 
+.s-justify-between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .site-wrapper {
   max-width: 960px;
   margin: 0 auto;
+}
+
+.s-no-margin {
+  margin: 0;
+}
+
+.button-start,
+.button-get-started {
+  background-image: url("/css/icon-pointer.png");
+}
+
+.icon-important {
+  background-image: url("/css/icon-important.png");
+}
+
+.govuk-box-highlight a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.icon.icon-right:before {
+  content: "\25BC";
+  display: inline-block;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  position: relative;
+  left: 4px;
+  top: -2px;
 }
 
 .padding-bottom {

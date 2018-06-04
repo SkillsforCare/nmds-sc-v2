@@ -7,12 +7,13 @@
                 <dl class="govuk-check-your-answers">
                     <div v-for="q in section">
                         <dt class="cya-question">
-                            {{ q.question }}
+                            <span v-if="show_labels">{{ q.label }}</span>
+                            <span v-else>{{ q.question }}</span>
                         </dt>
                         <dd class="cya-answer">
                             <f-display :data="q"></f-display>
                         </dd>
-                        <dd class="cya-change">
+                        <dd v-if="show_change" class="cya-change">
                             <a href="#" @click.prevent="$modal.show('update-question', q)">
                             Change<span class="visually-hidden"> name</span>
                             </a>
@@ -36,6 +37,16 @@
             questions: {
                 type: Object,
                 required: true
+            },
+            show_labels: {
+                type: Boolean,
+                required: false,
+                default: false
+            },
+            show_change: {
+                type: Boolean,
+                required: false,
+                default: true
             }
         },
         mounted() {
@@ -81,6 +92,9 @@
                 let questions = this.flat_questions
 
                 let question = questions.filter(x => x.field === 'TRAINING')[0]
+
+                if(question.entity_type === 'establishment')
+                    return false;
 
                 if(!question.answer) {
                     return false
