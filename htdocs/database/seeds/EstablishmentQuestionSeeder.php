@@ -338,10 +338,24 @@ class EstablishmentQuestionSeeder extends Seeder
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
             'number' => null,
-            'label' => 'Other type of employer',
+            'label' => 'Workers in each job role',
             'question' => 'Please enter the number of workers you have in each job role:',
             'help_text' => null,
             'field' => 'ALLJOBROLES',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 22,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Workers in each job role',
+            'question' => 'Please enter the number of workers you have in each job role:',
+            'help_text' => null,
+            'field' => 'OTHERDESC',
             'field_type' => 'text',
             'validation' => 'nullable',
             'order' => 22,

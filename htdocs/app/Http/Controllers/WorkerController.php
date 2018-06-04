@@ -20,9 +20,22 @@ class WorkerController extends Controller
     public function index()
     {
         $establishment = auth()->user()->person->establishment;
-        $workers = Worker::inEstablishment($establishment)->get();
 
-        return view('records.workers', compact('workers'));
+        $filter = request()->get('filter') == 'attention' ? 'attention' : null;
+
+        $originalCount = 0;
+
+        if($filter == 'attention') {
+            $workers = Worker::inEstablishment($establishment)->get()->tap(function ($collection) use(&$originalCount) {
+                $originalCount = $collection->count();
+            })->requiresAttention();
+
+        } else {
+            $workers = Worker::inEstablishment($establishment)->get();
+            $originalCount = $workers->count();
+        }
+
+        return view('records.workers', compact('workers', 'filter', 'originalCount'));
     }
 
     /**

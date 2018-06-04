@@ -13,8 +13,28 @@ Workers
 @endsection
 
 @section('content')
-<h1 class="heading-large">Your {{ $workers->count() }} workers</h1>
-<p><a href="{{ route('records.workers.create') }}">Add a new worker record</a></p>
+<div class="s-flex s-justify-between" style="margin-top: 1.25em; margin-bottom: 1.25em">
+    @if($filter == 'attention')
+    <h1 class="heading-large s-no-margin">{{ $workers->count() }} out of {{ $originalCount }} worker(s) require attention.</h1>
+    @else
+    <h1 class="heading-large s-no-margin">Your {{ $originalCount }} worker(s)</h1>
+    @endif
+    <p><a href="{{ route('records.workers.create') }}">Add a new worker record</a></p>
+</div>
+<div style="margin-bottom: 1.25em">
+    <form action="{{ route('records.workers') }}" class="s-flex">
+        @include('form.input-checkbox', [
+            'label' => 'Only show workers that require attention',
+            'field' => 'filter',
+            'value' => 'attention',
+            'checked' => $filter == 'attention',
+            'error' => null,
+            'class' => 's-no-margin'
+        ])
+        <button class="button"> Filter</button>
+    </form>
+</div>
+
 <div class="grid-row">
     <div class="column-full">
         <table>

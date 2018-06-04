@@ -13,12 +13,15 @@
 
 @section('content')
     <h1 class="heading-large">Your Records</h1>
+    @if($requiresAttention > 0)
     <div class="notice">
         <i class="icon icon-important">
             <span class="visually-hidden">Warning</span>
         </i>
-        <strong><a href="{{ route('records.workers') }}">5 worker records</a> and <a href="{{ route('records.establishment.show', null) }}">your establishment record</a> need your attention.
-        </strong></div>
+        <strong><a href="{{ route('records.workers', [ 'filter' => 'attention' ]) }}">{{ $requiresAttention }} worker record(s)</a> need your attention.
+        </strong>
+    </div>
+    @endif
     <div class="grid-row">
         <div class="column-one-half">
             <h2 class="heading-medium">Your establishment</h2>

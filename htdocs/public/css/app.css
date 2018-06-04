@@ -2954,6 +2954,10 @@ input[type=number] {
   margin: 0 auto;
 }
 
+.s-no-margin {
+  margin: 0;
+}
+
 .button-start,
 .button-get-started {
   background-image: url("/css/icon-pointer.png");

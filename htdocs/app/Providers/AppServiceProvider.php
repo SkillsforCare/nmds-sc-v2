@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -43,6 +44,10 @@ class AppServiceProvider extends ServiceProvider
 
             return preg_match('^[ABCEGHJKLMNOPRSTWXYZabceghjklmnoprstwxyz][ABCEGHJKLMNPRSTWXYZabceghjklmnprstwxyz][0-9]{6}[A-D\sa-d]{0,1}$', $value);
         }, 'Invalid National Insurance Number. It must be 9 characters in the format AB123456C');
+
+        Collection::macro('requiresAttention', function () {
+            return $this->where('attention_required', '!=', '');
+        });
     }
 
     /**

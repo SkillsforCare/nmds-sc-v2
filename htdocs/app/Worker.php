@@ -47,7 +47,11 @@ class Worker extends Model
         return $this->meta;
     }
 
-    public function scopeInEstablishment($query, $establishment) {
+    public function scopeInEstablishment($query, $establishment = null) {
+
+        if(empty($establishment))
+            $establishment = auth()->user()->person->establishment;
+
         return $query->whereHas('establishment', function ($query) use ($establishment) {
             $query->where('id', $establishment->id);
         });
