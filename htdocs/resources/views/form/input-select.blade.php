@@ -1,4 +1,4 @@
-<div class="form-group {{ $error ? 'form-group-error' : '' }}">
+<div class="form-group {{ $error ? 'form-group-error' : '' }} {{ isset($class) ? $class : '' }}">
     
     <label class="form-label" for="{{ $field }}">
         <span class="form-label-bold">{{ $label }}</span>

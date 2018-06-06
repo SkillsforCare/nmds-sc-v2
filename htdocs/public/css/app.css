@@ -2937,6 +2937,12 @@ input[type=number] {
   display: flex;
 }
 
+.s-flex-1 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
 .s-justify-end {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
@@ -2949,6 +2955,18 @@ input[type=number] {
           justify-content: space-between;
 }
 
+.s-items-baseline {
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.s-items-end {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
 .site-wrapper {
   max-width: 960px;
   margin: 0 auto;
@@ -2956,6 +2974,10 @@ input[type=number] {
 
 .s-no-margin {
   margin: 0;
+}
+
+.s-margin-bottom {
+  margin-bottom: 20px;
 }
 
 .button-start,

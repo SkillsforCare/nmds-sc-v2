@@ -14,12 +14,24 @@
   display: flex;
 }
 
+.s-flex-1 {
+  flex: 1;
+}
+
 .s-justify-end {
   justify-content: flex-end;
 }
 
 .s-justify-between {
   justify-content: space-between;
+}
+
+.s-items-baseline {
+  align-items: baseline;
+}
+
+.s-items-end {
+  align-items: flex-end;
 }
 
 .site-wrapper {
@@ -29,6 +41,10 @@
 
 .s-no-margin {
   margin: 0;
+}
+
+.s-margin-bottom {
+  margin-bottom: 20px;
 }
 
 .button-start, .button-get-started {

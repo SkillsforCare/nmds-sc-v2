@@ -21,6 +21,9 @@ Route::get('/landing', function() {
 Route::name('reports.')->prefix('reports')->namespace('AnalystUser')->group(function () {
     Route::middleware(['auth', 'role:analyst-user'])->group(function () {
         Route::get('/', 'ReportController@index')->name('index');
+        Route::get('/analytical-db-download', 'AnalyticalDBDownloadController@index')->name('analytical-db-download');
+        Route::post('/analytical-db-download', 'AnalyticalDBDownloadController@store')->name('analytical-db-download.store');
+
     });
 });
 
