@@ -7,14 +7,34 @@ Route::get('/', function () {
 })->name('pages.home');
 
 
-Route::middleware('auth')->name('records.')->prefix('records')->group(function () {
-    Route::get('/', 'RecordIndexController')->middleware('auth')->name('index');
-    Route::get('/workers', 'WorkerController@index')->middleware('auth')->name('workers');
-    Route::post('/workers', 'WorkerController@store')->middleware('auth')->name('workers.store');
-    Route::get('/workers/create', 'WorkerController@create')->middleware('auth')->name('workers.create');
-    Route::get('/workers/{worker}/edit/{section}', 'WorkerController@edit')->middleware('auth')->name('workers.edit');
-    Route::get('/workers/{worker}', 'WorkerController@show')->middleware('auth')->name('workers.show');
-    Route::get('/establishment/{establishment?}', 'EstablishmentController@show')->middleware('auth')->name('establishment.show');
+Route::get('/landing', function() {
+
+    if(auth()->user()->hasRole('analyst-user'))
+        return redirect()->route('reports.index');
+
+    if(auth()->user()->hasRole('edit-user'))
+        return redirect()->route('records.index');
+
+})->middleware('auth')->name('pages.landing');;
+
+// Analyst reports.
+Route::name('reports.')->prefix('reports')->namespace('AnalystUser')->group(function () {
+    Route::middleware(['auth', 'role:analyst-user'])->group(function () {
+        Route::get('/', 'ReportController@index')->name('index');
+    });
+});
+
+// Establishment records.
+Route::name('records.')->prefix('records')->group(function () {
+    Route::middleware(['auth', 'role:edit-user'])->group(function () {
+        Route::get('/', 'RecordIndexController')->name('index');
+        Route::get('/workers', 'WorkerController@index')->name('workers');
+        Route::post('/workers', 'WorkerController@store')->name('workers.store');
+        Route::get('/workers/create', 'WorkerController@create')->name('workers.create');
+        Route::get('/workers/{worker}/edit/{section}', 'WorkerController@edit')->name('workers.edit');
+        Route::get('/workers/{worker}', 'WorkerController@show')->name('workers.show');
+        Route::get('/establishment/{establishment?}', 'EstablishmentController@show')->name('establishment.show');
+    });
 });
 
 Route::middleware('auth')->put('question_answers_bulk/{worker}/update', 'QuestionAnswerBulkController@update')->name('question_answer_bulk_update');
