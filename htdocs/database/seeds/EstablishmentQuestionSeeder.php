@@ -352,13 +352,125 @@ class EstablishmentQuestionSeeder extends Seeder
             'question_category_id' => $category->id,
             'question_section_id' => $details->id,
             'number' => null,
-            'label' => 'Workers in each job role',
-            'question' => 'Please enter the number of workers you have in each job role:',
+            'label' => 'Starters in the last 12 months',
+            'question' => 'How many starters have you had in the last 12 months? (Permanent and temporary only)',
             'help_text' => null,
-            'field' => 'OTHERDESC',
+            'field' => 'TOTALSTARTERS',
             'field_type' => 'text',
             'validation' => 'nullable',
-            'order' => 22,
+            'order' => 23,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Leavers in the last 12 months',
+            'question' => 'How many workers have left in the last 12 months? (Permanent and temporary only)',
+            'help_text' => null,
+            'field' => 'TOTALLEAVERS',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 24,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Number of vacancies',
+            'question' => 'How many vacancies do you currently have? (Permanent and temporary)',
+            'help_text' => null,
+            'field' => 'TOTALVACANCIES',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 25,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Job roles (starters)',
+            'question' => 'What are their new job roles (starters)?',
+            'help_text' => null,
+            'field' => 'STARTERS',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 26,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Job roles (leavers)',
+            'question' => 'What were their job roles (leavers)?',
+            'help_text' => null,
+            'field' => 'LEAVERS',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 27,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Job roles (vacancies)',
+            'question' => 'What are these job roles (vacancies)?',
+            'help_text' => null,
+            'field' => 'VACANCIES',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 28,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Reasons workers left',
+            'question' => 'Of workers that left, why did they leave?',
+            'help_text' => null,
+            'field' => 'REASONS',
+            'field_type' => 'select',
+            'validation' => 'nullable',
+            'order' => 29,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Where did they go?',
+            'question' => 'Where did they go?',
+            'help_text' => null,
+            'field' => 'DESTINATIONS',
+            'field_type' => 'select',
+            'validation' => 'nullable',
+            'order' => 29,
+            'hidden_at' => null
+        ]);
+
+        $question = factory(App\Question::class)->create([
+            'question_category_id' => $category->id,
+            'question_section_id' => $details->id,
+            'number' => null,
+            'label' => 'Number of volunteers',
+            'question' => 'How many volunteers do you have?',
+            'help_text' => null,
+            'field' => 'VOLUNTEERS',
+            'field_type' => 'text',
+            'validation' => 'nullable',
+            'order' => 30,
             'hidden_at' => null
         ]);
 
