@@ -18,10 +18,7 @@ class AnalystsCanDownloadTheAnalyticalDBTest extends TestCase
         $response = $this->post('/reports/analytical-db-download');
 
         // and receive a zip file with my report contents.
-        $file = 'analytical-db-download-' . str_slug(now()->toDateTimeString()) . '.csv';
-
-        //dd($response->headers);
-
+        $file = 'analytical-db-download-' . str_slug(now()->toDateTimeString()) . '.zip';
 
         $response->assertHeader(
             'content-disposition',

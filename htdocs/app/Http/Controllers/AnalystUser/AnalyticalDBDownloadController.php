@@ -39,7 +39,7 @@ class AnalyticalDBDownloadController extends Controller
         $zipFile = storage_path('app/analytical-db/live/') . $fileName  . '.zip';
 
         \Zipper::make($zipFile)->add($csvFile)->close();
-        
+
         Storage::disk('analytical-db')->delete( '/live/'. $fileName  . '.csv');
 
         return response()->download($zipFile)->deleteFileAfterSend(true);
