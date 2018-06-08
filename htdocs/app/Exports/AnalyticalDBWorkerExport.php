@@ -30,14 +30,6 @@ class AnalyticalDBWorkerExport implements FromQuery, WithHeadings
      */
     public function query()
     {
-        $query = \DB::table('establishments')
-            ->join('workers', 'establishments.id', '=', 'workers.establishment_id')
-            ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('users.*', 'contacts.phone', 'orders.price')
-            ->get();
-
-        dd($query->get());
-
         return $this->establishments->whereNotNull('updated_at');
     }
 

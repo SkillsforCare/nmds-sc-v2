@@ -7,6 +7,7 @@ use App\AnalyticalDB;
 use App\Exports\AnalyticalDBWorkerExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -31,6 +32,16 @@ class AnalyticalDBDownloadController extends Controller
 
     public function store(Request $request)
     {
-        return Excel::download(app(AnalyticalDBWorkerExport::class), 'test.csv');
+        $fileName = 'analytical-db-download-' . str_slug(now()->toDateTimeString());
+        Excel::store(app(AnalyticalDBWorkerExport::class), '/live/'. $fileName . '.csv', 'analytical-db');
+
+        $csvFile = storage_path('app/analytical-db/live/') . $fileName  . '.csv';
+        $zipFile = storage_path('app/analytical-db/live/') . $fileName  . '.zip';
+
+        \Zipper::make($zipFile)->add($csvFile)->close();
+        
+        Storage::disk('analytical-db')->delete( '/live/'. $fileName  . '.csv');
+
+        return response()->download($zipFile)->deleteFileAfterSend(true);
     }
 }

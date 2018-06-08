@@ -15,6 +15,7 @@ class CreateAnalyticalDBsTable extends Migration
     {
         Schema::create('analytical_d_bs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type');
             $table->unsignedInteger('month');
             $table->unsignedInteger('year');
             $table->timestamps();

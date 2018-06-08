@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Analyst
+class EditUser
 {
     /**
      * @var User
@@ -20,6 +20,6 @@ class Analyst
 
     public function first()
     {
-        return $this->user->role('analyst-user')->first();
+        return $this->user->role('edit-user')->first();
     }
 }
