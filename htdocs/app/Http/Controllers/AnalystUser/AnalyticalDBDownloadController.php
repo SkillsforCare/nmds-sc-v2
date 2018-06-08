@@ -32,16 +32,30 @@ class AnalyticalDBDownloadController extends Controller
 
     public function store(Request $request)
     {
-        $fileName = 'analytical-db-download-' . str_slug(now()->toDateTimeString());
-        Excel::store(app(AnalyticalDBWorkerExport::class), '/live/'. $fileName . '.csv', 'analytical-db');
+        if($request->has('year') and $request->has('month')) {
 
-        $csvFile = storage_path('app/analytical-db/live/') . $fileName  . '.csv';
-        $zipFile = storage_path('app/analytical-db/live/') . $fileName  . '.zip';
+            $file = AnalyticalDB::where('year', $request->year)
+                ->where('month', $request->month)
+                ->where('year', $request->year)
+                ->first();
 
-        \Zipper::make($zipFile)->add($csvFile)->close();
+            if(empty($file))
+                return redirect()->back()->with('status', 'Unable to find file!');
 
-        Storage::disk('analytical-db')->delete( '/live/'. $fileName  . '.csv');
+            return $file->getFirstMedia('analytical-db-worker');
 
-        return response()->download($zipFile)->deleteFileAfterSend(true);
+        } else {
+            $fileName = 'AGGWP_ANALYSIS_M' . now()->format('Ym');
+            Excel::store(app(AnalyticalDBWorkerExport::class), '/live/'. $fileName . '.csv', 'analytical-db');
+
+            $csvFile = storage_path('app/analytical-db/live/') . $fileName  . '.csv';
+            $zipFile = storage_path('app/analytical-db/live/') . $fileName  . '.zip';
+
+            \Zipper::make($zipFile)->add($csvFile)->close();
+
+            Storage::disk('analytical-db')->delete( '/live/'. $fileName  . '.csv');
+
+            return response()->download($zipFile)->deleteFileAfterSend(true);
+        }
     }
 }

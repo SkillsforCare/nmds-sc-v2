@@ -18,6 +18,7 @@
             <h1 class="heading-large">Analytical DB Download</h1>
             <h2 class="heading-medium">Worker Historic Data</h2>
             <div class="s-margin-bottom">
+                @include('form.alert')
                 <form action="" method="post" >
                     @include('form.csrf')
                     <div class="s-flex s-items-end">
