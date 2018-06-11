@@ -3,6 +3,7 @@
   "WEBDIR": "htdocs/public",
   "PHP_EXTENSIONS": [
     "gd",
+    "zip",
     "mbstring",
     "pdo",
     "pdo_mysql",
