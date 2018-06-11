@@ -2,6 +2,7 @@
   "COMPOSER_VENDOR_DIR": "htdocs/vendor",
   "WEBDIR": "htdocs/public",
   "PHP_EXTENSIONS": [
+    "gd",
     "mbstring",
     "pdo",
     "pdo_mysql",
