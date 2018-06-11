@@ -2,9 +2,10 @@
   "COMPOSER_VENDOR_DIR": "htdocs/vendor",
   "WEBDIR": "htdocs/public",
   "PHP_EXTENSIONS": [
+    "zlib",
     "gd",
     "zip",
-    "zlib",
+    "fileinfo",
     "mbstring",
     "pdo",
     "pdo_mysql",
