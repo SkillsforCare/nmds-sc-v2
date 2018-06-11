@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 /htdocs/.env
 .DS_Store
+manifest.yml
