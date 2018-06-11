@@ -4,6 +4,7 @@
   "PHP_EXTENSIONS": [
     "gd",
     "zip",
+    "zlib",
     "mbstring",
     "pdo",
     "pdo_mysql",
