@@ -47,6 +47,15 @@ class Worker extends Model
         return $this->meta;
     }
 
+    public function saveMetaData($field, $answer, $text)
+    {
+        $meta = $this->meta;
+
+        $meta
+
+        $this->save();
+    }
+
     public function scopeInEstablishment($query, $establishment = null) {
 
         if(empty($establishment))

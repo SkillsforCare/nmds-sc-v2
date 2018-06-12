@@ -50,8 +50,8 @@ Workers
 
             @forelse($workers as $worker)
             <tr>
-                <td>{{ $worker->meta_data['UNIQUEWORKERID'] }}</td>
-                <td>{{ $worker->meta_data['MAINJOBROLE'] }}</td>
+                <td>{{ $worker->meta_data['UNIQUEWORKERID']['answer'] }}</td>
+                <td>{{ $worker->meta_data['MAINJOBROLE']['text'] }}</td>
                 <td>
                     <f-status-tag
                         :message="{{ json_encode($worker->attention_required['message']) }}"

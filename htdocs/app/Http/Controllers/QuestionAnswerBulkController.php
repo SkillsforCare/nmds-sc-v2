@@ -13,6 +13,7 @@ class QuestionAnswerBulkController extends Controller
 {
     public function update(Request $request, Worker $worker)
     {
+
         // Get the submitted questions to validate.
         $rules = [];
         $questions = Question::inCategory('worker')->whereIn('field', array_keys($request->all()))
@@ -47,13 +48,17 @@ class QuestionAnswerBulkController extends Controller
         collect($data)->each(function($value, $key) use(&$meta, $questions, $worker) {
 
             // Determine from the questions the field type
-            $question = $questions->where('field', $key)->first();
+            //$question = $questions->where('field', $key)->first();
+
+
+            $worker->saveMeta($key, $value);
+
 
             // Also create an answer to the question.
-            app(WorkerQuestionAnswer::class)->saveAnswer($question, [
-                'worker_id' => $worker->id,
-                'answer' => $value,
-            ]);
+            //app(WorkerQuestionAnswer::class)->saveAnswer($question, [
+            //    'worker_id' => $worker->id,
+             //   'answer' => $value,
+            //]);
         });
 
         // Get the 'next' group for one of the questions and redirect to it.

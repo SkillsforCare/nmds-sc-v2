@@ -136,29 +136,21 @@ class WorkerController extends Controller
             })->with('groups.prev_group', 'groups.next_group', 'groups.questions')->get();
         }
 
-        $workerAnswers = $worker->answers;
-
         if($group !== 'summary') {
-            $groupQuestion->questions->transform(function ($question) use ($workerAnswers) {
+            $groupQuestion->questions->transform(function ($question) use ($worker) {
 
-                $workerAnswer = $workerAnswers->where('question_id', $question->id)->first();
-
-                if ($workerAnswer)
-                    $question->answer = $workerAnswer;
+                $question->answer = isset($worker->meta_data[$question->field]) ? $worker->meta_data[$question->field]['answer'] : null;
 
                 return $question;
             });
         } else {
-            $groupQuestion->transform(function($section) use ($workerAnswers) {
+            $groupQuestion->transform(function($section) use ($worker) {
 
-                $section->groups->transform(function($group) use ($workerAnswers) {
+                $section->groups->transform(function($group) use ($worker) {
 
-                    $group->questions->transform(function ($question) use ($workerAnswers) {
+                    $group->questions->transform(function ($question) use ($worker) {
 
-                        $workerAnswer = $workerAnswers->where('question_id', $question->id)->first();
-
-                        if ($workerAnswer)
-                            $question->answer = $workerAnswer;
+                        $question->answer = optional($worker->meta_data[$question->field]['answer']);
 
                         return $question;
                     });
