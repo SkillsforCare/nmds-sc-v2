@@ -61,5 +61,9 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment(['local', 'testing'])) {
             $this->app->register(DuskServiceProvider::class);
         }
+
+        if ($this->app->environment(['alpha', 'uat'])) {
+            $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
+        }
     }
 }
