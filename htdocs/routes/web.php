@@ -6,6 +6,12 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->name('pages.home');
 
+Route::get('/test', function () {
+    $report = app(App\AnalyticalDB::class)->getWorkerAnalyticalDBReport();
+    return view('analyst-user.reports.analytical-db-download.downloads.worker', compact('report'));
+});
+
+
 
 Route::get('/landing', function() {
 
@@ -15,7 +21,7 @@ Route::get('/landing', function() {
     if(auth()->user()->hasRole('edit-user'))
         return redirect()->route('records.index');
 
-})->middleware('auth')->name('pages.landing');;
+})->middleware('auth')->name('pages.landing');
 
 // Analyst reports.
 Route::name('reports.')->prefix('reports')->namespace('AnalystUser')->group(function () {

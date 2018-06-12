@@ -15,6 +15,11 @@ class Establishment extends Model
         return $this->hasMany(EstablishmentQuestionAnswer::class);
     }
 
+    public function workers()
+    {
+        return $this->hasMany(Worker::class);
+    }
+
     public function getMetaDataAttribute()
     {
         return $this->meta;

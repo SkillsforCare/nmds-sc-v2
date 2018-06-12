@@ -19,6 +19,10 @@ class WorkerQuestionAnswer extends Model
         'MAINJOBROLE'
     ];
 
+    public function question() {
+        return $this->belongsTo(Question::class);
+    }
+
     public function saveAnswer($question, $data)
     {
         $answer = null;
@@ -64,4 +68,5 @@ class WorkerQuestionAnswer extends Model
         }
         return $answer;
     }
+
 }
