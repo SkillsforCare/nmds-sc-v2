@@ -11,6 +11,9 @@ Route::get('/users', function() {
     return view('pages.users', compact('users'));
 });
 
+Route::get('/test', function () {
+    \Log::debug('Rollbar test');
+})->name('pages.home');
 
 Route::get('/landing', function() {
 
