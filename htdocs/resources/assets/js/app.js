@@ -15,6 +15,11 @@ Vue.use(VModal, { dialog: true });
 import VueFormWizard from 'vue-form-wizard'
 Vue.use(VueFormWizard)
 
+var Rollbar = require('vue-rollbar');
+Vue.use(Rollbar, {
+    accessToken: 'bc29e86203b941ed9223489cf042c5f4',
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

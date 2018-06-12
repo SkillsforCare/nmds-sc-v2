@@ -7,7 +7,7 @@ applications:
     APP_DEBUG: false
     APP_ENV: alpha
     APP_KEY: base64:x2gXYJvnf2AieFhh9RLsJveVHka6PjR4XU6N0yKklMs=
-    ROLLBAR_TOKEN: 7ea4d1f358fc45488bb7adab4b860274
+    ROLLBAR_TOKEN:
     CF_STAGING_TIMEOUT: 15
     CF_STARTUP_TIMEOUT: 15
 - name: nmds-sc-v2-development
@@ -17,6 +17,7 @@ applications:
     APP_DEBUG: true
     APP_ENV: development
     APP_KEY: base64:x2gXYJvnf2AieFhh9RLsJveVHka6PjR4XU6N0yKklMs=
+    ROLLBAR_TOKEN:
     CF_STAGING_TIMEOUT: 15
     CF_STARTUP_TIMEOUT: 15
 - name: nmds-sc-v2-uat
@@ -26,6 +27,6 @@ applications:
     APP_DEBUG: false
     APP_ENV: uat
     APP_KEY: base64:x2gXYJvnf2AieFhh9RLsJveVHka6PjR4XU6N0yKklMs=
-    ROLLBAR_TOKEN: 7ea4d1f358fc45488bb7adab4b860274
+    ROLLBAR_TOKEN:
     CF_STAGING_TIMEOUT: 15
     CF_STARTUP_TIMEOUT: 15
