@@ -37,7 +37,7 @@ class DatabaseMigrateEnvironment extends Command
      */
     public function handle()
     {
-        if(app()->environment(['local', 'development', 'alpha'])) {
+        if(app()->environment(['local', 'development', 'alpha', 'uat'])) {
             $this->call('migrate:fresh');
             $this->call('db:seed');
         }
