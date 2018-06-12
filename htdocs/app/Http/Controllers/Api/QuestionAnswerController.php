@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\QuestionAnswerResource;
 use App\Question;
 use App\QuestionAnswer;
+use App\Worker;
 use App\WorkerQuestionAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -47,7 +48,15 @@ class QuestionAnswerController extends Controller
             'answer' => $question->validation ?? []
         ]);
 
-        $question->answer = app(QuestionAnswer::class)->saveAnswer($question, $request->all());
+        if($request->entity_type == 'worker') {
+
+            $worker = app(Worker::class)->find($request->entity_id);
+
+            $text = $question->text_value($request->answer);
+            $worker->saveMetaData($question->field, $request->answer, $text);
+
+            $question->answer = json_decode(json_encode($worker->fresh()->meta_data($question->field)));
+        }
 
         return new QuestionAnswerResource($question);
     }

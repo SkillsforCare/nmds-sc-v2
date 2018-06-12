@@ -43,6 +43,15 @@ class WorkerSeeder extends Seeder
                 'text' => $name
             ];
 
+
+            if(rand(1,10) == 5) {
+                $now = now()->subYear(rand(18,40));
+                $meta['DOB'] = [
+                    'answer' => $now->toDateString(),
+                    'text' => $now->format('d/m/Y')
+                ];
+            }
+
             $worker->meta = $meta;
 
             // Randomly assign an 'unfinished' record

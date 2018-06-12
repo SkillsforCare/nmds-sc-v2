@@ -30,6 +30,24 @@ class Question extends Model
         return $this->belongsTo(QuestionGroup::class, 'question_group_id');
     }
 
+    public function text_value($answer)
+    {
+        switch($this->field_type) {
+            case 'radio-list':
+            case 'select':
+                $text = collect($this->options)->where('value', $answer)->first()['text'];
+                break;
+            case 'date':
+                $text = friendly_date($answer);
+                break;
+            default:
+                $text = $answer;
+
+        }
+
+        return $text;
+    }
+
     public function getOptionsAttribute()
     {
         if($this->field_type === 'select')
@@ -63,7 +81,8 @@ class Question extends Model
 
     public function getQuestions($category, $type)
     {
-        $answers = $type->answers;
+        if($category == 'worker')
+            $entity = app(Worker::class)->find($type->id);
 
         $questions = Question::inCategory($category)
             ->join(\DB::raw('question_sections qs'), 'question_section_id', '=', 'qs.id')
@@ -72,16 +91,16 @@ class Question extends Model
             ->orderBy('qs.order')
             ->orderBy('order')
             ->get()
-            ->transform(function($question) use($answers, $type, $category) {
+            ->transform(function($question) use($entity, $type, $category) {
+
                 $question->entity_id = $type->id;
                 $question->entity_type = $category;
+                $answer = $entity->meta_data($question->field);
 
-                $answer = $answers->where('question_id', $question->id)->first();
 
-                $question->answer = app(EstablishmentQuestionAnswer::class);
-                if($category == 'worker')
-                    $question->answer = app(WorkerQuestionAnswer::class);
-
+                $question->answer = [
+                    'answer' => null
+                ];
                 if($answer)
                     $question->answer = $answer;
 

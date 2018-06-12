@@ -19,7 +19,6 @@ class QuestionAnswerResource extends JsonResource
         $answer = $this->answer;
         if(empty($answer))
         {
-            $answer = new WorkerQuestionAnswer();
             $answer->id = null;
             $answer->answer = null;
         }

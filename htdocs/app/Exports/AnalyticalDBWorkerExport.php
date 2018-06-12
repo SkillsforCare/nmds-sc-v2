@@ -2,49 +2,20 @@
 
 namespace App\Exports;
 
-use App\Establishment;
-use App\Question;
-use Illuminate\Database\Query\Builder;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use App\AnalyticalDB;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class AnalyticalDBWorkerExport implements FromQuery, WithHeadings
+
+class AnalyticalDBWorkerExport implements FromView
 {
     /**
-     * @var Establishment
+     * @return View
      */
-    private $establishments;
-    /**
-     * @var Question
-     */
-    private $questions;
-
-    public function __construct(Establishment $establishments, Question $questions)
+    public function view(): View
     {
-        $this->establishments = $establishments;
-        $this->questions = $questions;
+        return view('analyst-user.reports.analytical-db-download.downloads.worker', [
+            'report' => app(AnalyticalDB::class)->getWorkerAnalyticalDBReport()
+        ]);
     }
-
-    /**
-     * @return Builder
-     */
-    public function query()
-    {
-        return $this->establishments->whereNotNull('updated_at');
-    }
-
-    public function headings(): array
-    {
-        $establishment = $this->questions
-            ->inCategory('establishment')
-            ->where('field', 'ESTNAME')
-            ->pluck('field')
-            ->toArray();
-
-        $worker = $this->questions->inCategory('worker')->pluck('field')->toArray();
-
-        return array_merge($establishment, $worker);
-    }
-
-
 }

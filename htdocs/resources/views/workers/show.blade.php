@@ -16,7 +16,7 @@
 @section('content')
 <div class="grid-row">
     <div class="column-two-thirds">
-        <h1 class="heading-large">{{ $worker->meta_data['UNIQUEWORKERID'] }}</h1>
+        <h1 class="heading-large">{{ $worker->meta_data('UNIQUEWORKERID')['answer'] }}</h1>
         <p class="lede">In this worker record:</p>
         <ul class="list list-contents">
             @foreach($questions as $key => $section)
@@ -28,7 +28,7 @@
 <hr>
 <div class="grid-row">
     <div class="column-full">
-        <question-index :questions="{{ json_encode($questions) }}"></question-index>
+        <question-index :questions="{{ json_encode($questions) }}" :show_labels="true"></question-index>
     </div>
 </div>
 @endsection

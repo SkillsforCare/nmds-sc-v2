@@ -53,24 +53,25 @@ class AnalyticalDBSeeder extends Seeder
                     $mandatory->each(function($question) use ($worker, $faker, $now) {
 
                         $text = '';
+                        $answer = '';
+
                         if ($question->field_type === 'select' or
                             $question->field_type === 'select-search' or
                             $question->field_type === 'radio-list') {
-                            $text = collect(config('lookups.' . strtolower($question->field)))
+                            $answer = collect(config('lookups.' . strtolower($question->field)))
                                 ->random()['value'];
                         }
 
                         if($question->field_type === 'text') {
                             if($question->field === 'UNIQUEWORKERID')
                             {
-                                $text = $faker->firstName . ' ' . $faker->lastName;
+                                $answer = $faker->firstName . ' ' . $faker->lastName;
+                                $text = $answer;
                             }
                         }
 
-                        $answer = app(App\WorkerQuestionAnswer::class)->saveAnswer($question, [
-                            'worker_id' => $worker->id,
-                            'answer' => $text,
-                        ]);
+                        $text = $question->text_value($text);
+                        $worker->saveMetaData($question->field, $answer, $text);
 
                         $date = $now;
                         $day = rand(1, 28);
@@ -78,11 +79,6 @@ class AnalyticalDBSeeder extends Seeder
                         $date->hour = 0;
                         $date->minute = 0;
                         $date->second = 0;
-
-                        $answer->submitted_at = $date->toDateTimeString();
-                        $answer->created_at = $date->toDateTimeString();
-                        $answer->updated_at = $date->toDateTimeString();
-                        $answer->save();
                     });
 
                     $randomQuestions = App\Question::inCategory('worker')
@@ -94,6 +90,8 @@ class AnalyticalDBSeeder extends Seeder
                     $randomQuestions->each(function($question) use ($worker, $faker, $now) {
 
                         $text = '';
+                        $answer = '';
+
                         if ($question->field_type === 'select' or
                             $question->field_type === 'select-search' or
                             $question->field_type === 'radio-list') {
@@ -101,17 +99,27 @@ class AnalyticalDBSeeder extends Seeder
                                 ->random()['value'];
                         }
 
+
+                        if ($question->field_type === 'date' or $question->field === 'DOB') {
+                            $now = now()->subYear(rand(18, 40));
+                            $answer = $now->toDateString();
+                            $text = $now->format('d/m/Y');
+                        }
+
                         if($question->field_type === 'text') {
                             if($question->field === 'UNIQUEWORKERID')
                             {
-                                $text = $faker->firstName . ' ' . $faker->lastName;
+                                $answer = $faker->firstName . ' ' . $faker->lastName;
+                                $text = $answer;
+                            }
+                            else {
+                                $answer = $faker->sentence;
+                                $text =  $answer;
                             }
                         }
 
-                        $answer = app(App\WorkerQuestionAnswer::class)->saveAnswer($question, [
-                            'worker_id' => $worker->id,
-                            'answer' => $text,
-                        ]);
+                        $text = $question->text_value($text);
+                        $worker->saveMetaData($question->field, $answer, $text);
 
                         $date = $now;
                         $day = rand(1, 28);
@@ -119,11 +127,6 @@ class AnalyticalDBSeeder extends Seeder
                         $date->hour = 0;
                         $date->minute = 0;
                         $date->second = 0;
-
-                        $answer->submitted_at = $date->toDateTimeString();
-                        $answer->created_at = $date->toDateTimeString();
-                        $answer->updated_at = $date->toDateTimeString();
-                        $answer->save();
                     });
                 });
             });
@@ -131,43 +134,5 @@ class AnalyticalDBSeeder extends Seeder
             \Artisan::call('analytical-db:worker-generate', [ 'date' => $now->toDateTimeString() ]);
 
         });
-
-
-        // Jan 2018
-
-
-        // Generate a CSV/ZIP report for January.
-
-        /*
-        factory(\App\AnalyticalDB::class)->create([
-            'type' => 'archive',
-            'year' => 2018,
-            'month' => 1,
-        ]);
-
-        factory(\App\AnalyticalDB::class)->create([
-            'type' => 'archive',
-            'year' => 2018,
-            'month' => 2,
-        ]);
-
-        factory(\App\AnalyticalDB::class)->create([
-            'type' => 'archive',
-            'year' => 2018,
-            'month' => 3,
-        ]);
-
-        factory(\App\AnalyticalDB::class)->create([
-            'type' => 'archive',
-            'year' => 2018,
-            'month' => 4,
-        ]);
-
-        factory(\App\AnalyticalDB::class)->create([
-            'type' => 'archive',
-            'year' => 2018,
-            'month' => 5,
-        ]);
-        */
     }
 }

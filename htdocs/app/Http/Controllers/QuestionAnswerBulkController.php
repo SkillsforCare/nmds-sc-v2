@@ -48,17 +48,9 @@ class QuestionAnswerBulkController extends Controller
         collect($data)->each(function($value, $key) use(&$meta, $questions, $worker) {
 
             // Determine from the questions the field type
-            //$question = $questions->where('field', $key)->first();
-
-
-            $worker->saveMeta($key, $value);
-
-
-            // Also create an answer to the question.
-            //app(WorkerQuestionAnswer::class)->saveAnswer($question, [
-            //    'worker_id' => $worker->id,
-             //   'answer' => $value,
-            //]);
+            $question = $questions->where('field', $key)->first();
+            $text = $question->text_value($answer = $value);
+            $worker->saveMetaData($field = $key, $answer = $value, $text);
         });
 
         // Get the 'next' group for one of the questions and redirect to it.

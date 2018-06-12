@@ -29,7 +29,7 @@ class AnalyticalDB extends Model implements HasMedia
     public function __construct()
     {
         parent::__construct();
-        $this->workerColumns = config('reports.fields.analyticaldbworker');
+        $this->workerColumns = collect(config('reports.fields.analyticaldbworker'));
     }
 
     public function workerZipGenerate(Carbon $date)
@@ -68,36 +68,26 @@ class AnalyticalDB extends Model implements HasMedia
         // Get all of the questions.
         $questions = Question::inCategory('worker')->get();
 
-        // Get all the worker answers.
-        $answers = WorkerQuestionAnswer::with('question')->take(40)->get();
 
         // Get all establishments and workers.
         $workers = Worker::with('establishment')
             ->orderBy('establishment_id')->get();
 
         // Get the columns for the report.
-        $columns = collect(self::getColumnsFor('worker'));
+        $columns = $this->workerColumns;
 
         $computed = collect($this->workerComputedColumns);
 
-        return $workers->transform(function($worker) use($columns, $computed, $questions, $answers) {
+        return $workers->transform(function($worker) use($columns, $computed, $questions) {
 
             $report = [];
 
-            $columns->each(function($column) use(&$report, $worker, $questions, $answers) {
-
-                $answer = optional($answers
-                    ->where('worker_id', $worker->id)
-                    ->where('question.field', $column)
-                    ->first()->answer);
-
-                // If the answer is NULL, then check for a computed field.
-
-                $report[$column] = empty($answer->answer) ? '' : $answer->answer;
+            $columns->each(function($column) use(&$report, $worker) {
+                $report[$column] = $worker->meta_data($column)['answer'];
             });
 
-            $computed->each(function($column) use(&$report) {
-                $report[$column] = empty($answer->answer) ? '' : $answer->answer;
+            $computed->each(function($column) use(&$report, $worker) {
+                $report[$column] = $worker->$column;
             });
 
             return $report;

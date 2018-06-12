@@ -139,7 +139,7 @@ class WorkerController extends Controller
         if($group !== 'summary') {
             $groupQuestion->questions->transform(function ($question) use ($worker) {
 
-                $question->answer = isset($worker->meta_data[$question->field]) ? $worker->meta_data[$question->field]['answer'] : null;
+                $question->answer = optional($worker->meta_data($question->field)) ? $worker->meta_data($question->field)['answer'] : null;
 
                 return $question;
             });
@@ -150,7 +150,7 @@ class WorkerController extends Controller
 
                     $group->questions->transform(function ($question) use ($worker) {
 
-                        $question->answer = optional($worker->meta_data[$question->field]['answer']);
+                        $question->answer = optional($worker->meta_data($question->field)['answer']);
 
                         return $question;
                     });

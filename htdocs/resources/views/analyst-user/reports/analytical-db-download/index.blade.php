@@ -42,14 +42,6 @@
                     </div>
                 </form>
             </div>
-            <hr>
-            <p>
-                <form action="{{ route('reports.analytical-db-download.store') }}" method="post">
-                    @include('form.csrf')
-                    <button type="submit"class="button button-start">Download Live Data (CSV, Zip)</button>
-                </form>
-            </p>
-            <h2 class="heading-medium">Establishment Historic Data</h2>
         </div>
     </div>
 @endsection

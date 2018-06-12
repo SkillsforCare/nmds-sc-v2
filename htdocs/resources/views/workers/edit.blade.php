@@ -16,7 +16,7 @@
 @section('content')
 <div class="grid-row">
     <div class="column-full">
-        <h1 class="heading-large">Adding worker: {{ $worker->meta_data['UNIQUEWORKERID']['answer'] }}</h1>
+        <h1 class="heading-large">Adding worker: {{ $worker->meta_data('UNIQUEWORKERID')['answer'] }}</h1>
 
         @if($worker->finished_adding_at)
             <div class="govuk-box-highlight">

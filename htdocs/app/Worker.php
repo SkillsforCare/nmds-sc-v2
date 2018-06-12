@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Worker extends Model
@@ -42,16 +43,37 @@ class Worker extends Model
         return null;
     }
 
-    public function getMetaDataAttribute()
+    public function getAGEAttribute()
     {
-        return $this->meta;
+        $dob = $this->meta_data('DOB')['answer'];
+
+        if(!empty($dob))
+            return Carbon::parse($dob)->diffInYears(now());
+
+        return $dob;
+    }
+
+    public function getESTNAMEAttribute()
+    {
+        return $this->establishment->name;
+    }
+
+
+    public function meta_data($field)
+    {
+        return isset($this->meta[$field]) ? $this->meta[$field] : null;
     }
 
     public function saveMetaData($field, $answer, $text)
     {
         $meta = $this->meta;
 
-        $meta
+        $meta[$field] = [
+            'answer' => $answer,
+            'text' => $text
+        ];
+
+        $this->meta = $meta;
 
         $this->save();
     }
