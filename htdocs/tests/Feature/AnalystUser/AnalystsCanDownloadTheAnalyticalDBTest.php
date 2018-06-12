@@ -23,8 +23,7 @@ class AnalystsCanDownloadTheAnalyticalDBTest extends TestCase
         $file = 'AGGWP_ANALYSIS_M' . now()->format('Ym')  . '.zip';
 
         $response->assertHeader(
-            'content-disposition',
-            'attachment; filename="'. $file . '"');
+            'content-disposition', 'attachment; filename='. $file);
         $response->assertStatus(200);
     }
 
@@ -54,8 +53,7 @@ class AnalystsCanDownloadTheAnalyticalDBTest extends TestCase
 
         // I should receive a zip file download containing the CSV report.
         $response->assertHeader(
-            'content-disposition',
-            'attachment; filename="'. $file . '"');
+            'content-disposition', 'attachment; filename="'. $file . '"');
         $response->assertStatus(200);
     }
 
