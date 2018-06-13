@@ -1642,6 +1642,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1693,21 +1695,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.item = JSON.parse(JSON.stringify(event.params));
             this.error = '';
         },
-        submitAnswer: function submitAnswer() {
-            var _this = this;
+        submitAnswer: function submitAnswer(item) {
+            var _params,
+                _this = this;
 
-            var params = {
-                id: this.item.id,
-                entity_id: this.item.entity_id,
-                entity_type: this.item.entity_type,
-                text: this.item.answer.text || null,
-                answer: this.item.answer.answer || null
-            };
+            var params = (_params = {}, _defineProperty(_params, item.field, this.item.answer.answer), _defineProperty(_params, 'entity_type', this.item.entity_type), _defineProperty(_params, 'entity_id', this.item.entity_id), _params);
 
             axios.post('/api/question_answers', params).then(function (data) {
                 _this.item = {
                     answer: data.data.data.answer,
-                    id: params.id
+                    id: data.data.data.id
                 };
                 _this.$modal.hide('update-question');
                 _this.$emit('modal-submitted', _this.item);
@@ -49894,7 +49891,11 @@ var render = function() {
           _c("input", {
             staticClass: "button",
             attrs: { type: "submit", value: "Save" },
-            on: { click: _vm.submitAnswer }
+            on: {
+              click: function($event) {
+                _vm.submitAnswer(_vm.itemToShow)
+              }
+            }
           }),
           _vm._v(" "),
           _c(

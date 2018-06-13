@@ -80,11 +80,7 @@ class WorkerController extends Controller
         );
 
         collect($meta_fields)->each(function($value, $meta_field) use(&$meta, $questions, $worker) {
-
-            // Determine from the questions the field type
-            $question = $questions->where('field', $meta_field)->first();
-            $text = $question->text_value($answer = $value);
-            $worker->saveMetaData($field = $meta_field, $answer = $value, $text);
+            $worker->saveMetaData($field = $meta_field, $answer = $value);
         });
 
         return response()->redirectToRoute('records.workers.edit', [ 'worker' => $worker, 'group' => QuestionGroup::default()->first()->slug ]);
@@ -134,9 +130,7 @@ class WorkerController extends Controller
 
         if($group !== 'summary') {
             $groupQuestion->questions->transform(function ($question) use ($worker) {
-
                 $question->answer = optional($worker->meta_data($question->field)) ? $worker->meta_data($question->field)['answer'] : null;
-
                 return $question;
             });
         } else {
@@ -146,7 +140,19 @@ class WorkerController extends Controller
 
                     $group->questions->transform(function ($question) use ($worker) {
 
-                        $question->answer = optional($worker->meta_data($question->field)['answer']);
+                        $answer =  $worker->meta_data($question->field);
+
+                        if($question->field_type == 'date') {
+                            $answer = friendly_date($worker->meta_data($question->field)['answer']);
+                        } else {
+                            $answer = $answer['text'];
+                        }
+
+                        if(empty($answer)) {
+                            $answer = 'Not answered';
+                        }
+
+                        $question->answer = $answer;
 
                         return $question;
                     });
@@ -158,7 +164,6 @@ class WorkerController extends Controller
                 return $section;
             });
         }
-
 
         return view('workers.edit', compact('worker', 'categories', 'groupQuestion', 'group'));
     }

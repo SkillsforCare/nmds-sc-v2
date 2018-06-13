@@ -56,17 +56,6 @@ class Question extends Model
         return config('lookups.' . strtolower($this->field));
     }
 
-    public function getDisplayAnswerAttribute()
-    {
-        if(!$this->answer)
-            return 'Not answered';
-
-        if(in_array($this->field_type, $this->text_answers))
-            return $this->answer->text;
-
-        return $this->answer->answer;
-    }
-
     public function scopeInCategory($query, $category)
     {
         return $query->whereHas('category', function ($query) use($category) {

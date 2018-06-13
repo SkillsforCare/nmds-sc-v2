@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuestionAnswerResource;
 use App\Question;
-use App\QuestionAnswer;
 use App\Worker;
-use App\WorkerQuestionAnswer;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class QuestionAnswerController extends Controller
 {
@@ -40,22 +38,43 @@ class QuestionAnswerController extends Controller
      */
     public function store(Request $request)
     {
-        $question = app(Question::class)->findorFail($request->id);
+        // Get the submitted questions to validate.
+        $rules = [];
+        $questions = Question::inCategory('worker')->whereIn('field', array_keys($request->all()))
+            ->get()
+            ->each(function($question) use(&$rules) {
+                if(!empty($question->validation))
+                    $rules[$question->field] = $question->validation;
+            });
 
-        $this->validate($request,[
-            'entity_id' => 'required',
-            'entity_type' => [ 'required', Rule::in(['worker', 'establishment']) ],
-            'answer' => $question->validation ?? []
-        ]);
+        $data = $request->all();
+
+        $validation = collect($data)->transform(function($item){
+            if(is_array($item)) {
+                $item = build_date($item);
+            }
+            return $item;
+        })->toArray();
+
+        // Validate the questions
+        Validator::make($validation, $rules)->validate();
+
 
         if($request->entity_type == 'worker') {
 
             $worker = app(Worker::class)->find($request->entity_id);
 
-            $text = $question->text_value($request->answer);
-            $worker->saveMetaData($question->field, $request->answer, $text);
+            unset($data['entity_type']);
+            unset($data['entity_id']);
+            $key = array_keys($data);
 
-            $question->answer = json_decode(json_encode($worker->fresh()->meta_data($question->field)));
+            //dd($key[0], $request->get($key[0]));
+
+            $worker->saveMetaData($key[0], $request->get($key[0]));
+
+            $question = Question::inCategory('worker')->where('field', $key[0])->first();
+
+            $question->answer = json_decode(json_encode($worker->fresh()->meta_data($key[0])));
         }
 
         return new QuestionAnswerResource($question);

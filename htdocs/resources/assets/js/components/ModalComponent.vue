@@ -15,7 +15,7 @@
             </div>
             <hr>
             <div class="modal-actions">
-                <input type="submit" @click="submitAnswer" class="button" value="Save" />
+                <input type="submit" @click="submitAnswer(itemToShow)" class="button" value="Save" />
                 <a href="" @click.prevent="$modal.hide('update-question')">Cancel</a>
             </div>
         </div>
@@ -48,14 +48,12 @@
                 this.item = JSON.parse(JSON.stringify(event.params));
                 this.error = ''
             },
-            submitAnswer() {
+            submitAnswer(item) {
 
                 let params = {
-                    id: this.item.id,
-                    entity_id: this.item.entity_id,
+                    [item.field]: this.item.answer.answer,
                     entity_type: this.item.entity_type,
-                    text: this.item.answer.text || null,
-                    answer: this.item.answer.answer || null,
+                    entity_id: this.item.entity_id
                 }
 
                 axios
@@ -63,7 +61,7 @@
                     .then((data) => {
                         this.item = {
                             answer: data.data.data.answer,
-                            id: params.id
+                            id: data.data.data.id
                         }
                         this.$modal.hide('update-question')
                         this.$emit('modal-submitted', this.item)

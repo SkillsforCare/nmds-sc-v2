@@ -120,7 +120,7 @@
                                         <span>{{ $question->label }}</span>
                                     </dt>
                                     <dd class="cya-answer">
-                                        <span>{{ $question->display_answer }}</span>
+                                        <span>{{ $question->answer }}</span>
                                     </dd>
                                 </div>
                             @endforeach

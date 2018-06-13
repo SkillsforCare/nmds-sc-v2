@@ -47,8 +47,10 @@ class Worker extends Model
     {
         $dob = $this->meta_data('DOB')['answer'];
 
+        //dd($dob);
+
         if(!empty($dob))
-            return Carbon::parse($dob)->diffInYears(now());
+            return Carbon::parse(build_date($dob))->diffInYears(now());
 
         return $dob;
     }
@@ -61,31 +63,60 @@ class Worker extends Model
 
     public function meta_data($field)
     {
-        return isset($this->meta[$field]) ? $this->meta[$field] : null;
-    }
+        $data = isset($this->meta[$field]) ? $this->meta[$field] : null;
 
-    public function saveMetaData($field, $answer, $text)
-    {
-        $meta = $this->meta;
+        $question = Question::inCategory('worker')->where('field', $field)->first();
 
-        // Process array types.
-        if (is_array($answer)) {
-            if (array_has($answer, [ "year", "month", "day" ])) {
-                $datetime = build_date($answer);
-                $text = friendly_date($answer);
+        if($question->field_type == 'date') {
 
-                $answer = $datetime;
+            if(!empty($data['answer'])) {
+                $date = Carbon::parse($data['answer']);
+                $data['answer'] = [
+                    "day" => $date->day,
+                    "month" => $date->format('m'),
+                    "year" => $date->year,
+                ];
+                $data['text'] = friendly_date([
+                    "day" => $date->day,
+                    "month" => $date->format('m'),
+                    "year" => $date->year,
+                ]);
             }
         }
 
-        $meta[$field] = [
-            'answer' => $answer,
-            'text' => $text
-        ];
+        return $data;
+    }
 
-        $this->meta = $meta;
+    public function saveMetaData($field, $answer)
+    {
+        if(isset($answer)) {
 
-        $this->save();
+            $meta = $this->meta;
+
+            $question = Question::inCategory('worker')->where('field', $field)->first();
+
+            $text = $question->text_value($answer);
+
+            // Process array types.
+            if (is_array($answer)) {
+
+                if (array_has($answer, ["year", "month", "day"])) {
+                    $datetime = build_date($answer);
+                    $text = friendly_date($answer);
+
+                    $answer = $datetime;
+                }
+            }
+
+            $meta[$field] = [
+                'answer' => $answer,
+                'text' => $text
+            ];
+
+            $this->meta = $meta;
+
+            $this->save();
+        }
     }
 
     public function scopeInEstablishment($query, $establishment = null) {

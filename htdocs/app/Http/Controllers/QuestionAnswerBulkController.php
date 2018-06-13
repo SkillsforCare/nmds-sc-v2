@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Question;
 use App\Worker;
 use App\WorkerQuestionAnswer;
@@ -25,13 +24,12 @@ class QuestionAnswerBulkController extends Controller
 
         $data = $request->all();
 
-
         $next = false;
         if($request->has('saveNext'))
             $next = true;
 
 
-        $data = collect($data)->transform(function($item){
+        $validation = collect($data)->transform(function($item){
             if(is_array($item))
                 $item = build_date($item);
 
@@ -39,18 +37,15 @@ class QuestionAnswerBulkController extends Controller
         })->toArray();
 
         // Validate the questions
-        Validator::make($data, $rules)->validate();
+        Validator::make($validation, $rules)->validate();
 
         unset($data['_token']);
         unset($data['_method']);
         unset($data['saveNext']);
 
+        // Remove null fields.
         collect($data)->each(function($value, $key) use(&$meta, $questions, $worker) {
-
-            // Determine from the questions the field type
-            $question = $questions->where('field', $key)->first();
-            $text = $question->text_value($answer = $value);
-            $worker->saveMetaData($field = $key, $answer = $value, $text);
+            $worker->saveMetaData($field = $key, $answer = $value);
         });
 
         // Get the 'next' group for one of the questions and redirect to it.

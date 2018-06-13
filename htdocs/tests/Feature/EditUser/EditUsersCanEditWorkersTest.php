@@ -57,7 +57,7 @@ class EditUsersCanEditWorkersTest extends TestCase
     /** @test */
     public function it_can_finish_the_worker_wizard() {
 
-        $this->withExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $user = EditUser::first();
         $worker = Worker::where('establishment_id', $user->person->establishment->id)
