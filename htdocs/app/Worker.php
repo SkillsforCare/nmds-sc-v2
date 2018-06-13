@@ -68,6 +68,16 @@ class Worker extends Model
     {
         $meta = $this->meta;
 
+        // Process array types.
+        if (is_array($answer)) {
+            if (array_has($answer, [ "year", "month", "day" ])) {
+                $datetime = build_date($answer);
+                $text = friendly_date($answer);
+
+                $answer = $datetime;
+            }
+        }
+
         $meta[$field] = [
             'answer' => $answer,
             'text' => $text
