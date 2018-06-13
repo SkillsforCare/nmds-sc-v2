@@ -83,12 +83,8 @@ class WorkerController extends Controller
 
             // Determine from the questions the field type
             $question = $questions->where('field', $meta_field)->first();
-
-            // Also create an answer to the question.
-            app(WorkerQuestionAnswer::class)->saveAnswer($question, [
-                'worker_id' => $worker->id,
-                'answer' => $value,
-            ]);
+            $text = $question->text_value($answer = $value);
+            $worker->saveMetaData($field = $meta_field, $answer = $value, $text);
         });
 
         return response()->redirectToRoute('records.workers.edit', [ 'worker' => $worker, 'group' => QuestionGroup::default()->first()->slug ]);

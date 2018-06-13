@@ -74,40 +74,33 @@ class UATUserSeeder extends Seeder
 
                 $faker = app(Faker::class);
 
-                // ID
-                $identifier = $questions->where('field', 'UNIQUEWORKERID')->first();
-                $id = app(WorkerQuestionAnswer::class)->create([
-                    'question_id' => $identifier->id,
-                    'worker_id' => $worker->id,
-                    'answer' => $faker->firstName . ' ' . $faker->lastName,
-                    'text' => $identifier->question,
-                    'submitted_at' => now()->toDateTimeString()
-                ]);
-
-                // Job
-                $jobrole = $questions->where('field', 'MAINJOBROLE')->first();
-
-                $job = collect($jobrole->options)->where('value', '!=', null)->random();
-
-                $job = app(WorkerQuestionAnswer::class)->create([
-                    'question_id' => $jobrole->id,
-                    'worker_id' => $worker->id,
-                    'answer' =>  $job['value'],
-                    'text' => $job['text'],
-                    'submitted_at' => now()->toDateTimeString()
-                ]);
-
-                // Save meta;
-
                 $meta = $worker->meta;
 
-                $meta['MAINJOBROLE'] = $job->text;
-                $meta['UNIQUEWORKERID'] = $id->answer;
+                $job = collect(config('lookups.mainjobrole'))->where('value', '!=', null)->random();
+                $meta['MAINJOBROLE'] = [
+                    'answer' => $job['value'],
+                    'text' => $job['text']
+                ];
+
+                $name = $faker->firstName . ' ' . $faker->lastName;
+                $meta['UNIQUEWORKERID'] = [
+                    'answer' => $name,
+                    'text' => $name
+                ];
+
+
+                if(rand(1,10) == 5) {
+                    $now = now()->subYear(rand(18,40));
+                    $meta['DOB'] = [
+                        'answer' => $now->toDateString(),
+                        'text' => $now->format('d/m/Y')
+                    ];
+                }
 
                 $worker->meta = $meta;
 
                 // Randomly assign an 'unfinished' record
-                $number = rand(1,10);
+                $number = rand(1,3);
 
                 if($number == 2)
                     $worker->finished_adding_at = now();

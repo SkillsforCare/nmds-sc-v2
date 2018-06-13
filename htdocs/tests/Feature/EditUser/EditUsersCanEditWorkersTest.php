@@ -23,14 +23,14 @@ class EditUsersCanEditWorkersTest extends TestCase
 
         // I can view their worker page.
         $meta = $worker->meta;
-        $response->assertSee($meta['UNIQUEWORKERID']);
+        $response->assertSee($meta['UNIQUEWORKERID']['answer']);
         $response->assertStatus(200);
     }
 
     /** @test */
     public function it_can_start_the_worker_wizard() {
 
-        $this->withExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $user = EditUser::first();
 
@@ -71,7 +71,7 @@ class EditUsersCanEditWorkersTest extends TestCase
         $response = $this->get("/records/workers/$worker->id/edit/personal-information");
 
         $meta = $worker->meta;
-        $response->assertSeeText("Adding worker: " . $meta['UNIQUEWORKERID']);
+        $response->assertSeeText("Adding worker: " . $meta['UNIQUEWORKERID']['answer']);
         $response->assertStatus(200);
 
         // I can also finish the wizard for my worker.
