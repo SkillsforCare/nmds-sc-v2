@@ -15,7 +15,7 @@ class CreatePeopleTable extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('establishment_id')->index();
+            $table->unsignedInteger('establishment_id')->nullable()->index();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');

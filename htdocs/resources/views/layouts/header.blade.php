@@ -20,7 +20,12 @@
                         <ul id="proposition-links">
                         <li><a href="{{ route('pages.about') }}">About</a></li>
                         @auth
+                        @role('edit-user')
                         <li><a href="{{ route('records.index') }}">Records</a></li>
+                        @endrole
+                        @role('analyst-user')
+                        <li><a href="{{ route('reports.index') }}">Reports</a></li>
+                        @endrole
                         @endauth
                     </ul>
                         <ul  id="proposition-links" class="align-right" style="text-align: right;">

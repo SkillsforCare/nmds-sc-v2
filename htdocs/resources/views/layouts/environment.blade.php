@@ -16,6 +16,15 @@
 @endcomponent
 @endif
 
+@if(config('app.env') == 'uat')
+    @component('layouts.phase-banner')
+        @slot('title')
+            ALPHA - UAT
+        @endslot
+        <span>This is a new service – your <a href="#">feedback</a> will help us to improve it.</span>
+    @endcomponent
+@endif
+
 @if(config('app.env') == 'alpha')
 @component('layouts.phase-banner')
     @slot('title')

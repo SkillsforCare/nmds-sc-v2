@@ -19,7 +19,7 @@
     @include('form.input-text', [ 'label' => 'Username', 'field' => 'username', 'value' => '', 'error' => $errors->first('username') ])
     @include('form.input-password', [ 'label' => 'Password', 'field' => 'password', 'error' => $errors->first('password') ])
     <div class="form-group">
-        <input class="button" type="submit" value="Login">
+        <input class="button" dusk="login-button" type="submit" value="Login">
     </div>
 </form>
 

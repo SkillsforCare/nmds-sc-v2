@@ -25,5 +25,21 @@ class PersonSeeder extends Seeder
             'password' => bcrypt('secret')
         ]));
 
+        $person->user->assignRole('edit-user');
+
+
+        $person = factory(App\Person::class)->create([
+            'establishment_id' => null,
+            'first_name' => 'Jess',
+            'last_name' => 'Arkesden',
+            'email' => 'Jess.Arkesden@skillsforcare.org.uk'
+        ]);
+        $person->user()->save(factory(App\User::class)->make([
+            'username' => 'analystjess',
+            'password' => bcrypt('secret')
+        ]));
+
+        $person->user->assignRole('analyst-user');
+
     }
 }
