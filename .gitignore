@@ -3,6 +3,8 @@
 /htdocs/public/storage
 /htdocs/storage/*.key
 /htdocs/vendor
+/htdocs/composer.json
+/htdocs/composer.lock
 /.idea
 /.vagrant
 Homestead.json
@@ -11,3 +13,4 @@ npm-debug.log
 yarn-error.log
 /htdocs/.env
 .DS_Store
+manifest.yml

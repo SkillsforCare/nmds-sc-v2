@@ -1,5 +1,30 @@
 <?php
 
+
+// This piece of code checks if we have a VCAP services env.
+// If so, we need to add the values of those services into the configuration below.
+$services = json_decode(getenv('VCAP_SERVICES'), true);
+$sqlCreds = $services['mysql'][0]['credentials'];
+
+$host = env('DB_HOST', '127.0.0.1');
+$port = env('DB_PORT', '3306');
+$database = env('DB_DATABASE', '3306');
+$username = env('DB_USERNAME', '3306');
+$password = env('DB_PASSWORD', '3306');
+$ssl = [];
+
+if(!empty($sqlCreds)) {
+    $host = $sqlCreds['host'];
+    $port = $sqlCreds['port'];
+    $database = $sqlCreds['name'];
+    $username = $sqlCreds['username'];
+    $password = $sqlCreds['password'];
+    $ssl = [
+        PDO::MYSQL_ATTR_SSL_CA => '/etc/ssl/certs/ca-certificates.crt'
+    ];
+}
+
+
 return [
 
     /*
@@ -41,17 +66,18 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => $host,
+            'port' => $port,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+            'options' => $ssl
         ],
 
         'pgsql' => [

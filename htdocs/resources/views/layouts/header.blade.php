@@ -14,15 +14,41 @@
 
         <div class="header-proposition">
             <div class="content">
-                <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
                 <nav id="proposition-menu">
                     <a href="{{ route('pages.home') }}" id="proposition-name">{{ config('app.short_name') }}</a>
-
-                    <ul id="proposition-links">
-                        <li><a href="{{ route('auth.login') }}">Login</a></li>
+                    <div style="display: flex; justify-content: space-between;">
+                        <ul id="proposition-links">
                         <li><a href="{{ route('pages.about') }}">About</a></li>
+                        @auth
+                        @role('edit-user')
+                        <li><a href="{{ route('records.index') }}">Records</a></li>
+                        @endrole
+                        @role('analyst-user')
+                        <li><a href="{{ route('reports.index') }}">Reports</a></li>
+                        @endrole
+                        @endauth
                     </ul>
+                        <ul  id="proposition-links" class="align-right" style="text-align: right;">
+                            @guest
 
+                                <li><a href="{{ route('login') }}">Login</a></li>
+
+                            @else
+                                <li><a>Hi, {{ auth()->user()->full_name }}</a></li>
+
+                                <li>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Sign out
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endguest
+                        </ul>
+                    </div>
                 </nav>
             </div>
         </div>
