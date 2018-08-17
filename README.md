@@ -1,3 +1,5 @@
+#THIS BRANCH AND CODE HAS BEEN DEPRECATED
+
 # National Minimum Data Set for Social Care (NMDS-SC)
 
 This project is to support the Alpha development of the NMDS-SC V2. It is written using Laravel 5.6 and Vue.js. At the time of writing, it is using GOV.UK Elements and the Front-end Toolkit for the front-end.
