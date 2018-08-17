@@ -1,0 +1,4 @@
+applications:
+- name: nmds-sc-v2-alpha
+  memory: 256M
+  buildpack: nodejs_buildpack
