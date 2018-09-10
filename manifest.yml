@@ -1,4 +1,4 @@
 applications:
-- name: nmds-sc-v2-alpha
+- name: DevTest
   memory: 256M
   buildpack: nodejs_buildpack
