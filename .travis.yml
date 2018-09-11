@@ -5,15 +5,7 @@ deploy:
   provider: cloudfoundry
   username: NMDSdevopsServiceAdm@hotmail.com
   password:
-    secure: "M9sPT/3O4wuLv1YBJ5jvtWhzg4SQrs1/6JIL3rryIV2aiRaD8By3ZEIHPz1t7OSTYGfCy
-    EuqMCzmh0WEbETxGys1843tVtj1rHlMr401z5Kd6LgT8Nmpqp4YI1RzvEzR5iLOWKtoMUeOZFUXdlwax
-    EbCwkXr3K53SPzcLPzl6oyoHTZGghxzZ0v0/wQoDPYj0Pyx4sAwsMWZqUJEaVA4FfticYqixuUEYCK4x
-    wTjhJdLOHzMVqS1VHvU4KkQeAtdJem5LdJz8aMM/LBR5A0+SCJpSceCiPWWzr61fczDMqtVigyuDABZW
-    cw9TT0EZV/WE35/5StXqD+17RAPxLaYEGcZbM09nU/X/vhwtwFVNtCJH1aYwix4vVdeVXauBTPCFga6C
-    DWtZtXXI/rV8AvCahmo8Y3qTiwjDrhhdf7oufsohDe/jdivJeAIqlIuJg25O8iFKubQcFdtQ8fTZko+8
-    p19v+cMQrg+iAYAi503CQtJoLdmh6cXpyqUFc+Xf0OqPo1Gri+DpjmvhzkOCelZenXcM8EpCe7PSSF39
-    kIwwCElFAMs60kSC+neXlykcqTy8rMwjnvlYTGqsCt1cWXAW2VXWUh+8KXpOFNCb0nk+jfy01JLtlSq+
-    uSCJaH4mD9DCNSN9kMDuHorMAdRo3ytfCC8n1AM5Jy1Bj0yIxIWdmo="
+    secure: M9sPT/3O4wuLv1YBJ5jvtWhzg4SQrs1/6JIL3rryIV2aiRaD8By3ZEIHPz1t7OSTYGfCyEuqMCzmh0WEbETxGys1843tVtj1rHlMr401z5Kd6LgT8Nmpqp4YI1RzvEzR5iLOWKtoMUeOZFUXdlwaxEbCwkXr3K53SPzcLPzl6oyoHTZGghxzZ0v0/wQoDPYj0Pyx4sAwsMWZqUJEaVA4FfticYqixuUEYCK4xwTjhJdLOHzMVqS1VHvU4KkQeAtdJem5LdJz8aMM/LBR5A0+SCJpSceCiPWWzr61fczDMqtVigyuDABZWcw9TT0EZV/WE35/5StXqD+17RAPxLaYEGcZbM09nU/X/vhwtwFVNtCJH1aYwix4vVdeVXauBTPCFga6CDWtZtXXI/rV8AvCahmo8Y3qTiwjDrhhdf7oufsohDe/jdivJeAIqlIuJg25O8iFKubQcFdtQ8fTZko+8p19v+cMQrg+iAYAi503CQtJoLdmh6cXpyqUFc+Xf0OqPo1Gri+DpjmvhzkOCelZenXcM8EpCe7PSSF39kIwwCElFAMs60kSC+neXlykcqTy8rMwjnvlYTGqsCt1cWXAW2VXWUh+8KXpOFNCb0nk+jfy01JLtlSq+uSCJaH4mD9DCNSN9kMDuHorMAdRo3ytfCC8n1AM5Jy1Bj0yIxIWdmo=
   api: https://api.cloud.service.gov.uk
   organization: dhsc-skills-for-care-nmds-sc-2
   space: sandbox
