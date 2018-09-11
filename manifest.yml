@@ -1,4 +1,4 @@
 applications:
-- name: DevTest1
+- name: DevTest
   memory: 256M
-  buildpack: staticfile_buildpack
+  buildpack: nodejs_buildpack
